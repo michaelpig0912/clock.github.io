@@ -39,34 +39,29 @@
 
     <!-- a-frame scene -->
     <a-scene
-      vr-mode-ui="enabled: false;"
-      renderer="logarithmicDepthBuffer: true;"
-      embedded
-      arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: true; ">
+    vr-mode-ui='enabled: false;'
+    renderer="logarithmicDepthBuffer: true; precision: medium;"
+    embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
       <!-- a-nft is the anchor that defines an Image Tracking entity -->
       <!-- on 'url' use the path to the Image Descriptors created before. -->
       <!-- the path should end with the name without the extension e.g. if file is trex.fset' the path should end with trex -->
-      
-      <a-assets>
-        <a-asset-item id="tree" src="assets/earth/scene.gltf"></a-asset-item>
-	</a-assets>
-
       <a-nft
         type="nft"
-        url="https://michaelpig0912.github.io/sideProject/ar/assets/test/pattern-large"
+        url="https://michaelpig0912.github.io/sideProject/ar/assets/summer/test"
         smooth="true"
-        smoothCount="5"
+        smoothCount="10"
         smoothTolerance=".01"
         smoothThreshold="5">
           <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
-        <a-entity   position="0 0 0" 
-                    rotation="0 0 0"
-                    scale="0.10 0.10 0.10"
-                    gltf-model="#tree" >
-        </a-entity>
+          <a-entity
+          gltf-model="https://ar-js-org.github.io/.github/profile/aframe/examples/image-tracking/nft/trex/scene.gltf"
+              scale="5 5 5"
+              position="15 30 00">
+          </a-entity>
       </a-nft>
       <!-- static camera that moves according to the device movemenents -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
+
