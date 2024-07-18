@@ -1,23 +1,26 @@
+<!DOCTYPE html>
 <html>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-<script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
 <body style="margin: 0px; overflow: hidden;">
+    <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
+        <!-- Define a directional light to simulate sunlight from above -->
+        <a-light type="directional" color="#FFF" intensity="1" castShadow="true" position="0 5 0" rotation="-90 0 0" shadow-mapWidth="1024" shadow-mapHeight="1024" shadow-camera-left="-5" shadow-camera-right="5" shadow-camera-bottom="-5" shadow-camera-top="5"></a-light>
 
-<a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
+        <!-- Define a marker and the object inside it -->
+        <a-marker type="pattern" url="assets/pattern-marker.patt">
+            <a-entity gltf-model="url(assets/model/03/03.gltf)"
+                      position="0 0 0"
+                      rotation="0 0 0"
+                      scale="10 10 10"
+                      shadow="cast: true; receive: true"></a-entity>
+        </a-marker>
 
-    
-    <a-marker type="pattern" url="assets/pattern-marker.patt">
-        <a-entity   gltf-model ="url(https://michaelpig0912.github.io/sideProject/ar/assets/model/03/03.gltf)"
-                    position="0 0 0" 
-                    rotation="0 0 0"
-                    scale="10 10 10"
- >
-        </a-entity>
-    </a-marker>
-    
-    <a-entity camera></a-entity>
-    
-</a-scene>
+        <!-- Define the camera -->
+        <a-entity camera></a-entity>
+    </a-scene>
 </body>
 </html>
