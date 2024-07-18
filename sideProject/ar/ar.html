@@ -6,15 +6,13 @@
 
 <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
 
-    <a-assets>
-        <a-asset-item gltf-model="assets/model/03/03.gltf"  id="tree"></a-asset-item>
-	</a-assets>
     
     <a-marker type="pattern" url="assets/pattern-marker.patt">
-        <a-entity   position="0 0 0" 
+        <a-entity   gltf-model ="url(https://michaelpig0912.github.io/sideProject/ar/assets/model/03/03.gltf)"
+                    position="0 0 0" 
                     rotation="0 0 0"
-                    scale="0.10 0.10 0.10"
-                    gltf-model="#tree" >
+                    scale="10 10 10"
+ >
         </a-entity>
     </a-marker>
     
