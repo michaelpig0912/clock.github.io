@@ -13,6 +13,7 @@
     </script>
     <script type="module">
       import * as THREE from 'three';
+      import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
       import { MindARThree } from 'mindar-image-three';
 
       const mindarThree = new MindARThree({
@@ -29,17 +30,27 @@
       const anchor = mindarThree.addAnchor(0);
       const geometry = new THREE.SphereGeometry(0.5, 32, 32);
 
-      // Create a directional light and enable shadow
-      const directionLight = new THREE.DirectionalLight(0xffffff, 1);
-      directionLight.position.set(2, 4, 1); // Adjusted position for better shadow
-      directionLight.castShadow = true;
-      scene.add(directionLight);
+      // Create a RectAreaLight and enable shadow
+      const rectLight1 = new THREE.RectAreaLight(0xffffff, 10, 10, 10);
+      rectLight1.position.set(5, 5, 5);
+      rectLight1.lookAt(0, 0, 0);
+      rectLight1.castShadow = true;
+      scene.add(rectLight1);
 
-      // Set up shadow properties for the light
-      directionLight.shadow.mapSize.width = 1024; // default
-      directionLight.shadow.mapSize.height = 1024; // default
-      directionLight.shadow.camera.near = 0.5; // default
-      directionLight.shadow.camera.far = 500; // default
+      // Add helper for RectAreaLight
+      const rectLightHelper1 = new RectAreaLightHelper(rectLight1);
+      rectLight1.add(rectLightHelper1);
+
+      // Create a second RectAreaLight on the right
+      const rectLight2 = new THREE.RectAreaLight(0xffffff, 10, 10, 10);
+      rectLight2.position.set(-5, 5, 5); // Positioned on the right side
+      rectLight2.lookAt(0, 0, 0);
+      rectLight2.castShadow = true;
+      scene.add(rectLight2);
+
+      // Add helper for the second RectAreaLight
+      const rectLightHelper2 = new RectAreaLightHelper(rectLight2);
+      rectLight2.add(rectLightHelper2);
 
       const material = new THREE.MeshStandardMaterial({ color: 0x0077ff });
       material.roughness = 0.4;
@@ -50,7 +61,7 @@
       sphere.receiveShadow = true; // Enable shadow receiving for the sphere
 
       const cube = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 0.2, 0.2),
+        new THREE.BoxGeometry(1, 1, 1),
         material
       );
       cube.position.set(1, 0.5, 0);
