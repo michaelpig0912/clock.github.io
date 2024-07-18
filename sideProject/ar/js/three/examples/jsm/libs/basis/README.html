@@ -1,0 +1,36 @@
+<h1>Basis Universal GPU Texture Compression</h1>
+<p>Basis Universal is a “<a href="http://gamma.cs.unc.edu/GST/gst.pdf">supercompressed</a>”<br>
+GPU texture and texture video compression system that outputs a highly<br>
+compressed intermediate file format (.basis) that can be quickly transcoded to<br>
+a wide variety of GPU texture compression formats.</p>
+<p><a href="https://github.com/BinomialLLC/basis_universal">GitHub</a></p>
+<h2 id="Transcoders">Transcoders</h2>
+<p>Basis Universal texture data may be used in two different file formats:<br>
+<code>.basis</code> and <code>.ktx2</code>, where <code>ktx2</code> is a standardized wrapper around basis texture data.</p>
+<p>For further documentation about the Basis compressor and transcoder, refer to<br>
+the <a href="https://github.com/BinomialLLC/basis_universal">Basis GitHub repository</a>.</p>
+<p>The folder contains two files required for transcoding <code>.basis</code> or <code>.ktx2</code> textures:</p>
+<ul>
+<li><code>basis_transcoder.js</code> — JavaScript wrapper for the WebAssembly transcoder.</li>
+<li><code>basis_transcoder.wasm</code> — WebAssembly transcoder.</li>
+</ul>
+<p>Both are dependencies of <code>KTX2Loader</code>:</p>
+<pre><code class="language-js">const ktx2Loader = new KTX2Loader();
+ktx2Loader.setTranscoderPath( 'examples/jsm/libs/basis/' );
+ktx2Loader.detectSupport( renderer );
+ktx2Loader.load( 'diffuse.ktx2', function ( texture ) {
+
+	const material = new THREE.MeshStandardMaterial( { map: texture } );
+
+}, function () {
+
+	console.log( 'onProgress' );
+
+}, function ( e ) {
+
+	console.error( e );
+
+} );
+</code></pre>
+<h2 id="License">License</h2>
+<p><a href="https://github.com/BinomialLLC/basis_universal/blob/master/LICENSE">Apache License 2.0</a></p>
