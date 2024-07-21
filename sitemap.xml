@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://michaelpig0912.github.io/2023/10/29/ipadUVCsupport/</loc>
+    
+    <lastmod>2024-07-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/2024/06/01/bambuLab3Dprinter-P1S-unbox/</loc>
+    
+    <lastmod>2024-07-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/2024/07/21/tryWebAR/</loc>
     
     <lastmod>2024-07-21</lastmod>
@@ -12,15 +30,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/2024/06/29/bambuLab3Dprinter-A1mini-unbox/</loc>
-    
-    <lastmod>2024-07-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/2024/06/01/bambuLab3Dprinter-P1S-unbox/</loc>
     
     <lastmod>2024-07-21</lastmod>
     
@@ -221,15 +230,6 @@
     <loc>https://michaelpig0912.github.io/2023/12/29/tryMocapForAll/</loc>
     
     <lastmod>2024-02-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/2023/10/29/ipadUVCsupport/</loc>
-    
-    <lastmod>2024-02-23</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -461,20 +461,6 @@
 
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/maker/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/3Dprinter/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -483,6 +469,20 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/pc/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/maker/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/3Dprinter/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -657,13 +657,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/P1S/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/blender/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -685,6 +678,13 @@
   </url>
   
   <url>
+    <loc>https://michaelpig0912.github.io/tags/P1S/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/tags/chrome-extension/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -693,13 +693,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/electrolysis/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/python/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -721,6 +714,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/app/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/python/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -862,14 +862,14 @@
 
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/maker/</loc>
+    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
+    <loc>https://michaelpig0912.github.io/categories/maker/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
