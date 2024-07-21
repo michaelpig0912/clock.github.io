@@ -475,20 +475,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/pc/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/javascript/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -510,21 +496,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/musical/</loc>
+    <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/show/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
+    <loc>https://michaelpig0912.github.io/tags/pc/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -546,6 +525,27 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/Osaka/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/musical/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/show/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -727,6 +727,20 @@
   </url>
   
   <url>
+    <loc>https://michaelpig0912.github.io/tags/story/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/life/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/tags/technology/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -749,20 +763,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/history/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/story/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/life/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -825,13 +825,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/AR-js/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/MoCapForALL/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -840,6 +833,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/VRM/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/AR-js/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -869,13 +869,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
-    <lastmod>2024-07-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/categories/code/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
@@ -883,7 +876,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
+    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -897,7 +890,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -911,7 +904,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/local/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -919,6 +912,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/categories/animation/</loc>
+    <lastmod>2024-07-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/categories/drama/local/</loc>
     <lastmod>2024-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
