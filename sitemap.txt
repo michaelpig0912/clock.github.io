@@ -1,9 +1,11 @@
+https://michaelpig0912.github.io/2024/09/06/steelseriesQckPrism-3XL-unbox/
+https://michaelpig0912.github.io/2024/09/26/mobiscribe-wave-color-unbox/
 https://michaelpig0912.github.io/2024/10/05/portARemove/
+https://michaelpig0912.github.io/2023/08/31/wonderStudioTutorial/
+https://michaelpig0912.github.io/2024/07/21/tryWebAR/
 https://michaelpig0912.github.io/2024/02/04/leukemia/
 https://michaelpig0912.github.io/2024/08/11/lomo-Instant/
-https://michaelpig0912.github.io/2024/09/26/mobiscribe-wave-color-unbox/
 https://michaelpig0912.github.io/2023/10/29/ipadUVCsupport/
-https://michaelpig0912.github.io/2024/09/06/steelseriesQckPrism-3XL-unbox/
 https://michaelpig0912.github.io/2024/09/22/Journey-of-Automatic-Car-Wash-stageShow/
 https://michaelpig0912.github.io/2024/09/18/GSC2369-unbox/
 https://michaelpig0912.github.io/2024/06/01/bambuLab3Dprinter-P1S-unbox/
@@ -12,7 +14,6 @@ https://michaelpig0912.github.io/2024/08/11/chicago-musical/
 https://michaelpig0912.github.io/2024/07/28/theLastNagashi-interactiveTheater/
 https://michaelpig0912.github.io/2024/07/28/tv_fix/
 https://michaelpig0912.github.io/2024/04/21/3DprinterToJLCPCB/
-https://michaelpig0912.github.io/2024/07/21/tryWebAR/
 https://michaelpig0912.github.io/2024/05/20/Japan-240509-Trip/
 https://michaelpig0912.github.io/2024/06/29/bambuLab3Dprinter-A1mini-unbox/
 https://michaelpig0912.github.io/2024/07/30/teamLab-taipei/
@@ -46,7 +47,6 @@ https://michaelpig0912.github.io/2023/11/19/logicGateByRelay/
 https://michaelpig0912.github.io/2023/06/20/electrolysis/
 https://michaelpig0912.github.io/2023/11/17/GASwithGoogleSheet/
 https://michaelpig0912.github.io/2023/11/28/chromePicAutoDownloader/
-https://michaelpig0912.github.io/2023/08/31/wonderStudioTutorial/
 https://michaelpig0912.github.io/2023/11/02/tryFreemocap/
 https://michaelpig0912.github.io/about/index.html
 https://michaelpig0912.github.io/2023/08/20/memoSwitch/
@@ -81,6 +81,7 @@ https://michaelpig0912.github.io/tags/arduino/
 https://michaelpig0912.github.io/tags/esp8266/
 https://michaelpig0912.github.io/tags/html/
 https://michaelpig0912.github.io/tags/SEO/
+https://michaelpig0912.github.io/tags/pcb/
 https://michaelpig0912.github.io/tags/science/
 https://michaelpig0912.github.io/tags/acid-base/
 https://michaelpig0912.github.io/tags/chemistry/
@@ -96,18 +97,17 @@ https://michaelpig0912.github.io/tags/3D/
 https://michaelpig0912.github.io/tags/animation/
 https://michaelpig0912.github.io/tags/chrome-extension/
 https://michaelpig0912.github.io/tags/electrolysis/
-https://michaelpig0912.github.io/tags/pcb/
 https://michaelpig0912.github.io/tags/python/
 https://michaelpig0912.github.io/tags/device/
 https://michaelpig0912.github.io/tags/ipad/
 https://michaelpig0912.github.io/tags/app/
-https://michaelpig0912.github.io/tags/story/
-https://michaelpig0912.github.io/tags/life/
-https://michaelpig0912.github.io/tags/leukemia/
 https://michaelpig0912.github.io/tags/technology/
 https://michaelpig0912.github.io/tags/circuit/
 https://michaelpig0912.github.io/tags/computer/
 https://michaelpig0912.github.io/tags/history/
+https://michaelpig0912.github.io/tags/story/
+https://michaelpig0912.github.io/tags/life/
+https://michaelpig0912.github.io/tags/leukemia/
 https://michaelpig0912.github.io/tags/Lomo-Instant/
 https://michaelpig0912.github.io/tags/camra/
 https://michaelpig0912.github.io/tags/3C/
@@ -132,6 +132,7 @@ https://michaelpig0912.github.io/tags/software/
 https://michaelpig0912.github.io/tags/MoCapForALL/
 https://michaelpig0912.github.io/tags/VRM/
 https://michaelpig0912.github.io/tags/AR-js/
+https://michaelpig0912.github.io/tags/try/
 https://michaelpig0912.github.io/tags/fix/
 https://michaelpig0912.github.io/tags/test/
 https://michaelpig0912.github.io/tags/wonderStudio/
