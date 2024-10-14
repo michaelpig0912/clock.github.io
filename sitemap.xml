@@ -604,20 +604,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/show/</loc>
-    <lastmod>2024-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
-    <lastmod>2024-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -626,6 +612,20 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/pc/</loc>
+    <lastmod>2024-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/show/</loc>
+    <lastmod>2024-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -765,27 +765,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/3D-printer/</loc>
-    <lastmod>2024-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/bambu-Lab/</loc>
-    <lastmod>2024-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/A1-mini/</loc>
-    <lastmod>2024-10-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/solo-Travel/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -801,6 +780,27 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/Ulay/</loc>
+    <lastmod>2024-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/3D-printer/</loc>
+    <lastmod>2024-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/bambu-Lab/</loc>
+    <lastmod>2024-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/A1-mini/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1138,14 +1138,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
+    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1166,14 +1166,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/local/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/local/</loc>
     <lastmod>2024-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
