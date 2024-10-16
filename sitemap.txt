@@ -79,8 +79,8 @@ https://michaelpig0912.github.io/tags/figure/
 https://michaelpig0912.github.io/tags/Japan/
 https://michaelpig0912.github.io/tags/Tokyo/
 https://michaelpig0912.github.io/tags/Osaka/
-https://michaelpig0912.github.io/tags/stage/
 https://michaelpig0912.github.io/tags/musical/
+https://michaelpig0912.github.io/tags/stage/
 https://michaelpig0912.github.io/tags/arduino/
 https://michaelpig0912.github.io/tags/esp8266/
 https://michaelpig0912.github.io/tags/html/
@@ -95,10 +95,10 @@ https://michaelpig0912.github.io/tags/Ulay/
 https://michaelpig0912.github.io/tags/3D-printer/
 https://michaelpig0912.github.io/tags/bambu-Lab/
 https://michaelpig0912.github.io/tags/A1-mini/
+https://michaelpig0912.github.io/tags/P1S/
 https://michaelpig0912.github.io/tags/blender/
 https://michaelpig0912.github.io/tags/3D/
 https://michaelpig0912.github.io/tags/animation/
-https://michaelpig0912.github.io/tags/P1S/
 https://michaelpig0912.github.io/tags/chrome-extension/
 https://michaelpig0912.github.io/tags/electrolysis/
 https://michaelpig0912.github.io/tags/python/
@@ -122,11 +122,11 @@ https://michaelpig0912.github.io/tags/e-book/
 https://michaelpig0912.github.io/tags/MobiScribe/
 https://michaelpig0912.github.io/tags/openCV/
 https://michaelpig0912.github.io/tags/movie/
-https://michaelpig0912.github.io/tags/steelseries/
 https://michaelpig0912.github.io/tags/exhibition/
 https://michaelpig0912.github.io/tags/teamlab/
 https://michaelpig0912.github.io/tags/travel/
 https://michaelpig0912.github.io/tags/ntsec/
+https://michaelpig0912.github.io/tags/steelseries/
 https://michaelpig0912.github.io/tags/board-game/
 https://michaelpig0912.github.io/tags/interactive-theater/
 https://michaelpig0912.github.io/tags/three-js/

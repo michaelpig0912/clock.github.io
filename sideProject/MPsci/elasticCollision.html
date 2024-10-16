@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
-  <title>2D_彈性碰撞實驗</title>
+  <title>彈性碰撞實驗</title>
   <style>
     body {
       margin: 0;
@@ -27,15 +27,22 @@
       font-size: 16px;
       color: white;
     }
-    #pause-btn {
+    #button-container {
       position: absolute;
       top: 10px;
       left: 10px;
+      z-index: 1000;
+    }
+    #pause-btn, #fullscreen-btn {
+      padding: 5px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
     }
     #control-panel {
       position: absolute;
       bottom: 10px;
-      left: 500px;
+      left: 25%;
       background-color: rgba(255, 255, 255, 0.8);
       padding: 10px;
       border-radius: 5px;
@@ -47,6 +54,19 @@
       display: inline-block;
       width: 100px;
     }
+    /* 全螢幕時的樣式 */
+    .fullscreen #canvas-container {
+      width: 100% !important;
+      height: 100vh !important;
+    }
+    .fullscreen #velocity-chart-container {
+      position: absolute;
+      top: 50px;
+      right: 10px;
+      width: 300px;
+      height: 200px;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
   </style>
 </head>
 <body>
@@ -55,7 +75,10 @@
     <canvas id="velocity-chart"></canvas>
   </div>
   <div id="velocity-info"></div>
-  <button id="pause-btn">暫停</button>
+  <div id="button-container">
+    <button id="pause-btn">暫停</button>
+    <button id="fullscreen-btn">全螢幕</button>
+  </div>
   <div id="control-panel">
     <div class="mass-control">
       <label for="mass1">Box 1 質量:</label>
@@ -300,6 +323,84 @@
       isFixed: true,
       delta: 1000 / 120  // 設置為 120 FPS
     });
+
+    // 全螢幕功能
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const body = document.body;
+
+    fullscreenBtn.addEventListener('click', toggleFullScreen);
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        if (body.requestFullscreen) {
+          body.requestFullscreen();
+        } else if (body.mozRequestFullScreen) { // Firefox
+          body.mozRequestFullScreen();
+        } else if (body.webkitRequestFullscreen) { // Chrome, Safari and Opera
+          body.webkitRequestFullscreen();
+        } else if (body.msRequestFullscreen) { // IE/Edge
+          body.msRequestFullscreen();
+        }
+        body.classList.add('fullscreen');
+        fullscreenBtn.textContent = '退出全螢幕';
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+        body.classList.remove('fullscreen');
+        fullscreenBtn.textContent = '全螢幕';
+      }
+      // 調整渲染器大小
+      setTimeout(resizeRenderer, 100);
+    }
+
+    function resizeRenderer() {
+      const canvasContainer = document.getElementById("canvas-container");
+      if (body.classList.contains('fullscreen')) {
+        render.canvas.width = render.options.width = window.innerWidth;
+        render.canvas.height = render.options.height = window.innerHeight;
+      } else {
+        render.canvas.width = render.options.width = window.innerWidth * 0.8;
+        render.canvas.height = render.options.height = window.innerHeight;
+      }
+      Render.setPixelRatio(render, window.devicePixelRatio);
+
+      // 更新物體的位置
+      const ground = engine.world.bodies.find(body => body.label === "ground");
+      const leftWall = engine.world.bodies.find(body => body.label === "leftWall");
+      const rightWall = engine.world.bodies.find(body => body.label === "rightWall");
+      const topWall = engine.world.bodies.find(body => body.label === "topWall");
+      const bottomWall = engine.world.bodies.find(body => body.label === "bottomWall");
+
+      Matter.Body.setPosition(ground, { x: render.canvas.width / 2, y: render.canvas.height - 50 });
+      Matter.Body.setPosition(leftWall, { x: 0, y: render.canvas.height / 2 });
+      Matter.Body.setPosition(rightWall, { x: render.canvas.width, y: render.canvas.height / 2 });
+      Matter.Body.setPosition(topWall, { x: render.canvas.width / 2, y: 0 });
+      Matter.Body.setPosition(bottomWall, { x: render.canvas.width / 2, y: render.canvas.height });
+    }
+
+    // 監聽全螢幕變化事件
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+    function handleFullscreenChange() {
+      if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+        body.classList.remove('fullscreen');
+        fullscreenBtn.textContent = '全螢幕';
+      }
+      resizeRenderer();
+    }
+
+    // 監聽窗口大小變化
+    window.addEventListener('resize', resizeRenderer);
   </script>
 </body>
 </html>
