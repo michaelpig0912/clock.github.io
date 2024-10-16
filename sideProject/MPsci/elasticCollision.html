@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-TW">
 <head>
-  <title>彈性碰撞實驗</title>
+  <meta charset="UTF-8">
+  <title>2D_彈性碰撞實驗</title>
   <style>
     body {
       margin: 0;
@@ -31,6 +32,21 @@
       top: 10px;
       left: 10px;
     }
+    #control-panel {
+      position: absolute;
+      bottom: 10px;
+      left: 500px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .mass-control {
+      margin-bottom: 10px;
+    }
+    .mass-control label {
+      display: inline-block;
+      width: 100px;
+    }
   </style>
 </head>
 <body>
@@ -39,15 +55,33 @@
     <canvas id="velocity-chart"></canvas>
   </div>
   <div id="velocity-info"></div>
-  <button id="pause-btn">Pause</button>
+  <button id="pause-btn">暫停</button>
+  <div id="control-panel">
+    <div class="mass-control">
+      <label for="mass1">Box 1 質量:</label>
+      <input type="range" id="mass1" min="1" max="1000" value="200">
+      <span id="mass1-value">200</span>
+    </div>
+    <div class="mass-control">
+      <label for="mass2">Box 2 質量:</label>
+      <input type="range" id="mass2" min="1" max="1000" value="200">
+      <span id="mass2-value">200</span>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     // Matter.js module aliases
-    const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events } = Matter;
+    const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events, Runner } = Matter;
 
     // Create an engine
-    const engine = Engine.create();
+    const engine = Engine.create({
+      enableSleeping: false,
+      constraintIterations: 10,
+      positionIterations: 10,
+      velocityIterations: 10
+    });
+    const runner = Runner.create();
     engine.world.gravity.x = 0; // x 分量設為 0
     engine.world.gravity.y = 0; // y 分量設為 0
 
@@ -73,16 +107,27 @@
     const bottomWall = Bodies.rectangle(render.options.width / 2, render.options.height, render.options.width, 10, wallOptions);
 
     // Create box 1
-    const box1 = Bodies.rectangle(render.options.width / 2 - 100, render.options.height - 150, 100, 100, { restitution: 1, friction: 0, mass: 200, inertia: Infinity,  frictionAir: 0 });
+    const box1 = Bodies.rectangle(render.options.width / 2 - 100, render.options.height - 150, 100, 100, { 
+      restitution: 1, 
+      friction: 0, 
+      mass: 200, 
+      inertia: Infinity,  
+      frictionAir: 0,
+      velocity: { x: 2, y: -2 }  // 設置較小的初始速度
+    });
 
     // Create box 2
-    const box2 = Bodies.rectangle(render.options.width / 2 + 100, render.options.height - 150, 100, 100, { restitution: 1, friction: 0, mass: 200, inertia: Infinity,  frictionAir: 0 });
+    const box2 = Bodies.rectangle(render.options.width / 2 + 100, render.options.height - 150, 100, 100, { 
+      restitution: 1, 
+      friction: 0, 
+      mass: 200, 
+      inertia: Infinity,  
+      frictionAir: 0,
+      velocity: { x: -2, y: 2 }  // 設置較小的初始速度
+    });
 
     // Add bodies to the world
     World.add(engine.world, [ground, leftWall, rightWall, topWall, bottomWall, box1, box2]);
-
-    // Start the engine
-    Engine.run(engine);
 
     // Start the renderer
     Render.run(render);
@@ -130,15 +175,22 @@
       }
     });
 
-    // Display box velocity
+    // 顯示盒子速度
     const velocityInfo = document.getElementById("velocity-info");
 
-    function updateVelocityInfo(body) {
-      const velocity = body.velocity;
-      const speed = Math.sqrt(velocity.x ** 2 + velocity.y ** 2);
-      const angle = Math.atan2(velocity.y, velocity.x);
+    function updateVelocityInfo() {
+      const velocity1 = box1.velocity;
+      const speed1 = Math.sqrt(velocity1.x ** 2 + velocity1.y ** 2);
+      const angle1 = Math.atan2(velocity1.y, velocity1.x);
 
-      velocityInfo.textContent = `Velocity: Speed: ${speed.toFixed(2)}, Angle: ${angle.toFixed(2)}`;
+      const velocity2 = box2.velocity;
+      const speed2 = Math.sqrt(velocity2.x ** 2 + velocity2.y ** 2);
+      const angle2 = Math.atan2(velocity2.y, velocity2.x);
+
+      velocityInfo.innerHTML = `
+        Box 1: 速度: ${speed1.toFixed(2)}, 角度: ${angle1.toFixed(2)}<br>
+        Box 2: 速度: ${speed2.toFixed(2)}, 角度: ${angle2.toFixed(2)}
+      `;
     }
 
     Events.on(render, "afterRender", function() {
@@ -192,35 +244,61 @@
     pauseBtn.addEventListener("click", function() {
       if (isPaused) {
         isPaused = false;
-        pauseBtn.textContent = "Pause";
-        Engine.resume(engine);
+        pauseBtn.textContent = "暫停";
+        Runner.run(runner, engine);
       } else {
         isPaused = true;
-        pauseBtn.textContent = "Resume";
-        Engine.pause(engine);
+        pauseBtn.textContent = "繼續";
+        Runner.stop(runner);
       }
     });
 
+    // 獲取質量控制元素
+    const mass1Control = document.getElementById('mass1');
+    const mass2Control = document.getElementById('mass2');
+    const mass1Value = document.getElementById('mass1-value');
+    const mass2Value = document.getElementById('mass2-value');
+
+    // 更新質量的函數
+    function updateMass(box, massControl, massValue) {
+      const newMass = parseInt(massControl.value);
+      Matter.Body.setMass(box, newMass);
+      massValue.textContent = newMass;
+    }
+
+    // 為質量控制添加事件監聽器
+    mass1Control.addEventListener('input', () => updateMass(box1, mass1Control, mass1Value));
+    mass2Control.addEventListener('input', () => updateMass(box2, mass2Control, mass2Value));
+
     Events.on(engine, "afterUpdate", function() {
-      const MAX_DATA_POINTS = 500; // 最大資料點數量
-
-if (velocityChart.data.labels.length > MAX_DATA_POINTS) {
-  velocityChart.data.labels.shift(); // 移除最早的標籤
-
-  velocityChart.data.datasets.forEach(dataset => {
-    dataset.data.shift(); // 移除最早的資料點
-  });
-} 
       if (!isPaused) {
+        const MAX_DATA_POINTS = 500; // 最大資料點數量
+
+        if (velocityChart.data.labels.length > MAX_DATA_POINTS) {
+          velocityChart.data.labels.shift(); // 移除最早的標籤
+
+          velocityChart.data.datasets.forEach(dataset => {
+            dataset.data.shift(); // 移除最早的資料點
+          });
+        } 
+
         const velocity1 = Math.sqrt(box1.velocity.x ** 2 + box1.velocity.y ** 2);
         const velocity2 = Math.sqrt(box2.velocity.x ** 2 + box2.velocity.y ** 2);
-        const time = engine.timing.timestamp * 0.001; // Convert to seconds
+        const time = engine.timing.timestamp * 0.001; // 轉換為秒
 
         velocityChart.data.labels.push(time.toFixed(2));
         velocityChart.data.datasets[0].data.push(velocity1.toFixed(2));
         velocityChart.data.datasets[1].data.push(velocity2.toFixed(2));
         velocityChart.update();
+
+        updateVelocityInfo();
       }
+    });
+
+    // 運行引擎，設置較小的時間步長
+    Runner.run(runner, engine, {
+      isFixed: true,
+      delta: 1000 / 120  // 設置為 120 FPS
     });
   </script>
 </body>

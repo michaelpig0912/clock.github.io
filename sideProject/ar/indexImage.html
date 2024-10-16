@@ -4,9 +4,9 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Image based tracking AR.js demo</title>
-    <!-- import aframe and then ar.js with image tracking / location based features -->
-    <script src="js/aframe.min.js"></script>
-    <script src="js/aframe-ar-nft.js"></script>
+    <!-- 更新 A-Frame 和 AR.js 的版本 -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 
     <!-- style for the loader -->
     <style>
@@ -32,19 +32,18 @@
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+    <!-- minimal loader shown until image descriptors are loaded -->
     <div class="arjs-loader">
-      <div>Loading, please wait...</div>
+      <div>加载中，请稍候...</div>
     </div>
 
     <!-- a-frame scene -->
     <a-scene
-    vr-mode-ui='enabled: false;'
-    renderer="logarithmicDepthBuffer: true"
-    embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
-      <!-- a-nft is the anchor that defines an Image Tracking entity -->
-      <!-- on 'url' use the path to the Image Descriptors created before. -->
-      <!-- the path should end with the name without the extension e.g. if file is trex.fset' the path should end with trex -->
+      vr-mode-ui="enabled: false;"
+      renderer="logarithmicDepthBuffer: true;"
+      embedded
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+
       <a-nft
         type="nft"
         url="https://michaelpig0912.github.io/sideProject/ar/assets/summer/test"
@@ -52,16 +51,13 @@
         smoothCount="10"
         smoothTolerance=".01"
         smoothThreshold="5">
-          <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
           <a-entity
-          gltf-model="https://ar-js-org.github.io/.github/profile/aframe/examples/image-tracking/nft/trex/scene.gltf"
-              scale="5 5 5"
-              position="15 30 00">
+            gltf-model="assets/model/03/03.gltf"
+            scale="1 1 1"
+            position="0 0 0">
           </a-entity>
       </a-nft>
-      <!-- static camera that moves according to the device movemenents -->
       <a-entity camera></a-entity>
     </a-scene>
   </body>
 </html>
-
