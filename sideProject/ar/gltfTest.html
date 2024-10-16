@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLTF Animation Example (Without Marker)</title>
+    <!-- A-Frame 最新版本 -->
+   <script src="aframe.io/releases/0.9.1/aframe.min.js"></script>
+  </head>
+  <body style="margin: 0px; overflow: hidden;">
+    <!-- A-Frame Scene -->
+    <a-scene>
+      <!-- 添加一個背景 -->
+      <a-sky color="#ECECEC"></a-sky>
+
+      <!-- 添加光源 -->
+      <a-light type="ambient" intensity="0.5"></a-light>
+      <a-light type="directional" position="-1 2 1" intensity="1"></a-light>
+
+      <!-- 加入 GLTF 模型，並使用 animation-mixer 播放動畫 -->
+      <a-entity gltf-model="url(assets/model/a_windy_day/scene.gltf)"
+                animation-mixer="clip: *; loop: repeat; timeScale: 1"
+                position="0 0 0"
+                scale="1 1 1"></a-entity>
+
+      <!-- 定義相機，使用戶可以四處查看 -->
+      <a-entity camera position="0 1.6 5" look-controls></a-entity>
+    </a-scene>
+  </body>
+</html>
