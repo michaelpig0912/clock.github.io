@@ -2,7 +2,9 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>物體軌跡記錄器</title>
     <style>
         :root {
@@ -69,18 +71,45 @@
             width: 100%;
         }
 
-        #controls label {
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 20px;
-        }
-
+        #controls select,
         #controls input {
-            width: 80%;
+            width: 90%;
             padding: 15px;
             border: 2px solid #ddd;
             border-radius: var(--border-radius);
             font-size: 18px;
+            background-color: white;
+            color: var(--text-color);
+            appearance: none; /* 移除默認的拉箭頭 */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        #controls select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2334495e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            padding-right: 20px; /* 為箭頭圖標留出空間 */
+        }
+
+        #controls select:focus,
+        #controls input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+        }
+
+        #controls label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 20px;
+            display: block;
+            
+        }
+
+        #controls > div {
+            margin-bottom: 20px;
         }
 
         #captureBtn {
@@ -158,6 +187,36 @@
                 width: 65%;
             }
         }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            #container {
+                padding: 15px;
+            }
+
+            #controls select,
+            #controls input,
+            #captureBtn {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            #controls label {
+                font-size: 18px;
+            }
+
+            #photoStrip {
+                padding: 10px;
+            }
+
+            #photoStrip img {
+                height: 60px;
+                margin-right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -167,10 +226,21 @@
             <canvas id="canvas"></canvas>
         </div>
         <div id="controls">
-            <label for="numShots">連拍張數：</label>
-            <input type="number" id="numShots" value="5" min="1">
-            <label for="interval">間隔時間（毫秒）：</label>
-            <input type="number" id="interval" value="500" min="100">
+            <div>
+                <label for="cameraSelect">選擇相機：</label>
+                <select id="cameraSelect"></select>
+            </div>
+            
+            <div>
+                <label for="numShots">連拍張數：</label>
+                <input type="number" id="numShots" value="5" min="1">
+            </div>
+            
+            <div>
+                <label for="interval">間隔時間（毫秒）：</label>
+                <input type="number" id="interval" value="500" min="100">
+            </div>
+            
             <button id="captureBtn">拍照</button>
         </div>
     </div>
@@ -190,6 +260,7 @@
         const photoStrip = document.getElementById('photoStrip');
         const modal = document.getElementById('modal');
         const modalImage = document.getElementById('modalImage');
+        const cameraSelect = document.getElementById('cameraSelect');
 
         let isCapturing = false;
         let capturedImages = [];
@@ -199,18 +270,84 @@
         const numShotsInput = document.getElementById('numShots');
         const intervalInput = document.getElementById('interval');
 
-        // 獲取攝像頭權限並開始視頻流
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
+        // 獲取可用的相機列表
+        async function getCameraList() {
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                const videoDevices = devices.filter(device => device.kind === 'videoinput');
+                cameraSelect.innerHTML = ''; // 清空現有選項
+                videoDevices.forEach((device, index) => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.text = device.label || `相機 ${index + 1}`;
+                    cameraSelect.appendChild(option);
+                });
+                
+                // 如果只有一個相機，隱藏選擇器
+                if (videoDevices.length <= 1) {
+                    cameraSelect.style.display = 'none';
+                    document.querySelector('label[for="cameraSelect"]').style.display = 'none';
+                }
+            } catch (err) {
+                console.error("無法獲取相機列表：", err);
+            }
+        }
+
+        // 切換相機
+        async function switchCamera() {
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+            const deviceId = cameraSelect.value;
+            const constraints = {
+                video: {
+                    deviceId: deviceId ? { exact: deviceId } : undefined,
+                    facingMode: deviceId ? undefined : 'environment' // 優先使用後置相機
+                }
+            };
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = stream;
-            })
-            .catch(err => {
-                console.error("無法訪問攝像頭：", err);
-            });
+                video.play(); // 確保視頻開始播放
+            } catch (err) {
+                console.error("無法訪問相機：", err);
+                alert("無法訪問相機。請確保您已授予相機使用權限，並重新加載頁面。");
+            }
+        }
+
+        // 初始化
+        async function init() {
+            try {
+                await getCameraList();
+                await switchCamera();
+                cameraSelect.addEventListener('change', switchCamera);
+            } catch (err) {
+                console.error("初始化失敗：", err);
+                showError("無法初始化相機。請確保您已授予相機使用權限，並重新加��頁面。");
+            }
+        }
+
+        init();
 
         // 設置畫布大小
-        canvas.width = 640;
-        canvas.height = 480;
+        function resizeCanvas() {
+            const videoAspectRatio = video.videoWidth / video.videoHeight;
+            const containerWidth = videoContainer.clientWidth;
+            const containerHeight = videoContainer.clientHeight;
+            const containerAspectRatio = containerWidth / containerHeight;
+
+            if (videoAspectRatio > containerAspectRatio) {
+                canvas.width = containerHeight * videoAspectRatio;
+                canvas.height = containerHeight;
+            } else {
+                canvas.width = containerWidth;
+                canvas.height = containerWidth / videoAspectRatio;
+            }
+        }
+
+        // 在視頻加載後調整畫布大小
+        video.addEventListener('loadedmetadata', resizeCanvas);
+        window.addEventListener('resize', resizeCanvas);
 
         // 拍照按鈕事件
         captureBtn.addEventListener('click', startCapture);
@@ -307,6 +444,25 @@
         modal.addEventListener('click', () => {
             modal.style.display = 'none';
         });
+
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 0, 0, 0.8);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                text-align: center;
+                z-index: 1000;
+            `;
+            errorDiv.textContent = message;
+            document.body.appendChild(errorDiv);
+            setTimeout(() => errorDiv.remove(), 5000);
+        }
     </script>
 </body>
 </html>
