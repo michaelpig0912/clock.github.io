@@ -276,21 +276,44 @@
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const videoDevices = devices.filter(device => device.kind === 'videoinput');
                 cameraSelect.innerHTML = ''; // 清空現有選項
-                videoDevices.forEach((device, index) => {
-                    const option = document.createElement('option');
-                    option.value = device.deviceId;
-                    option.text = device.label || `相機 ${index + 1}`;
-                    cameraSelect.appendChild(option);
-                });
-                
-                // 如果只有一個相機，隱藏選擇器
-                if (videoDevices.length <= 1) {
+
+                if (isPC()) {
+                    // PC設備：列出所有可用相機
+                    videoDevices.forEach((device, index) => {
+                        const option = document.createElement('option');
+                        option.value = device.deviceId;
+                        option.text = device.label || `相機 ${index + 1}`;
+                        cameraSelect.appendChild(option);
+                    });
+                } else {
+                    // 移動設備：添加前置和後置相機選項
+                    const frontOption = document.createElement('option');
+                    frontOption.value = 'user';
+                    frontOption.text = '前置相機';
+                    cameraSelect.appendChild(frontOption);
+
+                    const backOption = document.createElement('option');
+                    backOption.value = 'environment';
+                    backOption.text = '後置相機';
+                    cameraSelect.appendChild(backOption);
+                }
+
+                // 如果只有一個相機選項，隱藏選擇器
+                if (cameraSelect.options.length <= 1) {
                     cameraSelect.style.display = 'none';
                     document.querySelector('label[for="cameraSelect"]').style.display = 'none';
+                } else {
+                    cameraSelect.style.display = '';
+                    document.querySelector('label[for="cameraSelect"]').style.display = '';
                 }
             } catch (err) {
                 console.error("無法獲取相機列表：", err);
             }
+        }
+
+        // 添加 isPC 函數來檢測設備類型
+        function isPC() {
+            return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
         }
 
         // 切換相機
@@ -298,12 +321,9 @@
             if (video.srcObject) {
                 video.srcObject.getTracks().forEach(track => track.stop());
             }
-            const deviceId = cameraSelect.value;
+            const selectedOption = cameraSelect.value;
             const constraints = {
-                video: {
-                    deviceId: deviceId ? { exact: deviceId } : undefined,
-                    facingMode: deviceId ? undefined : 'environment' // 優先使用後置相機
-                }
+                video: isPC() ? { deviceId: { exact: selectedOption } } : { facingMode: selectedOption }
             };
             try {
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -323,7 +343,7 @@
                 cameraSelect.addEventListener('change', switchCamera);
             } catch (err) {
                 console.error("初始化失敗：", err);
-                showError("無法初始化相機。請確保您已授予相機使用權限，並重新加��頁面。");
+                showError("無法初始化相機。請確保您已授予相機使用權限，並重新加載頁面。");
             }
         }
 
@@ -379,11 +399,11 @@
                 
                 const multiExposureCtx = multiExposureCanvas.getContext('2d');
                 
-                // 方法1：调整透明度计算方式
+                // 方法1：調整透明度計算方式
                 let alpha = Math.min(0.3, 1 / (parseInt(numShotsInput.value) - numShots + 1));
                 multiExposureCtx.globalAlpha = alpha;
                 
-                // 方法3：使用差分图像
+                // 方法3：使用差分圖像
                 if (previousFrame) {
                     const diffCanvas = createDiffImage(frameCanvas, previousFrame);
                     multiExposureCtx.drawImage(diffCanvas, 0, 0);
@@ -391,7 +411,7 @@
                     multiExposureCtx.drawImage(frameCanvas, 0, 0);
                 }
                 
-                multiExposureCtx.filter = 'none'; // 重置滤镜
+                multiExposureCtx.filter = 'none'; // 重置濾鏡
                 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(multiExposureCanvas, 0, 0);
