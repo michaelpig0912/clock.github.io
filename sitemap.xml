@@ -618,20 +618,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/show/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/javascript/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -653,21 +639,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/Bocchi-the-rock/</loc>
+    <loc>https://michaelpig0912.github.io/tags/show/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/GSC/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/figure/</loc>
+    <loc>https://michaelpig0912.github.io/tags/drama/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -695,7 +674,21 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/stage/</loc>
+    <loc>https://michaelpig0912.github.io/tags/Bocchi-the-rock/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/GSC/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/figure/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -709,14 +702,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/arduino/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/esp8266/</loc>
+    <loc>https://michaelpig0912.github.io/tags/stage/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -731,6 +717,20 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/SEO/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/arduino/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/esp8266/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1145,13 +1145,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/categories/code/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -1159,14 +1152,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/travel/</loc>
+    <loc>https://michaelpig0912.github.io/categories/drama/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
+    <loc>https://michaelpig0912.github.io/categories/travel/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1181,6 +1174,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/categories/science/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
