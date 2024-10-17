@@ -1,3 +1,4 @@
+https://michaelpig0912.github.io/2024/06/29/bambuLab3Dprinter-A1mini-unbox/
 https://michaelpig0912.github.io/2024/10/13/2024-ISS-SSTV/
 https://michaelpig0912.github.io/2024/09/06/steelseriesQckPrism-3XL-unbox/
 https://michaelpig0912.github.io/2024/09/26/mobiscribe-wave-color-unbox/
@@ -16,7 +17,6 @@ https://michaelpig0912.github.io/2024/07/28/theLastNagashi-interactiveTheater/
 https://michaelpig0912.github.io/2024/07/28/tv_fix/
 https://michaelpig0912.github.io/2024/04/21/3DprinterToJLCPCB/
 https://michaelpig0912.github.io/2024/05/20/Japan-240509-Trip/
-https://michaelpig0912.github.io/2024/06/29/bambuLab3Dprinter-A1mini-unbox/
 https://michaelpig0912.github.io/2024/07/30/teamLab-taipei/
 https://michaelpig0912.github.io/2024/03/25/robotDreams-movie/
 https://michaelpig0912.github.io/2024/05/25/LePetitPrince-musical/
@@ -61,11 +61,11 @@ https://michaelpig0912.github.io/2023/02/11/webTest/
 https://michaelpig0912.github.io/tags/index.html
 https://michaelpig0912.github.io/categories/index.html
 https://michaelpig0912.github.io/
-https://michaelpig0912.github.io/tags/maker/
-https://michaelpig0912.github.io/tags/3Dprinter/
 https://michaelpig0912.github.io/tags/radio/
 https://michaelpig0912.github.io/tags/ISS/
 https://michaelpig0912.github.io/tags/SSTV/
+https://michaelpig0912.github.io/tags/maker/
+https://michaelpig0912.github.io/tags/3Dprinter/
 https://michaelpig0912.github.io/tags/unbox/
 https://michaelpig0912.github.io/tags/pc/
 https://michaelpig0912.github.io/tags/show/
@@ -76,10 +76,10 @@ https://michaelpig0912.github.io/tags/Google-Apps-Script/
 https://michaelpig0912.github.io/tags/Bocchi-the-rock/
 https://michaelpig0912.github.io/tags/GSC/
 https://michaelpig0912.github.io/tags/figure/
-https://michaelpig0912.github.io/tags/stage/
 https://michaelpig0912.github.io/tags/Japan/
 https://michaelpig0912.github.io/tags/Tokyo/
 https://michaelpig0912.github.io/tags/Osaka/
+https://michaelpig0912.github.io/tags/stage/
 https://michaelpig0912.github.io/tags/musical/
 https://michaelpig0912.github.io/tags/arduino/
 https://michaelpig0912.github.io/tags/esp8266/
@@ -137,11 +137,11 @@ https://michaelpig0912.github.io/tags/MoCapForALL/
 https://michaelpig0912.github.io/tags/VRM/
 https://michaelpig0912.github.io/tags/AR-js/
 https://michaelpig0912.github.io/tags/try/
-https://michaelpig0912.github.io/tags/test/
 https://michaelpig0912.github.io/tags/fix/
+https://michaelpig0912.github.io/tags/test/
 https://michaelpig0912.github.io/tags/wonderStudio/
-https://michaelpig0912.github.io/categories/maker/
 https://michaelpig0912.github.io/categories/radio/
+https://michaelpig0912.github.io/categories/maker/
 https://michaelpig0912.github.io/categories/unbox/
 https://michaelpig0912.github.io/categories/drama/
 https://michaelpig0912.github.io/categories/code/

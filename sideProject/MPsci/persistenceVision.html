@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>物體軌跡記錄器</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--background-color);
+            padding: 30px;
+            box-sizing: border-box;
+            color: var(--text-color);
+            font-size: 18px;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 960px;
+            background-color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #videoContainer {
+            position: relative;
+            width: 100%;
+            max-width: 960px;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            overflow: hidden;
+            border-radius: var(--border-radius);
+        }
+
+        #video, #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+        }
+
+        #controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        #controls label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 20px;
+        }
+
+        #controls input {
+            width: 80%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 18px;
+        }
+
+        #captureBtn {
+            padding: 18px 30px;
+            font-size: 22px;
+            cursor: pointer;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            transition: background-color 0.3s ease;
+        }
+
+        #captureBtn:hover {
+            background-color: #2980b9;
+        }
+
+        #photoStrip {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            overflow-x: auto;
+            border-top: 1px solid #ddd;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #photoStrip img {
+            height: 100px;
+            margin-right: 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+        }
+
+        #photoStrip img:hover {
+            transform: scale(1.08);
+        }
+
+        #modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #modalImage {
+            max-width: 95%;
+            max-height: 95%;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (min-width: 1024px) {
+            #container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            #controls {
+                width: 35%;
+            }
+
+            #videoContainer {
+                width: 65%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="videoContainer">
+            <video id="video" autoplay></video>
+            <canvas id="canvas"></canvas>
+        </div>
+        <div id="controls">
+            <label for="numShots">連拍張數：</label>
+            <input type="number" id="numShots" value="5" min="1">
+            <label for="interval">間隔時間（毫秒）：</label>
+            <input type="number" id="interval" value="500" min="100">
+            <button id="captureBtn">拍照</button>
+        </div>
+    </div>
+    <div id="photoStrip">
+        <!-- 照片將顯示在這裡 -->
+    </div>
+
+    <div id="modal">
+        <img id="modalImage">
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureBtn = document.getElementById('captureBtn');
+        const ctx = canvas.getContext('2d');
+        const photoStrip = document.getElementById('photoStrip');
+        const modal = document.getElementById('modal');
+        const modalImage = document.getElementById('modalImage');
+
+        let isCapturing = false;
+        let capturedImages = [];
+        let multiExposureCanvas;
+        let previousFrame;
+
+        const numShotsInput = document.getElementById('numShots');
+        const intervalInput = document.getElementById('interval');
+
+        // 獲取攝像頭權限並開始視頻流
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("無法訪問攝像頭：", err);
+            });
+
+        // 設置畫布大小
+        canvas.width = 640;
+        canvas.height = 480;
+
+        // 拍照按鈕事件
+        captureBtn.addEventListener('click', startCapture);
+
+        function startCapture() {
+            isCapturing = true;
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
+            photoStrip.innerHTML = ''; // 清除之前的照片
+            capturedImages = []; // 重置捕獲的圖像數組
+            
+            multiExposureCanvas = document.createElement('canvas');
+            multiExposureCanvas.width = canvas.width;
+            multiExposureCanvas.height = canvas.height;
+            
+            previousFrame = null;
+            
+            let numShots = parseInt(numShotsInput.value);
+            let interval = parseInt(intervalInput.value);
+            captureFrames(numShots, interval);
+        }
+
+        function captureFrames(numShots, interval) {
+            if (isCapturing && numShots > 0) {
+                const frameCanvas = document.createElement('canvas');
+                frameCanvas.width = canvas.width;
+                frameCanvas.height = canvas.height;
+                const frameCtx = frameCanvas.getContext('2d');
+                frameCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                const multiExposureCtx = multiExposureCanvas.getContext('2d');
+                
+                // 方法1：调整透明度计算方式
+                let alpha = Math.min(0.3, 1 / (parseInt(numShotsInput.value) - numShots + 1));
+                multiExposureCtx.globalAlpha = alpha;
+                
+                // 方法3：使用差分图像
+                if (previousFrame) {
+                    const diffCanvas = createDiffImage(frameCanvas, previousFrame);
+                    multiExposureCtx.drawImage(diffCanvas, 0, 0);
+                } else {
+                    multiExposureCtx.drawImage(frameCanvas, 0, 0);
+                }
+                
+                multiExposureCtx.filter = 'none'; // 重置滤镜
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(multiExposureCanvas, 0, 0);
+                
+                const imgData = frameCanvas.toDataURL('image/png');
+                addPhotoToStrip(imgData);
+                
+                previousFrame = frameCanvas;
+                
+                setTimeout(() => captureFrames(numShots - 1, interval), interval);
+            } else {
+                isCapturing = false;
+            }
+        }
+
+        function addPhotoToStrip(imgData) {
+            const img = document.createElement('img');
+            img.src = imgData;
+            img.style.height = '80px'; // 照片高度
+            img.style.marginRight = '15px';
+            img.addEventListener('click', () => {
+                modalImage.src = imgData;
+                modal.style.display = 'flex';
+            });
+            photoStrip.appendChild(img);
+        }
+
+        function createDiffImage(currentFrame, previousFrame) {
+            const diffCanvas = document.createElement('canvas');
+            diffCanvas.width = canvas.width;
+            diffCanvas.height = canvas.height;
+            const diffCtx = diffCanvas.getContext('2d');
+            
+            const currentImageData = currentFrame.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+            const previousImageData = previousFrame.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+            const diffImageData = diffCtx.createImageData(canvas.width, canvas.height);
+            
+            for (let i = 0; i < diffImageData.data.length; i += 4) {
+                const diff = Math.abs(currentImageData.data[i] - previousImageData.data[i]);
+                diffImageData.data[i] = diff;     // R
+                diffImageData.data[i+1] = diff;   // G
+                diffImageData.data[i+2] = diff;   // B
+                diffImageData.data[i+3] = diff > 25 ? 255 : 0;  // A
+            }
+            
+            diffCtx.putImageData(diffImageData, 0, 0);
+            return diffCanvas;
+        }
+
+        modal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
