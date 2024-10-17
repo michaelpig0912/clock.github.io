@@ -583,20 +583,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/pc/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/radio/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -612,6 +598,20 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/SSTV/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/unbox/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/pc/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -674,6 +674,13 @@
   </url>
   
   <url>
+    <loc>https://michaelpig0912.github.io/tags/stage/</loc>
+    <lastmod>2024-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/tags/Japan/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -689,13 +696,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/Osaka/</loc>
-    <lastmod>2024-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/stage/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1101,14 +1101,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/fix/</loc>
+    <loc>https://michaelpig0912.github.io/tags/test/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/test/</loc>
+    <loc>https://michaelpig0912.github.io/tags/fix/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1131,14 +1131,14 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
+    <loc>https://michaelpig0912.github.io/categories/radio/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/radio/</loc>
+    <loc>https://michaelpig0912.github.io/categories/unbox/</loc>
     <lastmod>2024-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
