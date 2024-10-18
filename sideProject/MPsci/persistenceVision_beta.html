@@ -322,34 +322,12 @@
             }
         }
 
-        /* Beta 標記樣式 */
-        .beta-ribbon {
-            position: fixed;
-            top: 25px;
-            left: -375px;
-            transform: rotate(-45deg);
-            background-color: #e74c3c;
-            color: white;
-            padding: 5px 400px;
-            font-size: 30px;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-
         @media (max-width: 768px) {
-            .beta-ribbon {
-                font-size: 14px;
-                padding: 3px 30px;
-                top: 15px;
-                right: -40px;
-            }
         }
     </style>
 </head>
 <body>
     <!-- 在 body 的開始處添加這個 div -->
-    <div class="beta-ribbon">Beta</div>
 
     <div id="container">
         <div id="videoContainer">
@@ -485,12 +463,22 @@
             }
             const selectedOption = cameraSelect.value;
             const constraints = {
-                video: isPC() ? { deviceId: { exact: selectedOption } } : { facingMode: selectedOption }
+                video: {
+                    width: { ideal: 1920 },  // 4K 寬度
+                    height: { ideal: 1080 }, // 4K 高度
+                    facingMode: isPC() ? undefined : selectedOption,
+                    deviceId: isPC() ? { exact: selectedOption } : undefined
+                }
             };
             try {
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = stream;
-                video.play(); // 確保視頻開始播放
+                video.play();
+                
+                // 獲取實際的視頻軌道設置
+                const videoTrack = stream.getVideoTracks()[0];
+                const settings = videoTrack.getSettings();
+                console.log('相機解析度：', settings.width + 'x' + settings.height);
             } catch (err) {
                 console.error("無法訪問相機：", err);
                 alert("無法訪問相機。請確保您已授予相機使用權限，並重新加載頁面。");
@@ -512,39 +500,30 @@
 
         init();
 
-        // 設置畫布大小
+        // 修改 resizeCanvas 函数
         function resizeCanvas() {
             const videoAspectRatio = video.videoWidth / video.videoHeight;
-            const containerWidth = videoContainer.clientWidth;
-            const containerHeight = videoContainer.clientHeight;
             let canvasWidth, canvasHeight;
 
             if (currentRotation === 90 || currentRotation === 270) {
-                // 對於 90° 和 270° 旋轉，交換寬高比
-                if (1 / videoAspectRatio > containerWidth / containerHeight) {
-                    canvasWidth = containerHeight * (1 / videoAspectRatio);
-                    canvasHeight = containerHeight;
-                } else {
-                    canvasWidth = containerWidth;
-                    canvasHeight = containerWidth * videoAspectRatio;
-                }
+                // 对于90度和270度旋转，交换宽度和高度
+                canvasHeight = Math.min(video.videoWidth, window.innerWidth);
+                canvasWidth = canvasHeight / videoAspectRatio;
             } else {
-                // 對於 0° 和 180° 旋轉，保持原有邏輯
-                if (videoAspectRatio > containerWidth / containerHeight) {
-                    canvasWidth = containerWidth;
-                    canvasHeight = containerWidth / videoAspectRatio;
-                } else {
-                    canvasWidth = containerHeight * videoAspectRatio;
-                    canvasHeight = containerHeight;
-                }
+                canvasWidth = Math.min(video.videoWidth, window.innerWidth);
+                canvasHeight = canvasWidth / videoAspectRatio;
             }
 
             canvas.width = canvasWidth;
             canvas.height = canvasHeight;
+            console.log('Canvas size set to:', canvas.width, 'x', canvas.height);
         }
 
         // 在視頻加載後調整畫布大小
-        video.addEventListener('loadedmetadata', resizeCanvas);
+        video.addEventListener('loadedmetadata', () => {
+            resizeCanvas();
+            console.log('Video dimensions:', video.videoWidth, 'x', video.videoHeight);
+        });
         window.addEventListener('resize', resizeCanvas);
 
         // 拍照按鈕事件
@@ -643,7 +622,7 @@
         }
 
         function addFinalCompositeImage() {
-            // 創建一��新的畫布來繪製最終的不透明圖像
+            // 創建一新的畫布來繪製最終的不透明圖像
             const finalCanvas = document.createElement('canvas');
             finalCanvas.width = canvas.width;
             finalCanvas.height = canvas.height;
@@ -762,21 +741,28 @@
             setTimeout(() => errorDiv.remove(), 5000);
         }
 
-        // 更新視頻畫面到畫布
+        // 修改 updateCanvas 函数
         function updateCanvas() {
             if (!isCapturing) {
                 ctx.save();
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
-                // 根據旋轉角度調整繪製方式
+                // 根据旋转角度调整绘制方式
                 ctx.translate(canvas.width / 2, canvas.height / 2);
                 ctx.rotate(currentRotation * Math.PI / 180);
                 
+                const videoAspectRatio = video.videoWidth / video.videoHeight;
+                let drawWidth, drawHeight;
+
                 if (currentRotation === 90 || currentRotation === 270) {
-                    ctx.drawImage(video, -canvas.height / 2, -canvas.width / 2, canvas.height, canvas.width);
+                    drawHeight = canvas.width;
+                    drawWidth = drawHeight * videoAspectRatio;
                 } else {
-                    ctx.drawImage(video, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+                    drawWidth = canvas.width;
+                    drawHeight = drawWidth / videoAspectRatio;
                 }
+
+                ctx.drawImage(video, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
                 
                 ctx.restore();
             }
