@@ -324,6 +324,52 @@
 
         @media (max-width: 768px) {
         }
+
+        #startBtnContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        #startBtn {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #startBtn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 添加媒体查询以适应不同屏幕大小 */
+        @media (max-width: 768px) {
+            #startBtn {
+                padding: 15px 30px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #startBtn {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -382,6 +428,11 @@
     <!-- 添加倒數計時器顯示 -->
     <div id="countdownDisplay" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; color: white; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;"></div>
 
+    <!-- 在 <body> 中修改开始按钮的HTML结构 -->
+    <div id="startBtnContainer">
+        <button id="startBtn">開始使用</button>
+    </div>
+
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -393,6 +444,9 @@
         const cameraSelect = document.getElementById('cameraSelect');
         const rotationSelect = document.getElementById('rotationSelect');
         const takePhotoBtn = document.getElementById('takePhotoBtn');
+        const startBtnContainer = document.getElementById('startBtnContainer');
+        const startBtn = document.getElementById('startBtn');
+        let currentStream = null;
 
         let isCapturing = false;
         let capturedImages = [];
@@ -458,10 +512,15 @@
             return !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
         }
 
-        // 切換相機
+        // 修改 cameraSelect 的事件监听器
+        cameraSelect.addEventListener('change', async function() {
+            await switchCamera();
+        });
+
+        // 修改 switchCamera 函数
         async function switchCamera() {
-            if (video.srcObject) {
-                video.srcObject.getTracks().forEach(track => track.stop());
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
             }
             const selectedOption = cameraSelect.value;
             const constraints = {
@@ -474,10 +533,10 @@
             };
             try {
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                currentStream = stream;
                 video.srcObject = stream;
-                video.play();
+                await video.play();
                 
-                // 检查是否在iOS设备上
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
                 if (isIOS) {
                     video.style.display = 'none';
@@ -490,9 +549,12 @@
                 const videoTrack = stream.getVideoTracks()[0];
                 const settings = videoTrack.getSettings();
                 console.log('相机分辨率：', settings.width + 'x' + settings.height);
+                
+                resizeCanvas();
+                updateCanvas();
             } catch (err) {
                 console.error("无法访问相机：", err);
-                alert("无法访问相机。请确保您已授予相机使用权限，并重新加载页面。");
+                showError("无法访问相机。请确保您已授予相机使用权限，并重新加载页面。");
             }
         }
 
@@ -500,14 +562,24 @@
         async function init() {
             try {
                 await getCameraList();
-                await switchCamera();
-                cameraSelect.addEventListener('change', switchCamera);
-                updateCanvas(); // 添加這行
+                startBtnContainer.style.display = 'flex';
+                captureBtn.style.display = 'none';
+                video.style.display = 'none';
+                canvas.style.display = 'none';
             } catch (err) {
-                console.error("初始化失敗：", err);
-                showError("無法初始化相機。請確保您已授予相機使用權限，並重新加載頁面。");
+                console.error("初始化失败：", err);
+                showError("无法初始化相机。请确保您已授予相机使用权限，并重新加载页面。");
             }
         }
+
+        // 添加开始按钮事件监听器
+        startBtn.addEventListener('click', async () => {
+            startBtnContainer.style.display = 'none';
+            captureBtn.style.display = 'block';
+            video.style.display = 'block';
+            canvas.style.display = 'block';
+            await switchCamera();
+        });
 
         init();
 
@@ -540,7 +612,8 @@
         // 拍照按鈕事件
         captureBtn.addEventListener('click', startCapture);
 
-        function startCapture() {
+        async function startCapture() {
+            await switchCamera(); // 每次开始拍照前重新初始化相机
             const countdownTime = parseInt(countdownTimeInput.value);
             if (countdownTime > 0) {
                 startCountdown(countdownTime);
