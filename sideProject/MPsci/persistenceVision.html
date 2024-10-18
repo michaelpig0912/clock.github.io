@@ -10,9 +10,10 @@
         :root {
             --primary-color: #3498db;
             --secondary-color: #2ecc71;
-            --background-color: #ecf0f1;
-            --text-color: #34495e;
+            --background-color: #f0f4f8;
+            --text-color: #2c3e50;
             --border-radius: 12px;
+            --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
 
         body {
@@ -27,7 +28,8 @@
             padding: 30px;
             box-sizing: border-box;
             color: var(--text-color);
-            font-size: 18px;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         #container {
@@ -36,11 +38,11 @@
             align-items: center;
             gap: 30px;
             width: 100%;
-            max-width: 960px;
+            max-width: 1200px;
             background-color: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: var(--border-radius);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--box-shadow);
         }
 
         #videoContainer {
@@ -48,9 +50,10 @@
             width: 100%;
             max-width: 960px;
             height: 0;
-            padding-bottom: 56.25%; /* 16:9 比例 */
+            padding-bottom: 56.25%;
             overflow: hidden;
             border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
         }
 
         #video, #canvas {
@@ -69,63 +72,73 @@
             flex-direction: column;
             gap: 20px;
             width: 100%;
+            max-width: 400px;
         }
 
-        #controls select,
+        #controls select{
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: white;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        } 
+        
+        
         #controls input {
             width: 90%;
             padding: 15px;
-            border: 2px solid #ddd;
+            border: 2px solid #e0e0e0;
             border-radius: var(--border-radius);
-            font-size: 18px;
+            font-size: 16px;
             background-color: white;
             color: var(--text-color);
-            appearance: none; /* 移除默認的拉箭頭 */
-            -webkit-appearance: none;
-            -moz-appearance: none;
+            transition: all 0.3s ease;
         }
 
         #controls select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2334495e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 15px center;
             background-size: 20px;
-            padding-right: 20px; /* 為箭頭圖標留出空間 */
+            padding-right: 40px;
         }
 
         #controls select:focus,
         #controls input:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
         #controls label {
             font-weight: bold;
             margin-bottom: 8px;
-            font-size: 20px;
+            font-size: 18px;
             display: block;
-            
-        }
-
-        #controls > div {
-            margin-bottom: 20px;
+            color: var(--text-color);
         }
 
         #captureBtn {
-            padding: 18px 30px;
-            font-size: 22px;
+            padding: 16px 30px;
+            font-size: 18px;
             cursor: pointer;
             width: 100%;
             background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: var(--border-radius);
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
         }
 
         #captureBtn:hover {
             background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(52, 152, 219, 0.3);
         }
 
         #photoStrip {
@@ -135,9 +148,9 @@
             width: 100%;
             display: flex;
             overflow-x: auto;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #e0e0e0;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -146,11 +159,13 @@
             margin-right: 20px;
             cursor: pointer;
             border-radius: 6px;
-            transition: transform 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #photoStrip img:hover {
-            transform: scale(1.08);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         #modal {
@@ -167,10 +182,49 @@
         }
 
         #modalImage {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 90%;
+            max-height: 90%;
             border-radius: var(--border-radius);
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modalNav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modalNav:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #modalPrev {
+            left: 20px;
+        }
+
+        #modalNext {
+            right: 20px;
+        }
+
+        #countdownDisplay {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            color: white;
+            background-color: rgba(0,0,0,0.7);
+            padding: 40px;
+            border-radius: 20px;
+            z-index: 1001;
         }
 
         @media (min-width: 1024px) {
@@ -180,32 +234,32 @@
             }
 
             #controls {
-                width: 35%;
+                width: 30%;
             }
 
             #videoContainer {
-                width: 65%;
+                width: 70%;
             }
         }
 
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 15px;
             }
 
             #container {
-                padding: 15px;
+                padding: 20px;
             }
 
             #controls select,
             #controls input,
             #captureBtn {
-                font-size: 16px;
-                padding: 12px;
+                font-size: 14px;
+                padding: 10px;
             }
 
             #controls label {
-                font-size: 18px;
+                font-size: 16px;
             }
 
             #photoStrip {
@@ -213,8 +267,50 @@
             }
 
             #photoStrip img {
-                height: 60px;
+                height: 70px;
                 margin-right: 10px;
+            }
+
+            .modalNav {
+                font-size: 30px;
+                padding: 15px;
+            }
+
+            #countdownDisplay {
+                font-size: 80px;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #container {
+                padding: 15px;
+            }
+
+            #controls select,
+            #controls input,
+            #captureBtn {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            #controls label {
+                font-size: 14px;
+            }
+
+            #photoStrip img {
+                height: 60px;
+                margin-right: 8px;
+            }
+
+            .modalNav {
+                font-size: 24px;
+                padding: 12px;
+            }
+
+            #countdownDisplay {
+                font-size: 60px;
+                padding: 20px;
             }
         }
     </style>
@@ -241,7 +337,22 @@
                 <input type="number" id="interval" value="500" min="100">
             </div>
             
-            <button id="captureBtn">拍照</button>
+            <div>
+                <label for="countdownTime">倒數時間（秒）：</label>
+                <input type="number" id="countdownTime" value="3" min="0">
+            </div>
+            
+            <div>
+                <label for="rotationSelect">畫面旋轉：</label>
+                <select id="rotationSelect">
+                    <option value="0">0°</option>
+                    <option value="90">90°</option>
+                    <option value="180">180°</option>
+                    <option value="270">270°</option>
+                </select>
+            </div>
+            
+            <button id="captureBtn">開始拍照</button>
         </div>
     </div>
     <div id="photoStrip">
@@ -250,7 +361,12 @@
 
     <div id="modal">
         <img id="modalImage">
+        <div id="modalPrev" class="modalNav">&#10094;</div>
+        <div id="modalNext" class="modalNav">&#10095;</div>
     </div>
+
+    <!-- 添加倒數計時器顯示 -->
+    <div id="countdownDisplay" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; color: white; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;"></div>
 
     <script>
         const video = document.getElementById('video');
@@ -261,6 +377,7 @@
         const modal = document.getElementById('modal');
         const modalImage = document.getElementById('modalImage');
         const cameraSelect = document.getElementById('cameraSelect');
+        const rotationSelect = document.getElementById('rotationSelect');
 
         let isCapturing = false;
         let capturedImages = [];
@@ -269,6 +386,16 @@
 
         const numShotsInput = document.getElementById('numShots');
         const intervalInput = document.getElementById('interval');
+        const countdownTimeInput = document.getElementById('countdownTime');
+        const countdownDisplay = document.getElementById('countdownDisplay');
+
+        let currentImageIndex = 0;
+        let currentRotation = 0;
+
+        rotationSelect.addEventListener('change', function() {
+            currentRotation = parseInt(this.value);
+            resizeCanvas(); // 重新調整畫布大小以適應旋轉
+        });
 
         // 獲取可用的相機列表
         async function getCameraList() {
@@ -341,6 +468,7 @@
                 await getCameraList();
                 await switchCamera();
                 cameraSelect.addEventListener('change', switchCamera);
+                updateCanvas(); // 添加這行
             } catch (err) {
                 console.error("初始化失敗：", err);
                 showError("無法初始化相機。請確保您已授予相機使用權限，並重新加載頁面。");
@@ -354,15 +482,30 @@
             const videoAspectRatio = video.videoWidth / video.videoHeight;
             const containerWidth = videoContainer.clientWidth;
             const containerHeight = videoContainer.clientHeight;
-            const containerAspectRatio = containerWidth / containerHeight;
+            let canvasWidth, canvasHeight;
 
-            if (videoAspectRatio > containerAspectRatio) {
-                canvas.width = containerHeight * videoAspectRatio;
-                canvas.height = containerHeight;
+            if (currentRotation === 90 || currentRotation === 270) {
+                // 對於 90° 和 270° 旋轉，交換寬高比
+                if (1 / videoAspectRatio > containerWidth / containerHeight) {
+                    canvasWidth = containerHeight * (1 / videoAspectRatio);
+                    canvasHeight = containerHeight;
+                } else {
+                    canvasWidth = containerWidth;
+                    canvasHeight = containerWidth * videoAspectRatio;
+                }
             } else {
-                canvas.width = containerWidth;
-                canvas.height = containerWidth / videoAspectRatio;
+                // 對於 0° 和 180° 旋轉，保持原有邏輯
+                if (videoAspectRatio > containerWidth / containerHeight) {
+                    canvasWidth = containerWidth;
+                    canvasHeight = containerWidth / videoAspectRatio;
+                } else {
+                    canvasWidth = containerHeight * videoAspectRatio;
+                    canvasHeight = containerHeight;
+                }
             }
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
         }
 
         // 在視頻加載後調整畫布大小
@@ -373,10 +516,36 @@
         captureBtn.addEventListener('click', startCapture);
 
         function startCapture() {
+            const countdownTime = parseInt(countdownTimeInput.value);
+            if (countdownTime > 0) {
+                startCountdown(countdownTime);
+            } else {
+                beginCapture();
+            }
+        }
+
+        function startCountdown(seconds) {
+            captureBtn.disabled = true;
+            countdownDisplay.style.display = 'block';
+            countdownDisplay.textContent = seconds;
+
+            const countdownInterval = setInterval(() => {
+                seconds--;
+                countdownDisplay.textContent = seconds;
+                if (seconds <= 0) {
+                    clearInterval(countdownInterval);
+                    countdownDisplay.style.display = 'none';
+                    captureBtn.disabled = false;
+                    beginCapture();
+                }
+            }, 1000);
+        }
+
+        function beginCapture() {
             isCapturing = true;
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除畫布
-            photoStrip.innerHTML = ''; // 清除之前的照片
-            capturedImages = []; // 重置捕獲的圖像數組
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            photoStrip.innerHTML = '';
+            capturedImages = [];
             
             multiExposureCanvas = document.createElement('canvas');
             multiExposureCanvas.width = canvas.width;
@@ -395,7 +564,19 @@
                 frameCanvas.width = canvas.width;
                 frameCanvas.height = canvas.height;
                 const frameCtx = frameCanvas.getContext('2d');
-                frameCtx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // 應用相同的旋轉邏輯
+                frameCtx.save();
+                frameCtx.translate(frameCanvas.width / 2, frameCanvas.height / 2);
+                frameCtx.rotate(currentRotation * Math.PI / 180);
+                
+                if (currentRotation === 90 || currentRotation === 270) {
+                    frameCtx.drawImage(video, -frameCanvas.height / 2, -frameCanvas.width / 2, frameCanvas.height, frameCanvas.width);
+                } else {
+                    frameCtx.drawImage(video, -frameCanvas.width / 2, -frameCanvas.height / 2, frameCanvas.width, frameCanvas.height);
+                }
+                
+                frameCtx.restore();
                 
                 const multiExposureCtx = multiExposureCanvas.getContext('2d');
                 
@@ -413,9 +594,6 @@
                 
                 multiExposureCtx.filter = 'none'; // 重置濾鏡
                 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(multiExposureCanvas, 0, 0);
-                
                 const imgData = frameCanvas.toDataURL('image/png');
                 addPhotoToStrip(imgData);
                 
@@ -424,20 +602,89 @@
                 setTimeout(() => captureFrames(numShots - 1, interval), interval);
             } else {
                 isCapturing = false;
+                // 添加最後的疊加圖片，設置為不透明
+                addFinalCompositeImage();
             }
+        }
+
+        function addFinalCompositeImage() {
+            // 創建一個新的畫布來繪製最終的不透明圖像
+            const finalCanvas = document.createElement('canvas');
+            finalCanvas.width = canvas.width;
+            finalCanvas.height = canvas.height;
+            const finalCtx = finalCanvas.getContext('2d');
+
+            // 首先繪製白色背景
+            finalCtx.fillStyle = 'white';
+            finalCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // 然後繪製多重曝光圖像
+            finalCtx.drawImage(multiExposureCanvas, 0, 0);
+
+            // 將最終的不透明圖像添加到照片條
+            const finalImageData = finalCanvas.toDataURL('image/png');
+            addPhotoToStrip(finalImageData);
         }
 
         function addPhotoToStrip(imgData) {
             const img = document.createElement('img');
             img.src = imgData;
-            img.style.height = '80px'; // 照片高度
+            img.style.height = '80px';
             img.style.marginRight = '15px';
             img.addEventListener('click', () => {
-                modalImage.src = imgData;
-                modal.style.display = 'flex';
+                openModal(imgData);
             });
             photoStrip.appendChild(img);
+            capturedImages.push(imgData);
+
+            // 如果這是最後一張（疊加）圖片，添加特殊標記
+            if (capturedImages.length === parseInt(numShotsInput.value) + 1) {
+                img.style.border = '2px solid #3498db';
+                img.title = '最終疊加圖像';
+            }
         }
+
+        function openModal(imgData) {
+            modalImage.src = imgData;
+            modal.style.display = 'flex';
+            currentImageIndex = capturedImages.indexOf(imgData);
+        }
+
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % capturedImages.length;
+            modalImage.src = capturedImages[currentImageIndex];
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + capturedImages.length) % capturedImages.length;
+            modalImage.src = capturedImages[currentImageIndex];
+        }
+
+        document.getElementById('modalNext').addEventListener('click', (e) => {
+            e.stopPropagation();
+            showNextImage();
+        });
+
+        document.getElementById('modalPrev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            showPrevImage();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') {
+                    showNextImage();
+                } else if (e.key === 'ArrowLeft') {
+                    showPrevImage();
+                }
+            }
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
 
         function createDiffImage(currentFrame, previousFrame) {
             const diffCanvas = document.createElement('canvas');
@@ -461,10 +708,6 @@
             return diffCanvas;
         }
 
-        modal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
         function showError(message) {
             const errorDiv = document.createElement('div');
             errorDiv.style.cssText = `
@@ -482,6 +725,27 @@
             errorDiv.textContent = message;
             document.body.appendChild(errorDiv);
             setTimeout(() => errorDiv.remove(), 5000);
+        }
+
+        // 更新視頻畫面到畫布
+        function updateCanvas() {
+            if (!isCapturing) {
+                ctx.save();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 根據旋轉角度調整繪製方式
+                ctx.translate(canvas.width / 2, canvas.height / 2);
+                ctx.rotate(currentRotation * Math.PI / 180);
+                
+                if (currentRotation === 90 || currentRotation === 270) {
+                    ctx.drawImage(video, -canvas.height / 2, -canvas.width / 2, canvas.height, canvas.width);
+                } else {
+                    ctx.drawImage(video, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
+                }
+                
+                ctx.restore();
+            }
+            requestAnimationFrame(updateCanvas);
         }
     </script>
 </body>

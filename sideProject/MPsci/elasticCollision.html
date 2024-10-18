@@ -4,59 +4,21 @@
   <meta charset="UTF-8">
   <title>彈性碰撞實驗</title>
   <style>
-    /* 設置全螢幕和視窗的黑色背景 */
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #000000; /* 黑色背景 */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* 16:9 比例的容器 */
-    #aspect-ratio-container {
-      position: relative;
-      width: 100%;
-      max-width: 100vw;
-      max-height: 100vh;
-      /* 使用 16:9 的比例 */
-      aspect-ratio: 16 / 9;
-      background-color: #ffffff; /* 背景色可以根據需要調整 */
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow: hidden;
     }
-
-    #container {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #ffffff;
-    }
-
     #canvas-container {
       width: 80%;
-      height: 100%;
-      background-color: #000000;
-      position: relative;
+      height: 100vh;
+      float: left;
     }
-
     #velocity-chart-container {
       width: 20%;
-      height: 100%;
+      height: 100vh;
+      float: left;
       background-color: #f4f4f4;
-      box-sizing: border-box;
-      padding: 10px;
-      position: relative;
     }
-
     #velocity-info {
       position: absolute;
       bottom: 10px;
@@ -65,21 +27,18 @@
       font-size: 16px;
       color: white;
     }
-
     #button-container {
       position: absolute;
       top: 10px;
       left: 10px;
       z-index: 1000;
     }
-
     #pause-btn, #fullscreen-btn {
       padding: 5px 10px;
       font-size: 16px;
       cursor: pointer;
       margin-right: 10px;
     }
-
     #control-panel {
       position: absolute;
       bottom: 10px;
@@ -88,62 +47,48 @@
       padding: 10px;
       border-radius: 5px;
     }
-
     .mass-control {
       margin-bottom: 10px;
     }
-
     .mass-control label {
       display: inline-block;
       width: 100px;
     }
-
     /* 全螢幕時的樣式 */
     .fullscreen #canvas-container {
-      width: 80%;
-      height: 100%;
+      width: 100% !important;
+      height: 100vh !important;
     }
-
     .fullscreen #velocity-chart-container {
-      width: 20%;
-      height: 100%;
       position: absolute;
       top: 50px;
       right: 10px;
+      width: 300px;
+      height: 200px;
       background-color: rgba(255, 255, 255, 0.8);
-    }
-
-    /* 確保內容不會溢出 */
-    canvas {
-      max-width: 100%;
-      max-height: 100%;
     }
   </style>
 </head>
 <body>
-  <div id="aspect-ratio-container">
-    <div id="container">
-      <div id="canvas-container"></div>
-      <div id="velocity-chart-container">
-        <canvas id="velocity-chart"></canvas>
-      </div>
-      <div id="velocity-info"></div>
-      <div id="button-container">
-        <button id="pause-btn">暫停</button>
-        <button id="fullscreen-btn">全螢幕</button>
-      </div>
-      <div id="control-panel">
-        <div class="mass-control">
-          <label for="mass1">Box 1 質量:</label>
-          <input type="range" id="mass1" min="1" max="1000" value="200">
-          <span id="mass1-value">200</span>
-        </div>
-        <div class="mass-control">
-          <label for="mass2">Box 2 質量:</label>
-          <input type="range" id="mass2" min="1" max="1000" value="200">
-          <span id="mass2-value">200</span>
-        </div>
-      </div>
+  <div id="canvas-container"></div>
+  <div id="velocity-chart-container">
+    <canvas id="velocity-chart"></canvas>
+  </div>
+  <div id="velocity-info"></div>
+  <div id="button-container">
+    <button id="pause-btn">暫停</button>
+    <button id="fullscreen-btn">全螢幕</button>
+  </div>
+  <div id="control-panel">
+    <div class="mass-control">
+      <label for="mass1">Box 1 質量:</label>
+      <input type="range" id="mass1" min="1" max="1000" value="200">
+      <span id="mass1-value">200</span>
+    </div>
+    <div class="mass-control">
+      <label for="mass2">Box 2 質量:</label>
+      <input type="range" id="mass2" min="1" max="1000" value="200">
+      <span id="mass2-value">200</span>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
@@ -152,7 +97,7 @@
     // Matter.js module aliases
     const { Engine, Render, World, Bodies, Mouse, MouseConstraint, Events, Runner } = Matter;
 
-    // 創建引擎
+    // Create an engine
     const engine = Engine.create({
       enableSleeping: false,
       constraintIterations: 10,
@@ -163,28 +108,28 @@
     engine.world.gravity.x = 0; // x 分量設為 0
     engine.world.gravity.y = 0; // y 分量設為 0
 
-    // 創建渲染器
+    // Create a renderer
     const render = Render.create({
       element: document.getElementById("canvas-container"),
       engine: engine,
       options: {
-        width: document.getElementById("canvas-container").clientWidth,
-        height: document.getElementById("canvas-container").clientHeight,
+        width: window.innerWidth * 0.8,
+        height: window.innerHeight,
         wireframes: false
       }
     });
 
-    // 創建地面
-    const ground = Bodies.rectangle(render.options.width / 2, render.options.height - 50, render.options.width, 100, { isStatic: true, friction: 0, restitution: 0, label: "ground" });
+    // Create ground
+    const ground = Bodies.rectangle(render.options.width / 2, window.innerHeight - 50, render.options.width, 100, { isStatic: true, friction: 0, restitution: 0 });
 
-    // 創建牆壁
-    const wallOptions = { isStatic: true, label: "wall" };
+    // Create walls
+    const wallOptions = { isStatic: true };
     const leftWall = Bodies.rectangle(0, render.options.height / 2, 10, render.options.height, wallOptions);
     const rightWall = Bodies.rectangle(render.options.width, render.options.height / 2, 10, render.options.height, wallOptions);
     const topWall = Bodies.rectangle(render.options.width / 2, 0, render.options.width, 10, wallOptions);
     const bottomWall = Bodies.rectangle(render.options.width / 2, render.options.height, render.options.width, 10, wallOptions);
 
-    // 創建盒子1
+    // Create box 1
     const box1 = Bodies.rectangle(render.options.width / 2 - 100, render.options.height - 150, 100, 100, { 
       restitution: 1, 
       friction: 0, 
@@ -194,7 +139,7 @@
       velocity: { x: 2, y: -2 }  // 設置較小的初始速度
     });
 
-    // 創建盒子2
+    // Create box 2
     const box2 = Bodies.rectangle(render.options.width / 2 + 100, render.options.height - 150, 100, 100, { 
       restitution: 1, 
       friction: 0, 
@@ -204,13 +149,13 @@
       velocity: { x: -2, y: 2 }  // 設置較小的初始速度
     });
 
-    // 將物體加入世界
+    // Add bodies to the world
     World.add(engine.world, [ground, leftWall, rightWall, topWall, bottomWall, box1, box2]);
 
-    // 啟動渲染器
+    // Start the renderer
     Render.run(render);
 
-    // 滑鼠互動
+    // Mouse interaction
     const mouse = Mouse.create(render.canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
@@ -222,8 +167,36 @@
 
     World.add(engine.world, mouseConstraint);
 
-    // 保持滑鼠與渲染同步
+    // Keep the mouse in sync with rendering
     render.mouse = mouse;
+
+    // Arrow for force visualization
+    const arrow = document.getElementById("arrow");
+    let isApplyingForce = false;
+
+    Events.on(mouseConstraint, "mousedown", function(event) {
+      if (event.body === box1 || event.body === box2) {
+        isApplyingForce = true;
+        arrow.style.display = "block";
+      }
+    });
+
+    Events.on(mouseConstraint, "mouseup", function(event) {
+      if (event.body === box1 || event.body === box2) {
+        isApplyingForce = false;
+        arrow.style.display = "none";
+      }
+    });
+
+    Events.on(mouseConstraint, "mousemove", function(event) {
+      if (isApplyingForce) {
+        const force = { x: event.mouse.position.x - event.body.position.x, y: event.mouse.position.y - event.body.position.y };
+        const magnitude = Math.sqrt(force.x ** 2 + force.y ** 2);
+        const normalizedForce = { x: force.x / magnitude, y: force.y / magnitude };
+
+        arrow.style.transform = `translate(${event.body.position.x}px, ${event.body.position.y}px) rotate(${Math.atan2(normalizedForce.y, normalizedForce.x)}rad) scale(${magnitude / 100})`;
+      }
+    });
 
     // 顯示盒子速度
     const velocityInfo = document.getElementById("velocity-info");
@@ -268,13 +241,13 @@
         }]
       },
       options: {
-        responsive: false,
+        responsive: true,
         maintainAspectRatio: false,
         scales: {
           x: {
             title: {
               display: true,
-              text: "Time (s)"
+              text: "Time"
             }
           },
           y: {
@@ -346,26 +319,29 @@
     });
 
     // 運行引擎，設置較小的時間步長
-    Runner.run(runner, engine);
+    Runner.run(runner, engine, {
+      isFixed: true,
+      delta: 1000 / 120  // 設置為 120 FPS
+    });
 
     // 全螢幕功能
     const fullscreenBtn = document.getElementById('fullscreen-btn');
     const body = document.body;
-    const aspectRatioContainer = document.getElementById('aspect-ratio-container');
 
     fullscreenBtn.addEventListener('click', toggleFullScreen);
 
     function toggleFullScreen() {
       if (!document.fullscreenElement) {
-        if (aspectRatioContainer.requestFullscreen) {
-          aspectRatioContainer.requestFullscreen();
-        } else if (aspectRatioContainer.mozRequestFullScreen) { // Firefox
-          aspectRatioContainer.mozRequestFullScreen();
-        } else if (aspectRatioContainer.webkitRequestFullscreen) { // Chrome, Safari and Opera
-          aspectRatioContainer.webkitRequestFullscreen();
-        } else if (aspectRatioContainer.msRequestFullscreen) { // IE/Edge
-          aspectRatioContainer.msRequestFullscreen();
+        if (body.requestFullscreen) {
+          body.requestFullscreen();
+        } else if (body.mozRequestFullScreen) { // Firefox
+          body.mozRequestFullScreen();
+        } else if (body.webkitRequestFullscreen) { // Chrome, Safari and Opera
+          body.webkitRequestFullscreen();
+        } else if (body.msRequestFullscreen) { // IE/Edge
+          body.msRequestFullscreen();
         }
+        body.classList.add('fullscreen');
         fullscreenBtn.textContent = '退出全螢幕';
       } else {
         if (document.exitFullscreen) {
@@ -377,8 +353,36 @@
         } else if (document.msExitFullscreen) {
           document.msExitFullscreen();
         }
+        body.classList.remove('fullscreen');
         fullscreenBtn.textContent = '全螢幕';
       }
+      // 調整渲染器大小
+      setTimeout(resizeRenderer, 100);
+    }
+
+    function resizeRenderer() {
+      const canvasContainer = document.getElementById("canvas-container");
+      if (body.classList.contains('fullscreen')) {
+        render.canvas.width = render.options.width = window.innerWidth;
+        render.canvas.height = render.options.height = window.innerHeight;
+      } else {
+        render.canvas.width = render.options.width = window.innerWidth * 0.8;
+        render.canvas.height = render.options.height = window.innerHeight;
+      }
+      Render.setPixelRatio(render, window.devicePixelRatio);
+
+      // 更新物體的位置
+      const ground = engine.world.bodies.find(body => body.label === "ground");
+      const leftWall = engine.world.bodies.find(body => body.label === "leftWall");
+      const rightWall = engine.world.bodies.find(body => body.label === "rightWall");
+      const topWall = engine.world.bodies.find(body => body.label === "topWall");
+      const bottomWall = engine.world.bodies.find(body => body.label === "bottomWall");
+
+      Matter.Body.setPosition(ground, { x: render.canvas.width / 2, y: render.canvas.height - 50 });
+      Matter.Body.setPosition(leftWall, { x: 0, y: render.canvas.height / 2 });
+      Matter.Body.setPosition(rightWall, { x: render.canvas.width, y: render.canvas.height / 2 });
+      Matter.Body.setPosition(topWall, { x: render.canvas.width / 2, y: 0 });
+      Matter.Body.setPosition(bottomWall, { x: render.canvas.width / 2, y: render.canvas.height });
     }
 
     // 監聽全螢幕變化事件
@@ -389,44 +393,14 @@
 
     function handleFullscreenChange() {
       if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+        body.classList.remove('fullscreen');
         fullscreenBtn.textContent = '全螢幕';
       }
       resizeRenderer();
     }
 
-    function resizeRenderer() {
-      // 獲取容器的實際大小
-      const containerWidth = document.getElementById("canvas-container").clientWidth;
-      const containerHeight = document.getElementById("canvas-container").clientHeight;
-
-      // 更新渲染器大小
-      render.bounds.max.x = containerWidth;
-      render.bounds.max.y = containerHeight;
-      render.options.width = containerWidth;
-      render.options.height = containerHeight;
-      Render.setPixelRatio(render, window.devicePixelRatio);
-
-      // 更新物體的位置
-      Matter.Body.setPosition(ground, { x: containerWidth / 2, y: containerHeight - 50 });
-      Matter.Body.setPosition(leftWall, { x: 0, y: containerHeight / 2 });
-      Matter.Body.setPosition(rightWall, { x: containerWidth, y: containerHeight / 2 });
-      Matter.Body.setPosition(topWall, { x: containerWidth / 2, y: 0 });
-      Matter.Body.setPosition(bottomWall, { x: containerWidth / 2, y: containerHeight });
-
-      // 更新球的初始位置（可選）
-      Matter.Body.setPosition(box1, { x: containerWidth / 2 - 100, y: containerHeight - 150 });
-      Matter.Body.setPosition(box2, { x: containerWidth / 2 + 100, y: containerHeight - 150 });
-
-      // 更新渲染
-      Render.lookAt(render, {
-        min: { x: 0, y: 0 },
-        max: { x: containerWidth, y: containerHeight }
-      });
-    }
-
-    // 初始化渲染器大小
+    // 監聽窗口大小變化
     window.addEventListener('resize', resizeRenderer);
-    resizeRenderer();
   </script>
 </body>
 </html>
