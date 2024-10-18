@@ -46,6 +46,35 @@
         .homework-link:hover {
             background-color: #202f3f;
         }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 <body>
@@ -55,7 +84,13 @@
         <h2>致力於打造現代、直覺的線上虛擬實驗室</h2>
     <main>
         <a href="elasticCollision.html" class="homework-link">彈性碰撞(測試用)</a>
-        <a href="persistenceVision.html" class="homework-link">視覺暫留</a>
+        <div class="dropdown">
+            <a href="persistenceVision_V100.html" class="homework-link">物體軌跡記錄器</a>
+            <div class="dropdown-content">
+                <a href="persistenceVision_V100.html">Ver 1.0.0 </a>
+                <a href="persistenceVision_beta.html">Ver Beta </a>
+            </div>
+        </div>
         <a href="#" class="homework-link">待續...</a>
     </main>
 </body>

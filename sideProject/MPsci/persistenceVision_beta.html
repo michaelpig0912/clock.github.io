@@ -152,6 +152,7 @@
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.95);
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
         }
 
         #photoStrip img {
@@ -249,6 +250,7 @@
 
             #container {
                 padding: 20px;
+                padding-bottom: 120px;
             }
 
             #controls select,
@@ -264,6 +266,7 @@
 
             #photoStrip {
                 padding: 10px;
+                height: 100px;
             }
 
             #photoStrip img {
@@ -285,6 +288,7 @@
         @media (max-width: 480px) {
             #container {
                 padding: 15px;
+                padding-bottom: 100px;
             }
 
             #controls select,
@@ -303,6 +307,10 @@
                 margin-right: 8px;
             }
 
+            #photoStrip {
+                height: 80px;
+            }
+
             .modalNav {
                 font-size: 24px;
                 padding: 12px;
@@ -313,9 +321,36 @@
                 padding: 20px;
             }
         }
+
+        /* Beta 標記樣式 */
+        .beta-ribbon {
+            position: fixed;
+            top: 25px;
+            left: -375px;
+            transform: rotate(-45deg);
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 400px;
+            font-size: 30px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .beta-ribbon {
+                font-size: 14px;
+                padding: 3px 30px;
+                top: 15px;
+                right: -40px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- 在 body 的開始處添加這個 div -->
+    <div class="beta-ribbon">Beta</div>
+
     <div id="container">
         <div id="videoContainer">
             <video id="video" autoplay></video>
@@ -608,7 +643,7 @@
         }
 
         function addFinalCompositeImage() {
-            // 創建一個新的畫布來繪製最終的不透明圖像
+            // 創建一��新的畫布來繪製最終的不透明圖像
             const finalCanvas = document.createElement('canvas');
             finalCanvas.width = canvas.width;
             finalCanvas.height = canvas.height;
