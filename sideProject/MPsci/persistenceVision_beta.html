@@ -331,8 +331,9 @@
 
     <div id="container">
         <div id="videoContainer">
-            <video id="video" autoplay></video>
+            <video id="video" autoplay playsinline></video>
             <canvas id="canvas"></canvas>
+            <button id="takePhotoBtn" style="display: none;">拍照</button>
         </div>
         <div id="controls">
             <div>
@@ -391,6 +392,7 @@
         const modalImage = document.getElementById('modalImage');
         const cameraSelect = document.getElementById('cameraSelect');
         const rotationSelect = document.getElementById('rotationSelect');
+        const takePhotoBtn = document.getElementById('takePhotoBtn');
 
         let isCapturing = false;
         let capturedImages = [];
@@ -464,8 +466,8 @@
             const selectedOption = cameraSelect.value;
             const constraints = {
                 video: {
-                    width: { ideal: 1920 },  // 4K 寬度
-                    height: { ideal: 1080 }, // 4K 高度
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 },
                     facingMode: isPC() ? undefined : selectedOption,
                     deviceId: isPC() ? { exact: selectedOption } : undefined
                 }
@@ -475,13 +477,22 @@
                 video.srcObject = stream;
                 video.play();
                 
-                // 獲取實際的視頻軌道設置
+                // 检查是否在iOS设备上
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    video.style.display = 'none';
+                    takePhotoBtn.style.display = 'block';
+                } else {
+                    video.style.display = 'block';
+                    takePhotoBtn.style.display = 'none';
+                }
+
                 const videoTrack = stream.getVideoTracks()[0];
                 const settings = videoTrack.getSettings();
-                console.log('相機解析度：', settings.width + 'x' + settings.height);
+                console.log('相机分辨率：', settings.width + 'x' + settings.height);
             } catch (err) {
-                console.error("無法訪問相機：", err);
-                alert("無法訪問相機。請確保您已授予相機使用權限，並重新加載頁面。");
+                console.error("无法访问相机：", err);
+                alert("无法访问相机。请确保您已授予相机使用权限，并重新加载页面。");
             }
         }
 
@@ -767,6 +778,20 @@
                 ctx.restore();
             }
             requestAnimationFrame(updateCanvas);
+        }
+
+        // 添加拍照按钮的事件监听器
+        takePhotoBtn.addEventListener('click', () => {
+            captureFrame();
+        });
+
+        function captureFrame() {
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = video.videoWidth;
+            tempCanvas.height = video.videoHeight;
+            tempCanvas.getContext('2d').drawImage(video, 0, 0);
+            const imgData = tempCanvas.toDataURL('image/png');
+            addPhotoToStrip(imgData);
         }
     </script>
 </body>

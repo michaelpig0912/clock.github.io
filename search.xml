@@ -939,13 +939,13 @@
             
             <tag> animation </tag>
             
-            <tag> MoCapForALL </tag>
-            
             <tag> motion Capture </tag>
             
-            <tag> VRM </tag>
-            
             <tag> software </tag>
+            
+            <tag> MoCapForALL </tag>
+            
+            <tag> VRM </tag>
             
         </tags>
       
@@ -1127,11 +1127,11 @@
             
             <tag> animation </tag>
             
+            <tag> freemocap </tag>
+            
             <tag> motion Capture </tag>
             
             <tag> software </tag>
-            
-            <tag> freemocap </tag>
             
         </tags>
       
