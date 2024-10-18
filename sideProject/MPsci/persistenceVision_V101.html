@@ -370,6 +370,98 @@
                 font-size: 18px;
             }
         }
+
+        .modal-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1002;
+        }
+
+        .modal-button {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        @media screen and (max-width: 768px) {
+            .modal-buttons {
+                top: auto;
+                bottom: 10px;
+                right: 10px;
+                flex-direction: row;
+            }
+
+            .modal-button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .modal-buttons {
+                right: 50%;
+                transform: translateX(50%);
+            }
+
+            .modal-button {
+                font-size: 10px;
+                padding: 6px 10px;
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1003;
+            transition: background-color 0.3s ease, left 0.3s ease, right 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        @media screen and (max-width: 768px) {
+            .close-button {
+                left: auto;
+                right: 10px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .close-button {
+                top: 5px;
+                right: 5px;
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -398,7 +490,7 @@
             </div>
             
             <div>
-                <label for="countdownTime">倒數時間（秒）：</label>
+                <label for="countdownTime">倒數時間（秒）</label>
                 <input type="number" id="countdownTime" value="3" min="0">
             </div>
             
@@ -420,9 +512,15 @@
     </div>
 
     <div id="modal">
+        <button id="closeModal" class="close-button">&times;</button>
         <img id="modalImage">
+        <canvas id="measureCanvas" style="position: absolute; top: 0; left: 0;"></canvas>
         <div id="modalPrev" class="modalNav">&#10094;</div>
         <div id="modalNext" class="modalNav">&#10095;</div>
+        <div class="modal-buttons">
+            <button id="clearMeasurements" class="modal-button">清除測量</button>
+            <button id="downloadImage" class="modal-button">下載圖片</button>
+        </div>
     </div>
 
     <!-- 添加倒數計時器顯示 -->
@@ -742,10 +840,146 @@
             }
         }
 
+        let measureCanvas, measureCtx;
+        let isFirstPoint = true;
+        let startX, startY, endX, endY;
+        let pixelRatio = 1;
+        let measurements = [];
+        let imageOffsetX = 0;
+        let imageOffsetY = 0;
+
         function openModal(imgData) {
             modalImage.src = imgData;
             modal.style.display = 'flex';
             currentImageIndex = capturedImages.indexOf(imgData);
+            
+            measureCanvas = document.getElementById('measureCanvas');
+            measureCtx = measureCanvas.getContext('2d');
+            
+            modalImage.onload = function() {
+                // 計算圖片在模態框中的實際位置
+                const modalRect = modal.getBoundingClientRect();
+                const imageRect = modalImage.getBoundingClientRect();
+                imageOffsetX = imageRect.left - modalRect.left;
+                imageOffsetY = imageRect.top - modalRect.top;
+
+                measureCanvas.width = modalImage.width;
+                measureCanvas.height = modalImage.height;
+                pixelRatio = window.devicePixelRatio || 1;
+                measureCanvas.style.width = modalImage.width + 'px';
+                measureCanvas.style.height = modalImage.height + 'px';
+                measureCanvas.width = modalImage.width * pixelRatio;
+                measureCanvas.height = modalImage.height * pixelRatio;
+                measureCtx.scale(pixelRatio, pixelRatio);
+
+                // 調整 canvas 位置以匹配圖片位置
+                measureCanvas.style.left = imageOffsetX + 'px';
+                measureCanvas.style.top = imageOffsetY + 'px';
+
+                redrawMeasurements();
+            };
+            
+            measureCanvas.addEventListener('click', handleClick);
+            measureCanvas.addEventListener('mousemove', handleMouseMove);
+            
+            measureCanvas.addEventListener('touchstart', handleTouchStart);
+            measureCanvas.addEventListener('touchmove', handleTouchMove);
+            measureCanvas.addEventListener('touchend', handleTouchEnd);
+
+            document.getElementById('clearMeasurements').addEventListener('click', clearMeasurements);
+            document.getElementById('downloadImage').addEventListener('click', downloadMergedImage);
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+
+            // 確保關閉按鈕可見
+            document.getElementById('closeModal').style.display = 'flex';
+        }
+
+        function getMousePosition(canvas, e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / pixelRatio / rect.width;
+            const scaleY = canvas.height / pixelRatio / rect.height;
+            return [
+                (e.clientX - rect.left) * scaleX,
+                (e.clientY - rect.top) * scaleY
+            ];
+        }
+
+        function handleClick(e) {
+            const [x, y] = getMousePosition(measureCanvas, e);
+            if (isFirstPoint) {
+                startX = x;
+                startY = y;
+                isFirstPoint = false;
+            } else {
+                endX = x;
+                endY = y;
+                const distance = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                measurements.push({startX, startY, endX, endY, distance});
+                isFirstPoint = true;
+            }
+            redrawMeasurements();
+        }
+
+        function handleMouseMove(e) {
+            if (!isFirstPoint) {
+                const [x, y] = getMousePosition(measureCanvas, e);
+                redrawMeasurements();
+                drawTemporaryLine(x, y);
+            }
+        }
+
+        function drawTemporaryLine(x, y) {
+            measureCtx.beginPath();
+            measureCtx.moveTo(startX, startY);
+            measureCtx.lineTo(x, y);
+            measureCtx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+            measureCtx.lineWidth = 2;
+            measureCtx.stroke();
+        }
+
+        function redrawMeasurements() {
+            measureCtx.clearRect(0, 0, measureCanvas.width, measureCanvas.height);
+            measurements.forEach((m, index) => {
+                measureCtx.beginPath();
+                measureCtx.moveTo(m.startX, m.startY);
+                measureCtx.lineTo(m.endX, m.endY);
+                measureCtx.strokeStyle = 'red';
+                measureCtx.lineWidth = 2;
+                measureCtx.stroke();
+
+                // 繪製距離標籤
+                const midX = (m.startX + m.endX) / 2;
+                const midY = (m.startY + m.endY) / 2;
+                measureCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                measureCtx.fillRect(midX - 30, midY - 10, 60, 20);
+                measureCtx.fillStyle = 'white';
+                measureCtx.font = '12px Arial';
+                measureCtx.textAlign = 'center';
+                measureCtx.textBaseline = 'middle';
+                measureCtx.fillText(`${m.distance.toFixed(2)}px`, midX, midY);
+            });
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            handleClick(touch);
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            handleMouseMove(touch);
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+        }
+
+        function clearMeasurements() {
+            measurements = [];
+            isFirstPoint = true;
+            redrawMeasurements();
         }
 
         function showNextImage() {
@@ -865,6 +1099,62 @@
             tempCanvas.getContext('2d').drawImage(video, 0, 0);
             const imgData = tempCanvas.toDataURL('image/png');
             addPhotoToStrip(imgData);
+        }
+
+        function downloadMergedImage() {
+            // 創建一個新的 canvas 元素
+            const mergeCanvas = document.createElement('canvas');
+            const mergeCtx = mergeCanvas.getContext('2d');
+
+            // 設置 canvas 大小與原圖相同
+            mergeCanvas.width = modalImage.naturalWidth;
+            mergeCanvas.height = modalImage.naturalHeight;
+
+            // 繪製原始圖片
+            mergeCtx.drawImage(modalImage, 0, 0, mergeCanvas.width, mergeCanvas.height);
+
+            // 繪製測量線
+            const scaleX = mergeCanvas.width / measureCanvas.width * pixelRatio;
+            const scaleY = mergeCanvas.height / measureCanvas.height * pixelRatio;
+
+            mergeCtx.scale(scaleX, scaleY);
+            measurements.forEach(m => {
+                mergeCtx.beginPath();
+                mergeCtx.moveTo(m.startX, m.startY);
+                mergeCtx.lineTo(m.endX, m.endY);
+                mergeCtx.strokeStyle = 'red';
+                mergeCtx.lineWidth = 2 / scaleX;  // 調整線寬以適應縮放
+                mergeCtx.stroke();
+
+                // 繪製距離標籤
+                const midX = (m.startX + m.endX) / 2;
+                const midY = (m.startY + m.endY) / 2;
+                mergeCtx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                mergeCtx.fillRect(midX - 30 / scaleX, midY - 10 / scaleY, 60 / scaleX, 20 / scaleY);
+                mergeCtx.fillStyle = 'white';
+                mergeCtx.font = `${12 / scaleX}px Arial`;
+                mergeCtx.textAlign = 'center';
+                mergeCtx.textBaseline = 'middle';
+                mergeCtx.fillText(`${m.distance.toFixed(2)}px`, midX, midY);
+            });
+
+            // 將合併後的圖片轉換為數據 URL
+            const mergedImageData = mergeCanvas.toDataURL('image/png');
+
+            // 創建下載鏈接
+            const downloadLink = document.createElement('a');
+            downloadLink.href = mergedImageData;
+            downloadLink.download = 'merged_image.png';
+            
+            // 觸發下載
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            clearMeasurements();
         }
     </script>
 </body>
