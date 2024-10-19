@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trajectory-recorder-v1';
+const CACHE_NAME = 'trajectory-recorder-v2';
 const urlsToCache = [
   '../persistenceVision_V101.html',
   'manifest.json',
