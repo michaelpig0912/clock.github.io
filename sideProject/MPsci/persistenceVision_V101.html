@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>物體軌跡記錄器</title>
+    <title>物體軌跡記錄器 V1.01</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -30,6 +30,7 @@
             color: var(--text-color);
             font-size: 16px;
             line-height: 1.6;
+            padding-bottom: 120px;
         }
 
         #container {
@@ -246,11 +247,12 @@
         @media (max-width: 768px) {
             body {
                 padding: 15px;
+                
             }
 
             #container {
                 padding: 20px;
-                padding-bottom: 120px;
+                padding-bottom: 150px; /* 增加底部填充以避免遮挡 */
             }
 
             #controls select,
@@ -267,6 +269,7 @@
             #photoStrip {
                 padding: 10px;
                 height: 100px;
+                
             }
 
             #photoStrip img {
@@ -319,19 +322,6 @@
             #countdownDisplay {
                 font-size: 60px;
                 padding: 20px;
-            }
-
-            #captureBtn {
-                z-index: 1001; /* 确保拍照按钮在相簿之上 */
-                
-            }
-
-            #controls {
-                z-index: 1001; /* 确保选项在相簿之上 */
-            }
-
-            #photoStrip {
-                padding-bottom: 120px; /* 增加底部填充以避免遮挡 */
             }
         }
 
@@ -684,8 +674,8 @@
                 resizeCanvas();
                 updateCanvas();
             } catch (err) {
-                console.error("无法访问相机：", err);
-                showError("无法访问相机。请确保您已授予相机用权限，并重新加载页面。");
+                console.error("無法使用相機：", err);
+                showError("無法使用相機，請確保給予相機權限");
             }
         }
 
