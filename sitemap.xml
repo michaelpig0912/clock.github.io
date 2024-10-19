@@ -578,6 +578,20 @@
 
   
   <url>
+    <loc>https://michaelpig0912.github.io/tags/maker/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/3Dprinter/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/tags/radio/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -621,20 +635,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/drama/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/maker/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/3Dprinter/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -844,13 +844,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/P1S/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/blender/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -866,6 +859,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/animation/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/P1S/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1089,7 +1089,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/freemocap/</loc>
+    <loc>https://michaelpig0912.github.io/tags/MoCapForALL/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1103,6 +1103,13 @@
   </url>
   
   <url>
+    <loc>https://michaelpig0912.github.io/tags/VRM/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/tags/software/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1110,14 +1117,7 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/MoCapForALL/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/tags/VRM/</loc>
+    <loc>https://michaelpig0912.github.io/tags/freemocap/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1161,6 +1161,13 @@
 
   
   <url>
+    <loc>https://michaelpig0912.github.io/categories/maker/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/categories/radio/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1182,13 +1189,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/categories/maker/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/categories/code/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1203,6 +1203,13 @@
   </url>
   
   <url>
+    <loc>https://michaelpig0912.github.io/categories/science/</loc>
+    <lastmod>2024-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/categories/drama/local/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1211,13 +1218,6 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/categories/drama/foreign/</loc>
-    <lastmod>2024-10-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://michaelpig0912.github.io/categories/science/</loc>
     <lastmod>2024-10-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
