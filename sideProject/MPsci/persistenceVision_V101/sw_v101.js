@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trajectory-recorder-v101';
+const CACHE_NAME = 'trajectory-recorder-v101-1';
 const urlsToCache = [
   '../persistenceVision_V101.html',
   'manifest.json',
@@ -22,6 +22,10 @@ self.addEventListener('fetch', (event) => {
         }
         return fetch(event.request).then((response) => {
           if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
+          }
+          // 检查请求的协议
+          if (event.request.url.startsWith('chrome-extension')) {
             return response;
           }
           const responseToCache = response.clone();

@@ -24,6 +24,10 @@ self.addEventListener('fetch', (event) => {
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return response;
           }
+          // 检查请求的协议
+          if (event.request.url.startsWith('chrome-extension')) {
+            return response;
+          }
           const responseToCache = response.clone();
           caches.open(CACHE_NAME)
             .then((cache) => {
