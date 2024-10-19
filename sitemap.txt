@@ -94,9 +94,6 @@ https://michaelpig0912.github.io/tags/SEO/
 https://michaelpig0912.github.io/tags/pcb/
 https://michaelpig0912.github.io/tags/acid-base/
 https://michaelpig0912.github.io/tags/chemistry/
-https://michaelpig0912.github.io/tags/solo-Travel/
-https://michaelpig0912.github.io/tags/Taiwan/
-https://michaelpig0912.github.io/tags/Ulay/
 https://michaelpig0912.github.io/tags/3D-printer/
 https://michaelpig0912.github.io/tags/bambu-Lab/
 https://michaelpig0912.github.io/tags/A1-mini/
@@ -106,6 +103,9 @@ https://michaelpig0912.github.io/tags/3D/
 https://michaelpig0912.github.io/tags/animation/
 https://michaelpig0912.github.io/tags/chrome-extension/
 https://michaelpig0912.github.io/tags/electrolysis/
+https://michaelpig0912.github.io/tags/solo-Travel/
+https://michaelpig0912.github.io/tags/Taiwan/
+https://michaelpig0912.github.io/tags/Ulay/
 https://michaelpig0912.github.io/tags/python/
 https://michaelpig0912.github.io/tags/device/
 https://michaelpig0912.github.io/tags/ipad/
@@ -151,9 +151,9 @@ https://michaelpig0912.github.io/categories/maker/
 https://michaelpig0912.github.io/categories/drama/
 https://michaelpig0912.github.io/categories/code/
 https://michaelpig0912.github.io/categories/travel/
+https://michaelpig0912.github.io/categories/drama/foreign/
 https://michaelpig0912.github.io/categories/science/
 https://michaelpig0912.github.io/categories/drama/local/
-https://michaelpig0912.github.io/categories/drama/foreign/
 https://michaelpig0912.github.io/categories/animation/
 https://michaelpig0912.github.io/categories/technology/
 https://michaelpig0912.github.io/categories/life/
