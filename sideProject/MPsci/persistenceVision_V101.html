@@ -475,7 +475,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('persistenceVisionPWA_V101/sw.js')
+                navigator.serviceWorker.register("persistenceVisionPWA_V101/sw.js")
                     .then((registration) => {
                         console.log('Service Worker registered successfully:', registration.scope);
                     })
@@ -594,22 +594,35 @@
                 const videoDevices = devices.filter(device => device.kind === 'videoinput');
                 cameraSelect.innerHTML = ''; // 清空現有選項
 
-                // 列出所有可用相機，不論是PC還是行動裝置
-                videoDevices.forEach((device, index) => {
-                    const option = document.createElement('option');
-                    option.value = device.deviceId;
-                    option.text = device.label || `相機 ${index + 1}`;
-                    cameraSelect.appendChild(option);
-                });
+                if (isPC()) {
+                    // PC設備：列出所有可用相機
+                    videoDevices.forEach((device, index) => {
+                        const option = document.createElement('option');
+                        option.value = device.deviceId;
+                        option.text = device.label || `相機 ${index + 1}`;
+                        cameraSelect.appendChild(option);
+                    });
+                } else {
+                    // 移動設備：添加前置和後置相機選項
+                    const frontOption = document.createElement('option');
+                    frontOption.value = 'user';
+                    frontOption.text = '前置相機';
+                    cameraSelect.appendChild(frontOption);
+
+                    const backOption = document.createElement('option');
+                    backOption.value = 'environment';
+                    backOption.text = '後置相機';
+                    cameraSelect.appendChild(backOption);
+                }
 
                 // 如果只有一個相機選項，隱藏選擇器
-                if (cameraSelect.options.length <= 1) {
+                /*if (cameraSelect.options.length <= 1) {
                     cameraSelect.style.display = 'none';
                     document.querySelector('label[for="cameraSelect"]').style.display = 'none';
                 } else {
                     cameraSelect.style.display = '';
                     document.querySelector('label[for="cameraSelect"]').style.display = '';
-                }
+                }*/
             } catch (err) {
                 console.error("無法獲取相機列表：", err);
             }
