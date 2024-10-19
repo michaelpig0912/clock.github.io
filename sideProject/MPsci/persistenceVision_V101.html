@@ -320,6 +320,19 @@
                 font-size: 60px;
                 padding: 20px;
             }
+
+            #captureBtn {
+                z-index: 1001; /* 确保拍照按钮在相簿之上 */
+                
+            }
+
+            #controls {
+                z-index: 1001; /* 确保选项在相簿之上 */
+            }
+
+            #photoStrip {
+                padding-bottom: 120px; /* 增加底部填充以避免遮挡 */
+            }
         }
 
         @media (max-width: 768px) {
@@ -463,6 +476,25 @@
             }
         }
     </style>
+    
+    <link rel="manifest" href="persistenceVisionPWA_V101/manifest.json">
+    <meta name="theme-color" content="#3498db">
+    <link rel="apple-touch-icon" href="persistenceVisionPWA_V101/192x192.png">
+    
+    <!-- 添加以下脚本来注册 Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('persistenceVisionPWA_V101/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </head>
 <body>
     <!-- 在 body 的開始處添加這個 div -->
@@ -474,6 +506,7 @@
             <button id="takePhotoBtn" style="display: none;">拍照</button>
         </div>
         <div id="controls">
+            <button id="captureBtn">開始拍照</button>
             <div>
                 <label for="cameraSelect">選擇相機：</label>
                 <select id="cameraSelect"></select>
@@ -504,7 +537,7 @@
                 </select>
             </div>
             
-            <button id="captureBtn">開始拍照</button>
+            
         </div>
     </div>
     <div id="photoStrip">
@@ -652,7 +685,7 @@
                 updateCanvas();
             } catch (err) {
                 console.error("无法访问相机：", err);
-                showError("无法访问相机。请确保您已授予相机使用权限，并重新加载页面。");
+                showError("无法访问相机。请确保您已授予相机用权限，并重新加载页面。");
             }
         }
 

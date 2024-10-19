@@ -320,6 +320,19 @@
                 font-size: 60px;
                 padding: 20px;
             }
+
+            #captureBtn {
+                z-index: 1001; /* 确保拍照按钮在相簿之上 */
+                
+            }
+
+            #controls {
+                z-index: 1001; /* 确保选项在相簿之上 */
+            }
+
+            #photoStrip {
+                padding-bottom: 120px; /* 增加底部填充以避免遮挡 */
+            }
         }
 
         @media (max-width: 768px) {
@@ -493,6 +506,7 @@
             <button id="takePhotoBtn" style="display: none;">拍照</button>
         </div>
         <div id="controls">
+            <button id="captureBtn">開始拍照</button>
             <div>
                 <label for="cameraSelect">選擇相機：</label>
                 <select id="cameraSelect"></select>
@@ -523,7 +537,7 @@
                 </select>
             </div>
             
-            <button id="captureBtn">開始拍照</button>
+            
         </div>
     </div>
     <div id="photoStrip">
@@ -671,7 +685,7 @@
                 updateCanvas();
             } catch (err) {
                 console.error("无法访问相机：", err);
-                showError("无法访问相机。请确保您已授予相机���用权限，并重新加载页面。");
+                showError("无法访问相机。请确保您已授予相机用权限，并重新加载页面。");
             }
         }
 
