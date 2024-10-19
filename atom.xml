@@ -6,7 +6,7 @@
   <link href="https://michaelpig0912.github.io/atom.xml" rel="self"/>
   
   <link href="https://michaelpig0912.github.io/"/>
-  <updated>2024-10-16T18:09:59.048Z</updated>
+  <updated>2024-10-19T07:59:57.688Z</updated>
   <id>https://michaelpig0912.github.io/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>物體軌跡記錄器_MPsci</title>
+    <link href="https://michaelpig0912.github.io/2024/10/19/MPsci-persistenceVision/"/>
+    <id>https://michaelpig0912.github.io/2024/10/19/MPsci-persistenceVision/</id>
+    <published>2024-10-19T04:37:47.000Z</published>
+    <updated>2024-10-19T07:59:57.688Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="介紹">介紹</h2><p>很久以前跟輔導團的老師的共備會議中，討論到如何讓學生理解物體的運動軌跡。老師提出在課堂實驗中，會讓學生用相機拍攝物體的運動軌跡，然後用 APP 將照片疊加起來，這樣就可以看到物體的運動軌跡。</p><p>不過聽到這個使用方法後，我想到的是因為很多學校會因為安全性的考量，會將平板中下載 APP 的權限關閉，這樣一來，學生就無法使用 APP 進行拍攝，因此我就想說來寫一個網頁版的物體軌跡記錄器，學生就可以在課堂上直接使用瀏覽器進行拍攝與紀錄。</p><p>這個程式碼的由來是使用 cursor 與 claude 3.5 模型進行撰寫。</p><h2 id="立即使用">立即使用</h2><a href="https://michaelpig0912.github.io/sideProject/MPsci/persistenceVision_V101.html" class="button-link_1" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.3s, transform 0.3s;">  立即使用物體軌跡記錄器 Ver 1.0.1</a><style>.button-link_1:hover {  background-color: #6FCF83 !important;  transform: scale(1.05);}.button-link_2:hover {  background-color: #888 !important;  transform: scale(1.05);}</style><a href="https://michaelpig0912.github.io/sideProject/MPsci/persistenceVision_beta.html" class="button-link_2" style="display: inline-block; margin-left: 10px; padding: 10px 100px; background-color: #333333; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background-color 0.3s, transform 0.3s;">  🌙  beta 版本</a><h2 id="版本更新">版本更新</h2><ul><li>1.0.1 版本：<ul><li>實現基本功能，包括多重曝光拍攝、自定義倒計時、相機選擇、畫面旋轉、即時預覽、疊加圖像生成、測量工具和圖像下載。</li></ul></li></ul><h2 id="主要特點">主要特點</h2><ol><li><p><strong>物理實驗</strong>：記錄和分析物體的運動軌跡，如自由落體、拋物線運動等。</p></li><li><p><strong>隱私安全</strong>：本程式不會收集任何個人資料，也不會將資料傳送到任何伺服器。</p></li><li><p><strong>多重曝光拍攝</strong>：通過設定連拍張數和間隔時間，捕捉物體的運動軌跡。</p></li><li><p><strong>自定義倒計時</strong>：為每次拍攝設置倒計時，確保單人的情況下也可以順利操作。</p></li><li><p><strong>相機選擇</strong>：支持多個相機設備，包括前置和後置攝像頭，適用於各種拍攝場景。</p></li><li><p><strong>畫面旋轉</strong>：提供 0°、90°、180° 和 270° 四種旋轉選項，滿足不同的拍攝角度需求。</p></li><li><p><strong>即時預覽</strong>：拍攝完成後，可以立即在照片條中查看所有捕獲的圖像。</p></li><li><p><strong>測量工具</strong>：在查看圖片時，可以使用內置的測量工具來計算圖像中的像素距離。</p></li><li><p><strong>疊加圖像下載</strong>：測量完畢後，可以下載自動生成一張包含完整運動軌跡的疊加圖像。，方便後續分析和分享</p></li><li><p><strong>跨平台使用</strong>：基於 HTML5 和 JavaScript 開發，無需安裝，跨平台兼容。</p></li></ol><h2 id="操作說明">操作說明</h2><h3 id="首先先點擊開始使用的按鈕">首先先點擊開始使用的按鈕</h3><h3 id="選擇相機">選擇相機</h3><h3 id="選擇拍攝角度">選擇拍攝角度</h3><h3 id="設定拍攝參數">設定拍攝參數</h3><h3 id="開始拍攝">開始拍攝</h3><h2 id="疊加原理">疊加原理</h2><ol><li><p><strong>自動透明度調整</strong></p><ul><li>系統會根據拍攝張數自動計算每張圖像的透明度。</li><li>透明度 = min(0.3, 1 / (總張數 - 當前張數 + 1))</li><li>這確保了即使在大量圖像疊加時，也能清晰地顯示運動軌跡。</li></ul></li><li><p><strong>差分圖像技術</strong></p><ul><li>通過比較相鄰兩幀圖像的差異，突出顯示運動物體。</li><li>差分閾值設置為 25，有效過濾微小變化和噪聲。</li><li>結果是一個清晰的運動軌跡，同時減少了背景干擾。</li></ul></li><li><p><strong>最終合成圖像處理</strong></p><ul><li>在疊加過程完成後，系統會生成一張不透明的最終圖像。</li><li>首先繪製白色背景，然後將多重曝光圖像疊加其上。</li></ul></li></ol><h2 id="已知問題">已知問題</h2><ol><li>發現在拍照的間隔時間會有 100 ms 左右的誤差。</li></ol><h2 id="回饋">回饋</h2><p>如果您在使用過程中遇到任何問題或有任何建議，歡迎在下方留言區與我們分享。盡快進行修正或改進。同時，如果您有新功能的想法或需求，也請不吝告訴我們。您的意見對我們來說非常寶貴，我們將努力使這個工具變得更加完善和實用。</p><p>這個程式更新的時候，會保留舊的版本，所以不用擔心以後的版本會不會壞掉。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;介紹&quot;&gt;介紹&lt;/h2&gt;
+&lt;p&gt;很久以前跟輔導團的老師的共備會議中，討論到如何讓學生理解物體的運動軌跡。老師提出在課堂實驗中，會讓學生用相機拍攝物體的運動軌跡，然後用 APP 將照片疊加起來，這樣就可以看到物體的運動軌跡。&lt;/p&gt;
+&lt;p&gt;不過聽到這個使用方法後，我想</summary>
+      
+    
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/categories/science/"/>
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/tags/science/"/>
+    
+    <category term="newtonian mechanics" scheme="https://michaelpig0912.github.io/tags/newtonian-mechanics/"/>
+    
+    <category term="phsics" scheme="https://michaelpig0912.github.io/tags/phsics/"/>
+    
+    <category term="九上" scheme="https://michaelpig0912.github.io/tags/%E4%B9%9D%E4%B8%8A/"/>
+    
+    <category term="直線運動" scheme="https://michaelpig0912.github.io/tags/%E7%9B%B4%E7%B7%9A%E9%81%8B%E5%8B%95/"/>
+    
+  </entry>
   
   <entry>
     <title>ARISS SSTV 實驗 (Expedition 72 - ARISS Series 21 SSTV Experiment)</title>
@@ -602,32 +636,6 @@
     <category term="maker" scheme="https://michaelpig0912.github.io/tags/maker/"/>
     
     <category term="3Dprinter" scheme="https://michaelpig0912.github.io/tags/3Dprinter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>(尚未完成) 如何設計一張具有 NFC 功能的 PCB 名片，從 kicad 到 JLCPCB 製作</title>
-    <link href="https://michaelpig0912.github.io/2024/04/15/PCBbusinessCard/"/>
-    <id>https://michaelpig0912.github.io/2024/04/15/PCBbusinessCard/</id>
-    <published>2024-04-14T16:32:34.000Z</published>
-    <updated>2024-06-16T16:05:10.321Z</updated>
-    
-    <content type="html"><![CDATA[<p>最近在研究電路板要如何送廠商製作，剛好看到在 instructables 上一個電路板的專案：<a href="https://www.instructables.com/PCB-Business-Card-With-NFC/">PCB Business Card With NFC</a>，所以就參考了他的接線邏輯，再透過 kicad 自己規劃設計圖與給廠商製作。</p><p>下面是成品的名片：</p><img src="/2024/04/15/PCBbusinessCard/cover.webp" class="" title="名片外觀"><img src="/2024/04/15/PCBbusinessCard/ledLight.webp" class="" title="具有 NFC 跟 LED 發光功能的名片(部分資訊模糊處理)"><h2 id="匯入相關會使用到的圖檔">匯入相關會使用到的圖檔</h2><h2 id="繪製電路圖">繪製電路圖</h2><p>用其他的天線(antenna Loop)取代 NFC 天線</p><img src="/2024/04/15/PCBbusinessCard/1_schematic.webp" class="" title="用其他的天線(antenna Loop)取代"><p>裡面所有使用的物料表，這邊要選好，之後做 PCB Layout 才會有接點可以使用</p><img src="/2024/04/15/PCBbusinessCard/2_element.webp" class="" title="使用這些元件，天線是用別人現成的天線 footprint"><h2 id="修改天線定義">修改天線定義</h2><img src="/2024/04/15/PCBbusinessCard/3_1_antennaSet.webp" class="" title="對天線按右鍵"><img src="/2024/04/15/PCBbusinessCard/3_2_antennaSet.webp" class="" title="修改引腳名稱為P$1、P$2"><p>DMC 檢查</p><h2 id="畫-layout">畫 layout</h2><img src="/2024/04/15/PCBbusinessCard/4_2_pcbElement.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/4_3_pcbElement.webp" class="" title="將元件放上"><table><thead><tr><th>圖示</th><th>說明</th></tr></thead><tbody><tr><td><img src="/2024/04/15/PCBbusinessCard/5_layer.webp" class="" title="許多層"></td><td>F_Cu ：正面的銅層 <br> B_Cu ：背面的銅層 <br></td></tr></tbody></table><h2 id="畫切割層-並且畫出圓角">畫切割層，並且畫出圓角</h2><img src="/2024/04/15/PCBbusinessCard/6_2_cutEdge.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/6_3_cutEdge.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/6_4_cutEdge.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/6_5_cutEdge.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/6_6_cutEdge.webp" class="" title="將元件放上"><h2 id="正面絲娟層增加logo跟圖案">正面絲娟層增加LOGO跟圖案</h2><img src="/2024/04/15/PCBbusinessCard/7_1_LOGOText.webp" class="" title="輸入LOGO名稱"><img src="/2024/04/15/PCBbusinessCard/7_2_LOGOText.webp" class="" title="輸入LOGO名稱"><img src="/2024/04/15/PCBbusinessCard/7_3_LOGOText.webp" class="" title="輸入LOGO名稱"><h2 id="調整元件放置的位置">調整元件放置的位置</h2><img src="/2024/04/15/PCBbusinessCard/8_1_putElement.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/9_1_putLine.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/9_2_putLine.webp" class="" title="將元件放上"><h2 id="放置圖案">放置圖案</h2><img src="/2024/04/15/PCBbusinessCard/10_1_putIcon.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/10_2_putIcon.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/10_3_putIcon.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/10_4_putIcon.webp" class="" title="將元件放上"><h2 id="裝飾與預覽">裝飾與預覽</h2><img src="/2024/04/15/PCBbusinessCard/11_1_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_2_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_3_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_4_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_5_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_6_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_7_decorate.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/11_8_decorate.webp" class="" title="將元件放上"><h2 id="安裝外掛">安裝外掛</h2><img src="/2024/04/15/PCBbusinessCard/12_1_plugin.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/12_2_plugin.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/12_3_plugin.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/12_4_plugin.webp" class="" title="將元件放上"><h2 id="上傳-jlcpcb">上傳 JLCPCB</h2><img src="/2024/04/15/PCBbusinessCard/13_1_JLCPCB.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/13_2_JLCPCB.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/13_3_JLCPCB.webp" class="" title="將元件放上"><h2 id="上傳-smt-資料">上傳 SMT 資料</h2><img src="/2024/04/15/PCBbusinessCard/14_1_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_2_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_3_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_4_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_5_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_6_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_7_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_8_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_9_SMT.webp" class="" title="將元件放上"><img src="/2024/04/15/PCBbusinessCard/14_10_SMT.webp" class="" title="將元件放上"><h2 id="參考資料：">參考資料：</h2><ol><li>本設計參考：<a href="https://www.instructables.com/PCB-Business-Card-With-NFC/">PCB Business Card With NFC</a></li><li>天線電路圖：<a href="https://forum.kicad.info/t/where-to-find-nfc-class-6-antenna-pcb-schematic-for-kicad/30212/2">Where to find NFC Class 6 antenna PCB Schematic for KiCad</a>，使用 albin 網友所改良的設計。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;最近在研究電路板要如何送廠商製作，剛好看到在 instructables 上一個電路板的專案：&lt;a href=&quot;https://www.instructables.com/PCB-Business-Card-With-NFC/&quot;&gt;PCB Business Card With</summary>
-      
-    
-    
-    
-    <category term="maker" scheme="https://michaelpig0912.github.io/categories/maker/"/>
-    
-    
-    <category term="maker" scheme="https://michaelpig0912.github.io/tags/maker/"/>
-    
-    <category term="pcb" scheme="https://michaelpig0912.github.io/tags/pcb/"/>
     
   </entry>
   

@@ -463,6 +463,25 @@
             }
         }
     </style>
+    
+    <link rel="manifest" href="persistenceVisionPWA_beta/manifest.json">
+    <meta name="theme-color" content="#3498db">
+    <link rel="apple-touch-icon" href="persistenceVisionPWA_beta/192x192.png">
+    
+    <!-- 添加以下脚本来注册 Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('persistenceVisionPWA_beta/sw.js')
+                    .then((registration) => {
+                        console.log('Service Worker registered successfully:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
 </head>
 <body>
     <!-- 在 body 的開始處添加這個 div -->
@@ -524,7 +543,7 @@
     </div>
 
     <!-- 添加倒數計時器顯示 -->
-    <div id="countdownDisplay" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; color: white; background-color: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;"></div>
+    <div id="countdownDisplay" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 100px; color: white; background-color: rgba(0,0,0,0.5); padding: 10px 50px; border-radius: 10px;"></div>
 
     <!-- 在 <body> 中修改开始按钮的HTML结构 -->
     <div id="startBtnContainer">
@@ -652,7 +671,7 @@
                 updateCanvas();
             } catch (err) {
                 console.error("无法访问相机：", err);
-                showError("无法访问相机。请确保您已授予相机使用权限，并重新加载页面。");
+                showError("无法访问相机。请确保您已授予相机���用权限，并重新加载页面。");
             }
         }
 
