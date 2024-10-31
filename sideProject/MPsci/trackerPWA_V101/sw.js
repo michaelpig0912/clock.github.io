@@ -3,12 +3,12 @@ const urlsToCache = [
     '../tracker_V101.html',
     'manifest.json',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
-    'icon-48x48.png',
-    'icon-72x72.png',
-    'icon-96x96.png',
-    'icon-144x144.png',
-    'icon-192x192.png',
-    'icon-512x512.png'
+    'icon-48-48.png',
+    'icon-72-72.png',
+    'icon-96-96.png',
+    'icon-144-144.png',
+    'icon-192-192.png',
+    'icon-512-512.png'
 ];
 
 self.addEventListener('install', event => {
