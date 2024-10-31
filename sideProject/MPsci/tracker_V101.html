@@ -447,6 +447,9 @@
                 
                 <button id="toggleTrackingMode">切換到手動追蹤</button>
                 
+                <!-- 添加新按鈕 -->
+                <button id="toggleProcessingSpeed">處理速度: 正常</button>
+                
                 <button id="exportVideo">匯出軌跡圖</button>
                 <button id="exportData">匯出數據</button>
             </div>
@@ -1173,6 +1176,10 @@
 
                 // 添加手動追蹤的初始化
                 this.setupManualTracking();
+
+                // 修改處理速度相關屬性
+                this.processingDelay = 50; // 預設正常模式：50ms
+                this.setupProcessingSpeed();
             }
 
             setupCanvas() {
@@ -1236,19 +1243,35 @@
                 this.videoController.video.pause();
             }
 
-            track() {
+            setupProcessingSpeed() {
+                const speedButton = document.getElementById('toggleProcessingSpeed');
+                speedButton.addEventListener('click', () => {
+                    if (this.processingDelay === 50) {
+                        // 切換到慢速模式
+                        this.processingDelay = 100;
+                        speedButton.textContent = '處理速度: 慢速';
+                    } else if (this.processingDelay === 100) {
+                        // 切換到超慢速模式
+                        this.processingDelay = 120;
+                        speedButton.textContent = '處理速度: 超慢速';
+                    } else {
+                        // 切換回正常模式
+                        this.processingDelay = 50;
+                        speedButton.textContent = '處理速度: 正常';
+                    }
+                });
+            }
+
+            async track() {
                 if (!this.tracking) return;
 
                 const now = performance.now();
                 const timeSinceLastTrack = now - this.lastTrackingTime;
 
-                // 如果距離上次追蹤的時間超過幀間隔，進追蹤
                 if (timeSinceLastTrack >= this.frameInterval) {
-                    const framesMissed = Math.floor(timeSinceLastTrack / this.frameInterval);
-                    
-                    // 如果過太多幀，行插值算
-                    if (framesMissed > 1 && framesMissed <= this.maxFrameSkip && this.lastPosition) {
-                        this.interpolateMissedFrames(framesMissed);
+                    // 添加處理延遲
+                    if (this.processingDelay > 0) {
+                        await new Promise(resolve => setTimeout(resolve, this.processingDelay));
                     }
 
                     const ctx = this.videoController.ctx;
@@ -1690,7 +1713,7 @@
                         const tabId = button.getAttribute('data-tab') + 'Tab';
                         document.getElementById(tabId).style.display = 'block';
 
-                        // 重新繪製當前顯示的圖表
+                        // 新繪製當前顯示的圖表
                         if (this.trackingData && this.trackingData.length > 0) {
                             switch(button.getAttribute('data-tab')) {
                                 case 'position':
