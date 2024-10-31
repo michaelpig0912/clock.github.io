@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>縮時攝影</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #4a90e2;
+        }
+        video {
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #357ab8;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        #photoPreview {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #photoPreview img {
+            width: 100px;
+            height: auto;
+            margin: 5px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        #countdown {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        #shootingIndicator {
+            display: none;
+            font-size: 18px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>縮時攝影</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <br>
+    <button id="startButton">開始拍照</button>
+    <button id="stopButton">停止拍照</button>
+    <input type="number" id="interval" placeholder="拍照間隔時間" min="1">
+    <select id="timeUnit">
+        <option value="1000">秒</option>
+        <option value="60000">分鐘</option>
+    </select>
+    <br>
+    <label for="resolution">選擇解析度：</label>
+    <select id="resolution">
+        <option value="640x480">640x480</option>
+        <option value="1280x720">1280x720</option>
+        <option value="1920x1080">1920x1080</option>
+    </select>
+    <br>
+    <label for="cameraSelect">選擇相機：</label>
+    <select id="cameraSelect"></select>
+    <br>
+    <input type="text" id="filename" placeholder="輸入文件名">
+    <br>
+    <h2>已拍攝數量：<span id="photoCount">0</span></h2>
+    <div id="countdown"></div>
+    <div id="shootingIndicator">拍攝中...</div>
+    <div id="photoPreview"></div>
+    <script>
+        const video = document.getElementById('video');
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const intervalInput = document.getElementById('interval');
+        const timeUnitSelect = document.getElementById('timeUnit');
+        const resolutionSelect = document.getElementById('resolution');
+        const cameraSelect = document.getElementById('cameraSelect');
+        const filenameInput = document.getElementById('filename');
+        const photoCountElement = document.getElementById('photoCount');
+        const photoPreview = document.getElementById('photoPreview');
+        const countdownElement = document.getElementById('countdown');
+        const shootingIndicator = document.getElementById('shootingIndicator');
+        let intervalId;
+        let countdownId;
+        let photoCount = 0;
+
+        // 獲取可用的媒體設備
+        async function getDevices() {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const videoDevices = devices.filter(device => device.kind === 'videoinput');
+            cameraSelect.innerHTML = '';
+            videoDevices.forEach(device => {
+                const option = document.createElement('option');
+                option.value = device.deviceId;
+                option.text = device.label || `Camera ${cameraSelect.length + 1}`;
+                cameraSelect.appendChild(option);
+            });
+        }
+
+        // 獲取用戶媒體設備
+        async function getCamera() {
+            const resolution = resolutionSelect.value.split('x');
+            const width = parseInt(resolution[0], 10);
+            const height = parseInt(resolution[1], 10);
+            const selectedCameraId = cameraSelect.value;
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { 
+                        deviceId: selectedCameraId ? { exact: selectedCameraId } : undefined,
+                        width: { exact: width },
+                        height: { exact: height }
+                    }
+                });
+                video.srcObject = stream;
+                video.onloadedmetadata = () => {
+                    video.play();
+                };
+            } catch (error) {
+                console.error('無法訪問攝像頭或解析度不支持', error);
+            }
+        }
+
+        // 拍照並下載
+        function takePhoto() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = filenameInput.value.trim() || 'photo';
+            link.download = `${filename}_${timestamp}.png`;
+            link.click();
+
+            // 更新已拍攝數量
+            photoCount++;
+            photoCountElement.textContent = photoCount;
+
+            // 顯示照片預覽
+            const img = document.createElement('img');
+            img.src = dataUrl;
+            photoPreview.appendChild(img);
+        }
+
+        // 開始拍照
+        startButton.addEventListener('click', () => {
+            const interval = parseInt(intervalInput.value, 10);
+            const timeUnit = parseInt(timeUnitSelect.value, 10);
+            if (isNaN(interval) || interval < 1) {
+                alert('請設置有效的拍照間隔時間（至少1秒）');
+                return;
+            }
+            shootingIndicator.style.display = 'block';
+            startCountdown(interval * timeUnit / 1000);
+            intervalId = setInterval(() => {
+                takePhoto();
+                startCountdown(interval * timeUnit / 1000);
+            }, interval * timeUnit);
+        });
+
+        // 停止拍照
+        stopButton.addEventListener('click', () => {
+            clearInterval(intervalId);
+            clearInterval(countdownId);
+            countdownElement.textContent = '';
+            shootingIndicator.style.display = 'none';
+        });
+
+        // 倒數計時器
+        function startCountdown(seconds) {
+            let remainingTime = seconds;
+            countdownElement.textContent = `下一次拍攝倒數：${remainingTime} 秒`;
+            clearInterval(countdownId); // 確保之前的計時器被清除
+            countdownId = setInterval(() => {
+                remainingTime--;
+                countdownElement.textContent = `下一次拍攝倒數：${remainingTime} 秒`;
+                if (remainingTime <= 0) {
+                    clearInterval(countdownId);
+                }
+            }, 1000);
+        }
+
+        // 初始化
+        resolutionSelect.addEventListener('change', getCamera);
+        cameraSelect.addEventListener('change', getCamera);
+        getDevices().then(getCamera);
+    </script>
+</body>
+</html>
