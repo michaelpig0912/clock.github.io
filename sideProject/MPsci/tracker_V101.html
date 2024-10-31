@@ -380,6 +380,15 @@
         .custom-upload:hover {
             background-color: #19333d;
         }
+
+        /* 添加匯出按鈕的特殊樣式 */
+        #exportVideo, #exportData {
+            background-color: #c45151; /* 淡紅色 */
+        }
+
+        #exportVideo:hover, #exportData:hover {
+            background-color: #b43838; /* 懸停時的顏色稍深 */
+        }
     </style>
 </head>
 <body>
@@ -822,7 +831,7 @@
                     });
                 }
                 
-                // 將 canvas 轉換為��片並下載
+                // 將 canvas 轉換為圖片並下載
                 try {
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -1233,7 +1242,7 @@
                 const now = performance.now();
                 const timeSinceLastTrack = now - this.lastTrackingTime;
 
-                // 如果距離上次追蹤的時間超過幀間隔，進追蹤
+                // 如果距離上次追蹤的時間超過幀��隔，進追蹤
                 if (timeSinceLastTrack >= this.frameInterval) {
                     const framesMissed = Math.floor(timeSinceLastTrack / this.frameInterval);
                     
@@ -1481,7 +1490,7 @@
                     // 更新追蹤數據
                     this.videoController.trackingData = [...this.manualPoints];
                     
-                    // 更新圖表
+                    // 更���圖表
                     graphRenderer.updateGraphs(this.videoController.trackingData);
                     
                     // 重新繪製所有點
@@ -2160,7 +2169,7 @@
             }
         }
 
-        // 初始化
+        // 初始��
         const videoController = new VideoController();
         const objectTracker = new ObjectTracker(videoController);
         const graphRenderer = new GraphRenderer();
