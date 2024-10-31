@@ -118,7 +118,7 @@
             margin-bottom: 20px;
         }
 
-        #xtGraph, #ytGraph ,#vxtGraph, #vytGraph{
+        #xtGraph, #ytGraph ,#vxtGraph, #vytGraph ,#axtGraph, #aytGraph{
             width: 100%;
             height: 200px;
             margin-bottom: 15px;
@@ -290,10 +290,10 @@
             <div class="controls">
                 <input type="file" id="videoUpload" accept="video/*">
                 <button id="exportVideo">匯出軌跡圖</button>
-                <button id="exportData">匯出圖表數據</button>
+                <button id="exportData">匯出數據</button>
                 <button id="toggleTrackingMode">切換到手動追蹤</button>
                 <button id="toggleTrailMode">軌跡模式: 顯示</button>
-                <button id="clearAll">清除所有內容</button>
+                <button id="clearAll">重新設定</button>
             </div>
         </div>
 
@@ -301,6 +301,7 @@
             <div class="tab-controls">
                 <button class="tab-button active" data-tab="position">位置圖表</button>
                 <button class="tab-button" data-tab="velocity">速度圖表</button>
+                <button class="tab-button" data-tab="acceleration">加速度圖表</button>
             </div>
             
             <div class="tab-content" id="positionTab">
@@ -318,6 +319,15 @@
                     <canvas id="vxtGraph"></canvas>
                     <h3>Vy-T 圖</h3>
                     <canvas id="vytGraph"></canvas>
+                </div>
+            </div>
+
+            <div class="tab-content" id="accelerationTab" style="display: none;">
+                <div class="graph-container">
+                    <h3>Ax-T 圖</h3>
+                    <canvas id="axtGraph"></canvas>
+                    <h3>Ay-T 圖</h3>
+                    <canvas id="aytGraph"></canvas>
                 </div>
             </div>
         </div>
@@ -459,7 +469,6 @@
                         this.video.pause();
                         this.playPauseButton.innerHTML = '<i class="fas fa-play"></i>'; // 使用 Font Awesome 的播放图标
                     } else {
-                        this.clearAll(); // 在開始播放前清除所有內容
                         this.video.play();
                         this.playPauseButton.innerHTML = '<i class="fas fa-pause"></i>'; // 使用 Font Awesome 的暂停图标
                     }
@@ -560,7 +569,7 @@
                 // 繪製當前影片幀
                 ctx.drawImage(video, 0, 0, exportCanvas.width, exportCanvas.height);
                 
-                // 繪製追蹤跡
+                // 繪製蹤跡
                 ctx.drawImage(trackingCanvas, 0, 0, exportCanvas.width, exportCanvas.height);
                 
                 // 如果是手動模式，添加點的編號
@@ -569,12 +578,8 @@
                         const x = point.x;
                         const y = point.y;
                         
-                        // 繪製點的編號
-                        ctx.strokeStyle = 'black';
-                        ctx.fillStyle = 'white';
-                        ctx.lineWidth = 3;
-                        ctx.strokeText((index + 1).toString(), x + 10, y - 10);
-                        ctx.fillText((index + 1).toString(), x + 10, y - 10);
+                        // 製點的編號
+
                     });
                 }
                 
@@ -593,37 +598,35 @@
 
             exportData() {
                 const data = this.trackingData;
-                if (!data || data.length === 0) {
-                    alert('沒有可匯出的數據！');
+                if (!data || data.length < 3) {
+                    alert('沒有足夠的數據來計算加速度！');
                     return;
                 }
 
+                // 使用與圖表相同的計算方法
+                const velocityData = graphRenderer.calculateVelocities(data);
+                const accelerationData = graphRenderer.calculateAccelerations(data);
+
                 // 創建 CSV 內容
-                let csvContent = 'Time (s),X Position (px),Y Position (px),X Velocity (px/s),Y Velocity (px/s)\n';
+                let csvContent = 'Time (s),X Position (px),Y Position (px),X Velocity (px/s),Y Velocity (px/s),X Acceleration (px/s²),Y Acceleration (px/s²)\n';
 
-                // 計算速度
-                data.forEach((point, index) => {
-                    let vx = 0;
-                    let vy = 0;
-
-                    // 計算速度（使用前後兩點計算）
-                    if (index > 0 && index < data.length - 1) {
-                        const dt = data[index + 1].time - data[index - 1].time;
-                        if (dt !== 0) {
-                            vx = (data[index + 1].x - data[index - 1].x) / (2 * dt);
-                            vy = (data[index + 1].y - data[index - 1].y) / (2 * dt);
-                        }
-                    }
+                // 匯出數據
+                for (let i = 0; i < data.length; i++) {
+                    const point = data[i];
+                    const velocity = velocityData[i];
+                    const acceleration = accelerationData[i];
 
                     // 格式化數據，保留三位小數
                     const formattedTime = point.time.toFixed(3);
                     const formattedX = point.x.toFixed(1);
                     const formattedY = point.y.toFixed(1);
-                    const formattedVx = vx.toFixed(1);
-                    const formattedVy = vy.toFixed(1);
+                    const formattedVx = velocity.vx.toFixed(1);
+                    const formattedVy = velocity.vy.toFixed(1);
+                    const formattedAx = acceleration.ax.toFixed(1);
+                    const formattedAy = acceleration.ay.toFixed(1);
 
-                    csvContent += `${formattedTime},${formattedX},${formattedY},${formattedVx},${formattedVy}\n`;
-                });
+                    csvContent += `${formattedTime},${formattedX},${formattedY},${formattedVx},${formattedVy},${formattedAx},${formattedAy}\n`;
+                }
 
                 // 創建並下載 CSV 文件
                 try {
@@ -743,7 +746,7 @@
                 if (timeSinceLastTrack >= this.frameInterval) {
                     const framesMissed = Math.floor(timeSinceLastTrack / this.frameInterval);
                     
-                    // 如果跳過太多幀，進行插值計算
+                    // 如果跳過太多幀，進行插值算
                     if (framesMissed > 1 && framesMissed <= this.maxFrameSkip && this.lastPosition) {
                         this.interpolateMissedFrames(framesMissed);
                     }
@@ -849,7 +852,7 @@
                 let count = 0;
                 const sampleScale = 2; // 采样间隔，提高性能
 
-                // 确保搜索区域在有效范围内
+                // 确搜索区域在有效范围内
                 const startX = Math.max(0, Math.floor(searchRegion.x));
                 const startY = Math.max(0, Math.floor(searchRegion.y));
                 const endX = Math.min(imageData.width, Math.ceil(searchRegion.x + searchRegion.width));
@@ -935,7 +938,7 @@
                         // 計算漸變透明度
                         const fadeStart = Math.max(0, this.detectedPoints.length - this.trailLength);
                         if (index < fadeStart) {
-                            opacity = index / fadeStart;
+                            opacity = index / fadeStart*0.5;
                         }
                     }
                     this.drawPoint(ctx, point, opacity, circleRadius, lineWidth);
@@ -972,7 +975,7 @@
                     const x = (e.clientX - rect.left) * (this.videoController.trackingCanvas.width / rect.width);
                     const y = (e.clientY - rect.top) * (this.videoController.trackingCanvas.height / rect.height);
 
-                    // 添加新的追蹤點
+                    // 添加新的追點
                     const newPoint = {
                         time: this.videoController.video.currentTime,
                         x: x,
@@ -1054,7 +1057,7 @@
 
                 // 繪製點
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(255, 255, 0, ${opacity})`;
+                ctx.strokeStyle = `rgba(255, 0, 0, ${opacity})`;
                 ctx.fillStyle = `rgba(255, 0, 0, ${opacity})`;
                 ctx.lineWidth = lineWidth;
                 
@@ -1136,7 +1139,7 @@
                 this.vxtCtx = this.vxtCanvas.getContext('2d');
                 this.vytCtx = this.vytCanvas.getContext('2d');
                 
-                // 設置速度圖表的尺寸與 X-T 圖相同
+                // 置速度圖表的尺寸 X-T 圖相同
                 this.vxtCanvas.width = 400;
                 this.vxtCanvas.height = 200;
                 this.vytCanvas.width = 400;
@@ -1152,8 +1155,18 @@
 
                 this.setupTabs();
                 
-                // 確保初始狀態下位置圖表是可見的
+                // 確保初始狀態下位置圖表是可的
                 document.getElementById('positionTab').style.display = 'block';
+
+                this.axtCanvas = document.getElementById('axtGraph');
+                this.aytCanvas = document.getElementById('aytGraph');
+                this.axtCtx = this.axtCanvas.getContext('2d');
+                this.aytCtx = this.aytCanvas.getContext('2d');
+                
+                this.axtCanvas.width = 400;
+                this.axtCanvas.height = 200;
+                this.aytCanvas.width = 400;
+                this.aytCanvas.height = 200;
             }
 
             setupTabs() {
@@ -1185,6 +1198,7 @@
                 this.drawXTGraph(trackingData);
                 this.drawYTGraph(trackingData);
                 this.drawVelocityGraphs(trackingData);
+                this.drawAccelerationGraphs(trackingData);
             }
 
             clearGraphs() {
@@ -1192,6 +1206,8 @@
                 this.ytCtx.clearRect(0, 0, this.ytCanvas.width, this.ytCanvas.height);
                 this.vxtCtx.clearRect(0, 0, this.vxtCanvas.width, this.vxtCanvas.height);
                 this.vytCtx.clearRect(0, 0, this.vytCanvas.width, this.vytCanvas.height);
+                this.axtCtx.clearRect(0, 0, this.axtCanvas.width, this.axtCanvas.height);
+                this.aytCtx.clearRect(0, 0, this.aytCanvas.width, this.aytCanvas.height);
             }
 
             drawAxes(ctx, maxTime, maxValue, minValue, label) {
@@ -1345,11 +1361,15 @@
                 const maxVy = Math.max(...velocityData.map(d => d.vy));
                 const minVy = Math.min(...velocityData.map(d => d.vy));
                 
+                // 統一 Vx 和 Vy 的 Y 軸範圍
+                const maxVelocity = Math.max(maxVx, maxVy);
+                const minVelocity = Math.min(minVx, minVy);
+                
                 // 繪製 X 方向速度圖
-                this.drawVelocityGraph(this.vxtCtx, velocityData, maxVx, minVx, 'vx', 'X方向速度 (px/s)');
+                this.drawVelocityGraph(this.vxtCtx, velocityData, maxVelocity, minVelocity, 'vx', 'X方向速度 (px/s)');
                 
                 // 繪製 Y 方向速度圖
-                this.drawVelocityGraph(this.vytCtx, velocityData, maxVy, minVy, 'vy', 'Y方向速度 (px/s)');
+                this.drawVelocityGraph(this.vytCtx, velocityData, maxVelocity, minVelocity, 'vy', 'Y方向速度 (px/s)');
             }
 
             calculateVelocities(data) {
@@ -1380,12 +1400,79 @@
                 const graphWidth = ctx.canvas.width - this.margin.left - this.margin.right;
                 const graphHeight = ctx.canvas.height - this.margin.top - this.margin.bottom;
                 
-                // 繪製座標軸和網格
                 this.drawAxes(ctx, maxTime, maxValue, minValue, label);
                 
-                // 繪製數據線
                 ctx.beginPath();
                 ctx.strokeStyle = component === 'vx' ? 'blue' : 'red';
+                ctx.lineWidth = 2;
+                
+                data.forEach((point, i) => {
+                    const x = this.margin.left + (point.time / maxTime * graphWidth);
+                    const y = ctx.canvas.height - this.margin.bottom - ((point[component] - minValue) / (maxValue - minValue) * graphHeight);
+                    
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                });
+                
+                ctx.stroke();
+            }
+
+            drawAccelerationGraphs(data) {
+                const accelerationData = this.calculateAccelerations(data);
+                
+                // 獲取 Ax 和 Ay 的最大和最小值
+                const maxAx = Math.max(...accelerationData.map(d => d.ax));
+                const minAx = Math.min(...accelerationData.map(d => d.ax));
+                const maxAy = Math.max(...accelerationData.map(d => d.ay));
+                const minAy = Math.min(...accelerationData.map(d => d.ay));
+                
+                // 統一 Ax 和 Ay 的 Y 軸範圍
+                const maxAcceleration = Math.max(maxAx, maxAy);
+                const minAcceleration = Math.min(minAx, minAy);
+                
+                // 繪製 X 方向加速度圖
+                this.drawAccelerationGraph(this.axtCtx, accelerationData, maxAcceleration, minAcceleration, 'ax', 'X方向加速度 (px/s²)');
+                
+                // 繪製 Y 方向加速度圖
+                this.drawAccelerationGraph(this.aytCtx, accelerationData, maxAcceleration, minAcceleration, 'ay', 'Y方向加速度 (px/s²)');
+            }
+
+            calculateAccelerations(data) {
+                const velocityData = this.calculateVelocities(data);
+                return velocityData.map((point, index) => {
+                    if (index === 0 || index === velocityData.length - 1) {
+                        return {
+                            time: point.time,
+                            ax: 0,
+                            ay: 0
+                        };
+                    }
+                    
+                    const dt = velocityData[index + 1].time - velocityData[index - 1].time;
+                    const ax = (velocityData[index + 1].vx - velocityData[index - 1].vx) / (2 * dt);
+                    const ay = (velocityData[index + 1].vy - velocityData[index - 1].vy) / (2 * dt);
+                    
+                    return {
+                        time: point.time,
+                        ax: ax,
+                        ay: ay
+                    };
+                });
+            }
+
+            drawAccelerationGraph(ctx, data, maxValue, minValue, component, label) {
+                const maxTime = Math.max(...data.map(d => d.time));
+                
+                const graphWidth = ctx.canvas.width - this.margin.left - this.margin.right;
+                const graphHeight = ctx.canvas.height - this.margin.top - this.margin.bottom;
+                
+                this.drawAxes(ctx, maxTime, maxValue, minValue, label);
+                
+                ctx.beginPath();
+                ctx.strokeStyle = component === 'ax' ? 'blue' : 'red';
                 ctx.lineWidth = 2;
                 
                 data.forEach((point, i) => {
