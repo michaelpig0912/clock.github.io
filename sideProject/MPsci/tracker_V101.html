@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="manifest" href="trackerPWA_V101/manifest.json">
+    <link rel="manifest" href="./trackerPWA_V101/manifest.json">
     <meta name="theme-color" content="#305e70">
-    <link rel="apple-touch-icon" href="trackerPWA_V101/icon-192x192.png">
+    <link rel="apple-touch-icon" href="./trackerPWA_V101/icon-192x192.png">
     <style>
         * {
             box-sizing: border-box;
@@ -1242,7 +1242,7 @@
                 const now = performance.now();
                 const timeSinceLastTrack = now - this.lastTrackingTime;
 
-                // 如果距離上次追蹤的時間超過幀��隔，進追蹤
+                // 如果距離上次追蹤的時間超過幀間隔，進追蹤
                 if (timeSinceLastTrack >= this.frameInterval) {
                     const framesMissed = Math.floor(timeSinceLastTrack / this.frameInterval);
                     
@@ -1490,7 +1490,7 @@
                     // 更新追蹤數據
                     this.videoController.trackingData = [...this.manualPoints];
                     
-                    // 更���圖表
+                    // 更新圖表
                     graphRenderer.updateGraphs(this.videoController.trackingData);
                     
                     // 重新繪製所有點
@@ -2169,7 +2169,7 @@
             }
         }
 
-        // 初始��
+        // 初始化
         const videoController = new VideoController();
         const objectTracker = new ObjectTracker(videoController);
         const graphRenderer = new GraphRenderer();
