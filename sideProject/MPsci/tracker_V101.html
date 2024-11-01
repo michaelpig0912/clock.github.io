@@ -93,7 +93,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
-            height: 60px;
+            height: 60px; /* 修改按鈕高度為 60px */
             font-size: 14px;
             display: flex;
             align-items: center;
@@ -309,9 +309,9 @@
             color: #ddd;
             cursor: pointer;
             transition: background-color 0.3s;
-            width: 100%; /* 確保按鈕佔滿寬度 */
-            height: 40px; /* 統一高度 */
-            font-size: 14px; /* 統一字體大小 */
+            width: 100%;
+            height: 60px; /* 修改按鈕高度為 60px */
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -389,6 +389,12 @@
         #exportVideo:hover, #exportData:hover {
             background-color: #b43838; /* 懸停時的顏色稍深 */
         }
+
+        /* 確保顏色選擇按鈕和測量距離按鈕並排 */
+        #measureDistance, #colorPickerBtn {
+            flex: 1;
+            min-width: 150px; /* 設置最小寬度 */
+        }
     </style>
 </head>
 <body>
@@ -415,17 +421,13 @@
                     <button id="stepForward" title="下一幀"><i class="fas fa-step-forward"></i></button>
                 </div>
             </div>
-
+<br>
             <div class="settings">
-                <div>
-                    <label for="colorPicker">顏色：</label>
-                    <input type="color" id="colorPicker" value="#ff0000">
-                </div>
                 <div>
                     <label for="tolerance">容許誤差：</label><span id="toleranceValue">10</span>
                     <input type="range" id="tolerance" min="0" max="100" value="10">
-                    
                 </div>
+
             </div>
 
             <div class="controls">
@@ -433,23 +435,28 @@
                 <input type="file" id="videoUpload" accept="video/*">
                 <!-- 自定義按鈕 -->
                 <button class="custom-upload" onclick="document.getElementById('videoUpload').click();">選擇檔案</button>
+                
                 <div class="unit-calibration">
                     <button id="measureDistance">測量距離<br>(距離校正)</button>
+                    <!-- 新增顏色選擇按鈕 -->
+
                     <div class="unit-inputs" style="display: none;">
                         <input type="number" id="realDistance" placeholder="實際距離" value="1" >
                         <input type="text" id="unitName" placeholder="單位 (如: cm, m)" value="m" >
                         <button id="confirmUnit">OK</button>
                     </div>
                 </div>
+                <button id="colorPickerBtn" style="background-color: #ff0000;">追蹤顏色<br>(點選畫面更換)</button>
+                <!-- 隱藏原來的顏色選擇器 -->
+                <input type="color" id="colorPicker" value="#ff0000" style="display: none;">
+                <!-- 其他按鈕往下移 -->
                 <button id="startTracking">開始追蹤</button>
-                <button id="clearAll">重新開始<br>(清除所有數據)</button>
+                <button id="clearAll">重新開始<br>(重新繪製數據圖)</button>
                 <button id="toggleTrailMode">軌跡模式: 顯示</button>
-                
                 <button id="toggleTrackingMode">切換到手動追蹤</button>
-                
-                <!-- 添加新按鈕 -->
-                <button id="toggleProcessingSpeed">處理速度: 正常</button>
-                
+                <button id="toggleIOSMode">跳過數據: 關閉<br>(建議 IOS 開啟)</button>
+                <button id="toggleProcessingSpeed" style="display: none;">處理速度: 正常</button>
+                <br>
                 <button id="exportVideo">匯出軌跡圖</button>
                 <button id="exportData">匯出數據</button>
             </div>
@@ -547,7 +554,7 @@
                     }
                 });
 
-                // 防止默認的觸摸行為
+                // 防止默認的觸行為
                 this.video.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                 });
@@ -632,7 +639,22 @@
                         const wrapper = this.video.parentElement;
                         const aspectRatio = this.video.videoHeight / this.video.videoWidth;
                         wrapper.style.paddingTop = `${aspectRatio * 100}%`;
+
+                        // 強制設置時間為 0 並暫停
+                        this.video.currentTime = 0;
+                        this.video.pause();
                     };
+
+                    // 添加額外的事件監聽器來處理 iOS 的特殊情況
+                    this.video.addEventListener('loadeddata', () => {
+                        this.video.currentTime = 0;
+                        this.video.pause();
+                    }, { once: true });
+
+                    this.video.addEventListener('canplay', () => {
+                        this.video.currentTime = 0;
+                        this.video.pause();
+                    }, { once: true });
                 }
             }
 
@@ -775,6 +797,10 @@
             }
 
             clearAll() {
+                // 保存 IOS Mode 相關狀態
+                const isIOSMode = objectTracker.isIOSMode;
+                const iosSkipCount = objectTracker.iosSkipCount;
+
                 // 清除追蹤數據
                 this.trackingData = [];
                 objectTracker.manualPoints = []; // 清除手動追蹤點
@@ -803,6 +829,10 @@
                 // 重置追蹤狀態
                 this.isTracking = false;
                 document.getElementById('startTracking').textContent = '開始追蹤';
+
+                // 恢復 IOS Mode 狀態
+                objectTracker.isIOSMode = isIOSMode;
+                objectTracker.iosSkipCount = iosSkipCount;
             }
 
             exportGraphs() {
@@ -834,7 +864,7 @@
                     });
                 }
                 
-                // 將 canvas 轉換為圖片並下載
+                // 將 canvas 轉為圖片並下載
                 try {
                     const link = document.createElement('a');
                     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
@@ -962,7 +992,7 @@
                     ctx.lineTo(x, y);
                     ctx.stroke();
 
-                    // 如果正在移動，顯示即時距離
+                    // 如果正在移動，顯示時距離
                     const distance = Math.sqrt(
                         Math.pow(x - this.unitCalibration.points[0].x, 2) + 
                         Math.pow(y - this.unitCalibration.points[0].y, 2)
@@ -1026,7 +1056,7 @@
                 ctx.drawImage(this.video, 0, 0, canvas.width, canvas.height);
 
                 if (this.unitCalibration.points.length > 0) {
-                    // 設置線條樣式
+                    // 設線條樣式
                     ctx.beginPath();
                     ctx.lineWidth = 3 * scaleX;  // 3px 在螢幕上的寬度
                     ctx.strokeStyle = '#00ff00';
@@ -1115,7 +1145,7 @@
                 graphRenderer.updateGraphs(this.trackingData);
             }
 
-            // 添加新的清除方法
+            // 添加新的清除法
             clearAllData() {
                 // 清除追蹤數據
                 this.trackingData = [];
@@ -1156,7 +1186,7 @@
                 this.setupCanvas();
                 this.setupEventListeners();
                 this.lastProcessTime = 0; // 用於控制處理頻率
-                this.isManualMode = false; // 添加手動模式標記
+                this.isManualMode = false; // 添加手模式標記
                 this.manualPoints = []; // 存儲手動加的點
                 this.lastPosition = null; // 儲存前一幀的位置
                 this.searchRadius = 50;   // 搜索半徑（像素）
@@ -1180,6 +1210,32 @@
                 // 修改處理速度相關屬性
                 this.processingDelay = 50; // 預設正常模式：50ms
                 this.setupProcessingSpeed();
+
+                // 新增 IOS 模式屬性
+                this.isIOSMode = false;
+                this.iosSkipCount = 10; // 跳過前5筆數據
+                
+                // 設置 IOS 模式按鈕
+                this.setupIOSMode();
+
+                // 更新顏色選擇器的處理
+                this.colorPickerBtn = document.getElementById('colorPickerBtn');
+                this.colorPicker = document.getElementById('colorPicker');
+                
+                // 設置顏色選擇器的事件
+                this.colorPickerBtn.addEventListener('click', (e) => {
+                    if (!this.videoController.unitCalibration.isCalibrating) {
+                        this.colorPicker.click();
+                    }
+                });
+                
+                this.colorPicker.addEventListener('input', (e) => {
+                    this.colorPickerBtn.style.backgroundColor = e.target.value;
+                });
+                
+                this.colorPicker.addEventListener('change', (e) => {
+                    this.colorPickerBtn.style.backgroundColor = e.target.value;
+                });
             }
 
             setupCanvas() {
@@ -1192,6 +1248,9 @@
 
             setupEventListeners() {
                 this.videoController.trackingCanvas.addEventListener('click', (e) => {
+                    // 如果正在測量距離，不執行任何操作
+                    if (this.videoController.unitCalibration.isCalibrating) return;
+                    
                     const rect = this.videoController.trackingCanvas.getBoundingClientRect();
                     const x = (e.clientX - rect.left) * (this.videoController.trackingCanvas.width / rect.width);
                     const y = (e.clientY - rect.top) * (this.videoController.trackingCanvas.height / rect.height);
@@ -1203,17 +1262,19 @@
                         
                         const imageData = ctx.getImageData(x, y, 1, 1).data;
                         const color = `#${imageData[0].toString(16).padStart(2, '0')}${imageData[1].toString(16).padStart(2, '0')}${imageData[2].toString(16).padStart(2, '0')}`;
+                        
+                        // 更新顏色選擇器和按鈕的背景色
                         this.colorPicker.value = color;
+                        this.colorPickerBtn.style.backgroundColor = color;
                         
                         const displayScale = rect.width / this.videoController.trackingCanvas.width;
-                        const circleRadius = 5 / displayScale; // 保持視覺上 5px 的大小
+                        const circleRadius = 5 / displayScale;
                         
                         ctx.beginPath();
                         ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
                         ctx.strokeStyle = 'RED';
-                        ctx.lineWidth = 2 / displayScale; // 線寬也要縮放
+                        ctx.lineWidth = 2 / displayScale;
                         ctx.stroke();
-
                     }
                 });
             }
@@ -1324,7 +1385,7 @@
                             this.drawDetectedPoints();
                         } else {
                             this.missedFrames++;
-                            // 如果連續多次不到目標，在更大範內搜索
+                            // 如果連續多次不到目標，在更範內搜索
                             if (this.missedFrames > 3) {
                                 this.searchRadius = Math.min(this.searchRadius * 1.5, 150);
                             }
@@ -1538,7 +1599,7 @@
                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
                 if (this.trailMode === 'hide') {
-                    // 只顯示當前時間之前的最後個點
+                    // 只顯示當前間之前的最後個點
                     const lastValidPoint = [...this.manualPoints]
                         .reverse()
                         .find(point => point.time <= currentTime);
@@ -1642,6 +1703,50 @@
                     }
                 });
             }
+
+            setupIOSMode() {
+                const iosButton = document.getElementById('toggleIOSMode');
+                iosButton.addEventListener('click', () => {
+                    // 循環切換三種模式: 關閉 -> 一般 -> 超慢
+                    if (!this.isIOSMode) {
+                        // 切換到一般 IOS 模式
+                        this.isIOSMode = true;
+                        this.iosSkipCount = 10;
+                        iosButton.innerHTML = '跳過數據: 一般<br>(跳過前10筆數據)</font>';
+                    } else if (this.iosSkipCount === 10) {
+                        // 切換到超慢 IOS 模式
+                        this.iosSkipCount = 15;
+                        iosButton.innerHTML = '跳過數據: 嚴重<br>(跳過前15筆數據)';
+                    } else {
+                        // 切換回關閉狀態
+                        this.isIOSMode = false;
+                        this.iosSkipCount = 0;  // 改為 0,表示不跳過任何數據
+                        iosButton.innerHTML = '跳過數據: 關閉<br>(建議 IOS 開啟)';
+                    }
+                    
+                    // 清除現有數據並重新開始
+                    this.videoController.clearAll();
+                });
+            }
+
+            addTrackingPoint(x, y) {
+                const time = this.videoController.video.currentTime;
+                
+                // 在 IOS 模式下，只有在累積足夠數據後才開始記錄
+                if (this.isIOSMode) {
+                    if (this.videoController.trackingData.length < this.iosSkipCount) {
+                        return; // 跳過前面的數據
+                    }
+                }
+                
+                this.videoController.trackingData.push({
+                    time: time,
+                    x: x,
+                    y: y
+                });
+                
+                graphRenderer.updateGraphs(this.videoController.trackingData);
+            }
         }
 
         class GraphRenderer {
@@ -1680,7 +1785,7 @@
 
                 this.setupTabs();
                 
-                // 確保初始狀態下位置圖表可的
+                // 確保初始狀態下位圖表可的
                 document.getElementById('positionTab').style.display = 'block';
 
                 this.axtCanvas = document.getElementById('axtGraph');
@@ -1704,7 +1809,7 @@
                 
                 tabButtons.forEach(button => {
                     button.addEventListener('click', () => {
-                        // 移除所有活動狀態
+                        // 移除所有活動狀
                         tabButtons.forEach(btn => btn.classList.remove('active'));
                         tabs.forEach(tab => tab.style.display = 'none');
                         
@@ -1728,7 +1833,7 @@
                                     break;
                             }
                         } else {
-                            // 如果沒有數據，清除當前頁籤的圖表
+                            // 如果沒有數，清除當前頁籤的圖表
                             const currentTab = document.getElementById(tabId);
                             const graphs = currentTab.querySelectorAll('canvas');
                             graphs.forEach(graph => {
@@ -1744,8 +1849,14 @@
                 if (!trackingData || trackingData.length < 2) return;
                 
                 try {
+                    // 在 IOS 模式下過濾數據
+                    let processedData = trackingData;
+                    if (objectTracker.isIOSMode) {
+                        processedData = trackingData.slice(objectTracker.iosSkipCount);
+                    }
+                    
                     // 保存數據的深拷貝
-                    this.trackingData = JSON.parse(JSON.stringify(trackingData));
+                    this.trackingData = JSON.parse(JSON.stringify(processedData));
                     
                     // 獲取當前活動的頁籤
                     const activeTab = document.querySelector('.tab-button.active');
