@@ -450,6 +450,7 @@
                 <!-- 隱藏原來的顏色選擇器 -->
                 <input type="color" id="colorPicker" value="#ff0000" style="display: none;">
                 <!-- 其他按鈕往下移 -->
+                <button id="toggleIOSSpecialMode">分析模式: 精細<br>(IOS 建議用 精細)</button>
                 <button id="startTracking">開始追蹤</button>
                 <button id="clearAll">重新開始<br>(重新繪製數據圖)</button>
                 <button id="toggleTrailMode">軌跡模式: 顯示</button>
@@ -457,7 +458,7 @@
                 <button id="toggleIOSMode" style="display: none;">跳過數據: 關閉<br>(建議 IOS 開啟)</button>
                 <button id="toggleProcessingSpeed" style="display: none;">處理速度: 正常</button>
                 <button id="toggleSampleRate" style="display: none;">取樣頻率: 每禎</button>
-                <button id="toggleIOSSpecialMode">分析模式: 快速<br>(IOS 建議用 精細)</button>
+
 
                 <br>
                 <button id="exportVideo">匯出軌跡圖</button>
@@ -1050,7 +1051,7 @@
                 // 獲取畫布的顯示尺寸
                 const displayRect = canvas.getBoundingClientRect();
                 
-                // 計算從顯示尺寸到實際尺寸的縮放比例
+                // 計算從顯示���寸到實際尺寸的縮放比例
                 const scaleX = canvas.width / displayRect.width;
                 const scaleY = canvas.height / displayRect.height;
                 
@@ -1242,10 +1243,10 @@
 
                 // 添加取樣計數器
                 this.sampleCounter = 0;
-                this.sampleInterval = 5; // 每2禎取樣一次
+                this.sampleInterval = 3; // 每2禎取樣一次
 
                 // 添加 IOS 特殊模式相關屬性
-                this.isIOSSpecialMode = false;
+                this.isIOSSpecialMode = true;
                 this.isAnalyzing = false;
                 this.frameAnalysisDelay = 50; // 每禎分析的延遲時間(毫秒)
                 
@@ -1724,9 +1725,12 @@
             setupIOSSpecialMode() {
                 const specialModeBtn = document.getElementById('toggleIOSSpecialMode');
                 
+                // 更新按鈕初始文字以反映預設狀態
+                specialModeBtn.innerHTML = `分析模式: 精細<br>(IOS 建議用 精細)`;
+                
                 specialModeBtn.addEventListener('click', () => {
                     this.isIOSSpecialMode = !this.isIOSSpecialMode;
-                    specialModeBtn.innerHTML = `分析模式:  ${this.isIOSSpecialMode ? '精細' : '快速'}<br>(IOS 建議用 精細)`;
+                    specialModeBtn.innerHTML = `分析模式: ${this.isIOSSpecialMode ? '精細' : '快速'}<br>(IOS 建議用 精細)`;
                     
                     // 切換模式時停止當前追蹤
                     this.stopTracking();
