@@ -1247,7 +1247,7 @@
                 // 添加 IOS 特殊模式相關屬性
                 this.isIOSSpecialMode = false;
                 this.isAnalyzing = false;
-                this.frameAnalysisDelay = 200; // 每禎分析的延遲時間(毫秒)
+                this.frameAnalysisDelay = 50; // 每禎分析的延遲時間(毫秒)
                 
                 // 設置 IOS 特殊模式按鈕
                 this.setupIOSSpecialMode();
@@ -2365,6 +2365,49 @@
                 
                 // 繪製數據線
                 this.drawAccelerationLines(accelerationData, maxTime, maxA, minA);
+
+                // 在 AYT 圖上添加 9.8 的參考線
+                if (videoController.unitCalibration.unit === 'm') {  // 只在單位是米的時候畫線
+                    this.drawGravityLine(
+                        this.aytCtx,
+                        maxTime,
+                        convertedMaxA,
+                        convertedMinA
+                    );
+                }
+            }
+
+            drawGravityLine(ctx, maxTime, maxA, minA) {
+                const g = 9.8;  // 重力加速度
+                
+                // 如果 9.8 不在圖表範圍內，就不畫
+                if (g > maxA || g < minA) return;
+                
+                const aRange = maxA - minA;
+                const y = this.margin.top + 
+                         ((maxA - g) / aRange) * 
+                         (ctx.canvas.height - this.margin.top - this.margin.bottom);
+                
+                // 畫虛線
+                ctx.beginPath();
+                ctx.strokeStyle = '#0066cc';  // 藍色
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 5]);  // 設置虛線樣式
+                
+                // 畫橫線
+                ctx.moveTo(this.margin.left, y);
+                ctx.lineTo(ctx.canvas.width - this.margin.right, y);
+                ctx.stroke();
+                
+                // 重置虛線設置
+                ctx.setLineDash([]);
+                
+                // 添加文字標籤
+                ctx.fillStyle = '#0066cc';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('g = 9.8 m/s²', ctx.canvas.width - this.margin.right - 5, y - 5);
             }
 
             drawVelocityLines(velocityData, maxTime, maxV, minV) {
