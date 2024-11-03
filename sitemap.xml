@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://michaelpig0912.github.io/2024/11/03/MPsci-tracker/</loc>
+    
+    <lastmod>2024-11-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://michaelpig0912.github.io/2024/06/29/bambuLab3Dprinter-A1mini-unbox/</loc>
     
     <lastmod>2024-10-26</lastmod>
@@ -788,13 +797,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/pcb/</loc>
-    <lastmod>2024-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/acid-base/</loc>
     <lastmod>2024-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -824,6 +826,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/Ulay/</loc>
+    <lastmod>2024-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/pcb/</loc>
     <lastmod>2024-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1117,13 +1126,6 @@
   </url>
   
   <url>
-    <loc>https://michaelpig0912.github.io/tags/fix/</loc>
-    <lastmod>2024-11-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://michaelpig0912.github.io/tags/AR-js/</loc>
     <lastmod>2024-11-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -1132,6 +1134,13 @@
   
   <url>
     <loc>https://michaelpig0912.github.io/tags/try/</loc>
+    <lastmod>2024-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://michaelpig0912.github.io/tags/fix/</loc>
     <lastmod>2024-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
