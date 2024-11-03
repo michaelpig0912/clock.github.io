@@ -8,7 +8,7 @@
       <link href="/2024/11/03/MPsci-tracker/"/>
       <url>/2024/11/03/MPsci-tracker/</url>
       
-        <content type="html"><![CDATA[</style><h2 id="介紹">介紹</h2><p>這個網頁主要用於國中物理九年級的教學或運動分析，可以幫助使用者分析物體的運動軌跡、速度和加速度等物理量。裡面將水平與垂直分開來，可以看到物體在水平與垂直的運動情形。裡面的圖表可以匯出成 CSV 檔案，方便使用者進行後續的數據處理。</p><h2 id="軟體演示">軟體演示</h2><div style="text-align:center;position: relative;width: 100%;padding-bottom: 70%;height: 0;overflow: hidden;"><iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="https://www.youtube.com/embed/HzDPFuGm6Ck" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h2 id="立即使用">立即使用</h2><div style="text-align: center;"><a href="https://michaelpig0912.github.io/sideProject/MPsci/tracker_V101.html" class="button-link_1" style="display: inline-block; padding: 10px 20px; background-color: #7272ff; color: white; text-decoration: none; border-radius: 5px;  transition: background-color 0.3s, transform 0.3s; ">  立即使用 運動追蹤分析系統 Ver 1.0.1</a></div><h2 id="版本更新">版本更新</h2><ul><li>1.0.1 版本：<ul><li>實現基本功能，單位校正、追蹤顏色與邏輯、不同的分析模式，自動追蹤、軌跡的不同顯示方式及匯出圖片跟可以分析的數據(包含位移、速度、加速度)。</li></ul></li></ul><h2 id="主要特點">主要特點</h2><ol><li><p><strong>影片上傳與播放</strong></p><ul><li>可上傳本地影片檔案</li><li>行動裝置可以直接拍攝影片</li></ul></li><li><p><strong>物體追蹤功能</strong></p><ul><li>自動追蹤模式:根據選定的顏色自動追蹤物體</li><li>手動追蹤模式:手動點選物體位置進行追蹤</li><li>可調整追蹤容許誤差</li><li>支援軌跡顯示/淡出/隱藏</li></ul></li><li><p><strong>單位校正功能</strong></p><ul><li>可設定實際距離與單位</li></ul></li><li><p><strong>數據分析與圖表</strong></p><ul><li>位置-時間圖(X-T和Y-T圖)</li><li>速度-時間圖(Vx-T和Vy-T圖)</li><li>加速度-時間圖(Ax-T和Ay-T圖)</li></ul></li><li><p><strong>數據匯出</strong></p><ul><li>可匯出追蹤軌跡圖</li><li>可匯出分析數據(CSV格式)</li></ul></li><li><p><strong>特殊功能</strong></p><ul><li>PWA支援，可以將網頁加入主選單，就會轉換成 APP，可以離線使用，無需網路。</li></ul></li></ol><h2 id="操作說明">操作說明</h2><h3 id="實驗場地">實驗場地</h3><ol><li><p>建議在背景較為單純的環境下使用，並且拍攝範圍內不要出現相同顏色的物體，以免影響追蹤的結果</p></li><li><p>請使用腳架固定裝置，避免移動造成拍攝的晃動</p></li></ol><img src="/2024/11/03/MPsci-tracker/stage.webp" class="" title="相對簡單的背景，特別顏色的球 (雖然這個背景有點多東西 XD)"><h3 id="操作介面">操作介面</h3><ol><li><p>影片上傳</p><ul><li>點擊「選擇檔案」按鈕上傳影片</li><li>支援本地影片檔案或行動裝置直接拍攝</li></ul> <img src="/2024/11/03/MPsci-tracker/Import.webp" class="" title="影片上傳 (行動裝置可以直接錄影)"></li><li><p>單位校正</p><ul><li>點擊「長度單位校正」按鈕</li><li>在影片中點選兩個點來設定參考距離</li><li>輸入實際距離和單位(如 1 m、100 cm 等)</li><li>點擊「OK」確認</li></ul> <img src="/2024/11/03/MPsci-tracker/measure_1.webp" class="" title="單位校正 (選擇兩個點)"> <img src="/2024/11/03/MPsci-tracker/measure_2.webp" class="" title="輸入實際距離，建議使用公尺為單位"></li><li><p>設定追蹤顏色</p><ul><li>選擇追蹤顏色：點擊影片中要追蹤的物體，它的顏色會自動填入</li></ul> <img src="/2024/11/03/MPsci-tracker/color.webp" class="" title="選擇追蹤顏色"></li><li><p>調整容許誤差</p><ul><li>使用滑桿調整追蹤的顏色的誤差，誤差越小，追蹤越精確，不過可能會有追蹤失敗的狀況</li><li>建議誤差設定在 8~15 之間</li></ul></li><li><p>選擇追蹤模式</p><ul><li>自動追蹤：系統自動追蹤選定顏色的物體</li><li>手動追蹤：手動點選物體位置</li></ul><table><thead><tr><th>模式</th><th>說明</th><th>示範圖</th></tr></thead><tbody><tr><td>自動追蹤</td><td>系統自動追蹤選定顏色的物體</td><td><img src="/2024/11/03/MPsci-tracker/analyze.webp" class=""></td></tr><tr><td>手動追蹤</td><td>需手動點選物體位置，需要自己控制時間軸</td><td><img src="/2024/11/03/MPsci-tracker/manual.webp" class=""></td></tr></tbody></table></li><li><p>「分析模式」切換精細/快速分析</p><ul><li>IOS 建議使用精細模式，不然數據點會出現錯誤。</li><li>電腦可以使用快速分析，可以節省比較多時間。</li><li>快速分析可能會因為裝置效能，每次所出現的數據會有所不同。</li><li>快速分析接近影片的 real-time 速度，精細分析可能是原影片的 1/2 速度。</li></ul></li><li><p>軌跡模式</p><ul><li>使用「軌跡模式」按鈕切換軌跡顯示方式（顯示/淡出/隱藏）</li></ul><table><thead><tr><th>軌跡模式</th><th>說明</th><th>示範圖</th></tr></thead><tbody><tr><td>顯示</td><td>顯示軌跡</td><td><img src="/2024/11/03/MPsci-tracker/all.webp" class=""></td></tr><tr><td>淡出</td><td>軌跡會隨著時間逐漸淡出</td><td><img src="/2024/11/03/MPsci-tracker/fade.webp" class=""></td></tr><tr><td>隱藏</td><td>軌跡會消失，只保留一個點</td><td><img src="/2024/11/03/MPsci-tracker/off.webp" class=""></td></tr></tbody></table></li><li><p>開始追蹤</p><ul><li>點擊「開始追蹤」按鈕就會開始追蹤，並且顯示軌跡。如果追蹤效果不好，請調整誤差值或是重新點選顏色。</li></ul></li><li><p>查看分析結果</p><ul><li>切換不同的圖表頁籤查看分析結果：位置圖表、速度圖表、加速度圖表</li></ul> <img src="/2024/11/03/MPsci-tracker/analyze.webp" class="" title="分析結果"></li><li><p>重新開始</p><ul><li>每次生成完數據後，請記得點擊「重新開始」按鈕來清除所有數據。不要直接按開始追蹤，不然會出現圖表重疊的異常狀況。</li></ul></li><li><p>數據匯出</p><ul><li>點擊「匯出軌跡圖」保存追蹤軌跡的圖片</li><li>點擊「匯出數據」下載 CSV 格式的分析數據</li></ul></li></ol><h2 id="已知問題">已知問題</h2><ol><li><p>手動追中的播放功能會在精細模式下失效，只能透過逐幀點選物體位置。如果要播放功能，請切換到快速模式。</p></li><li><p>IOS 使用「快速模式」會出現異常的線條 (時間會回朔)，推測可能是跟 IOS 的影片處理有關，因此建議不要使用「快速模式」。</p></li><li><p>畫面中如果有相同顏色的物體，會無法正確追蹤。</p></li><li><p>偶爾運行會抓不到畫面，可以重新選擇顏色再試試。</p></li><li><p>如果影片是使用慢速攝影，會需要將影片的慢速攝影調整回正常速度在進行分析，不然會出現錯誤的數據。</p></li></ol><h2 id="回饋">回饋</h2><p>如果您在使用過程中遇到任何問題或有任何建議，歡迎在下方留言區與我們分享。盡快進行修正或改進。同時，如果您有新功能的想法或需求，也請不吝告訴我們。您的意見對我們來說非常寶貴，我們將努力使這個工具變得更加完善和實用。</p><p>這個程式更新的時候，會保留舊的版本，所以不用擔心以後的版本會不會壞掉。</p><style>.button-link_1:hover {  background-color: #3030AA !important;  transform: scale(1.05);}.button-link_2:hover {  background-color: #222 !important;  transform: scale(1.05);}]]></content>
+        <content type="html"><![CDATA[<h2 id="介紹">介紹</h2><p>這個網頁主要用於國中物理九年級的教學或運動分析，可以幫助使用者分析物體的運動軌跡、速度和加速度等物理量。裡面將水平與垂直分開來，可以看到物體在水平與垂直的運動情形。裡面的圖表可以匯出成 CSV 檔案，方便使用者進行後續的數據處理。</p><h2 id="軟體演示">軟體演示</h2><div style="text-align:center;position: relative;width: 100%;padding-bottom: 70%;height: 0;overflow: hidden;"><iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="https://www.youtube.com/embed/HzDPFuGm6Ck" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><h2 id="立即使用">立即使用</h2><div style="text-align: center;"><a href="https://michaelpig0912.github.io/sideProject/MPsci/tracker_V101.html" class="button-link_1" style="display: inline-block; padding: 10px 20px; background-color: #7272ff; color: white; text-decoration: none; border-radius: 5px;  transition: background-color 0.3s, transform 0.3s; ">  立即使用 運動追蹤分析系統 Ver 1.0.1</a></div><h2 id="版本更新">版本更新</h2><ul><li>1.0.1 版本：<ul><li>實現基本功能，單位校正、追蹤顏色與邏輯、不同的分析模式，自動追蹤、軌跡的不同顯示方式及匯出圖片跟可以分析的數據(包含位移、速度、加速度)。</li></ul></li></ul><h2 id="主要特點">主要特點</h2><ol><li><p><strong>影片上傳與播放</strong></p><ul><li>可上傳本地影片檔案</li><li>行動裝置可以直接拍攝影片</li></ul></li><li><p><strong>物體追蹤功能</strong></p><ul><li>自動追蹤模式:根據選定的顏色自動追蹤物體</li><li>手動追蹤模式:手動點選物體位置進行追蹤</li><li>可調整追蹤容許誤差</li><li>支援軌跡顯示/淡出/隱藏</li></ul></li><li><p><strong>單位校正功能</strong></p><ul><li>可設定實際距離與單位</li></ul></li><li><p><strong>數據分析與圖表</strong></p><ul><li>位置-時間圖(X-T和Y-T圖)</li><li>速度-時間圖(Vx-T和Vy-T圖)</li><li>加速度-時間圖(Ax-T和Ay-T圖)</li></ul></li><li><p><strong>數據匯出</strong></p><ul><li>可匯出追蹤軌跡圖</li><li>可匯出分析數據(CSV格式)</li></ul></li><li><p><strong>特殊功能</strong></p><ul><li>PWA支援，可以將網頁加入主選單，就會轉換成 APP，可以離線使用，無需網路。</li></ul></li></ol><h2 id="操作說明">操作說明</h2><h3 id="實驗場地">實驗場地</h3><ol><li><p>建議在背景較為單純的環境下使用，並且拍攝範圍內不要出現相同顏色的物體，以免影響追蹤的結果</p></li><li><p>請使用腳架固定裝置，避免移動造成拍攝的晃動</p></li></ol><img src="/2024/11/03/MPsci-tracker/stage.webp" class="" title="相對簡單的背景，特別顏色的球 (雖然這個背景有點多東西 XD)"><h3 id="操作介面">操作介面</h3><ol><li><p>影片上傳</p><ul><li>點擊「選擇檔案」按鈕上傳影片</li><li>支援本地影片檔案或行動裝置直接拍攝</li></ul> <img src="/2024/11/03/MPsci-tracker/Import.webp" class="" title="影片上傳 (行動裝置可以直接錄影)"></li><li><p>單位校正</p><ul><li>點擊「長度單位校正」按鈕</li><li>在影片中點選兩個點來設定參考距離</li><li>輸入實際距離和單位(如 1 m、100 cm 等)</li><li>點擊「OK」確認</li></ul> <img src="/2024/11/03/MPsci-tracker/measure_1.webp" class="" title="單位校正 (選擇兩個點)"> <img src="/2024/11/03/MPsci-tracker/measure_2.webp" class="" title="輸入實際距離，建議使用公尺為單位"></li><li><p>設定追蹤顏色</p><ul><li>選擇追蹤顏色：點擊影片中要追蹤的物體，它的顏色會自動填入</li></ul> <img src="/2024/11/03/MPsci-tracker/color.webp" class="" title="選擇追蹤顏色"></li><li><p>調整容許誤差</p><ul><li>使用滑桿調整追蹤的顏色的誤差，誤差越小，追蹤越精確，不過可能會有追蹤失敗的狀況</li><li>建議誤差設定在 8~15 之間</li></ul></li><li><p>選擇追蹤模式</p><ul><li>自動追蹤：系統自動追蹤選定顏色的物體</li><li>手動追蹤：手動點選物體位置</li></ul><table><thead><tr><th>模式</th><th>說明</th><th>示範圖</th></tr></thead><tbody><tr><td>自動追蹤</td><td>系統自動追蹤選定顏色的物體</td><td><img src="/2024/11/03/MPsci-tracker/analyze.webp" class=""></td></tr><tr><td>手動追蹤</td><td>需手動點選物體位置，需要自己控制時間軸</td><td><img src="/2024/11/03/MPsci-tracker/manual.webp" class=""></td></tr></tbody></table></li><li><p>「分析模式」切換精細/快速分析</p><ul><li>IOS 建議使用精細模式，不然數據點會出現錯誤。</li><li>電腦可以使用快速分析，可以節省比較多時間。</li><li>快速分析可能會因為裝置效能，每次所出現的數據會有所不同。</li><li>快速分析接近影片的 real-time 速度，精細分析可能是原影片的 1/2 速度。</li></ul></li><li><p>軌跡模式</p><ul><li>使用「軌跡模式」按鈕切換軌跡顯示方式（顯示/淡出/隱藏）</li></ul><table><thead><tr><th>軌跡模式</th><th>說明</th><th>示範圖</th></tr></thead><tbody><tr><td>顯示</td><td>顯示軌跡</td><td><img src="/2024/11/03/MPsci-tracker/all.webp" class=""></td></tr><tr><td>淡出</td><td>軌跡會隨著時間逐漸淡出</td><td><img src="/2024/11/03/MPsci-tracker/fade.webp" class=""></td></tr><tr><td>隱藏</td><td>軌跡會消失，只保留一個點</td><td><img src="/2024/11/03/MPsci-tracker/off.webp" class=""></td></tr></tbody></table></li><li><p>開始追蹤</p><ul><li>點擊「開始追蹤」按鈕就會開始追蹤，並且顯示軌跡。如果追蹤效果不好，請調整誤差值或是重新點選顏色。</li></ul></li><li><p>查看分析結果</p><ul><li>切換不同的圖表頁籤查看分析結果：位置圖表、速度圖表、加速度圖表</li></ul> <img src="/2024/11/03/MPsci-tracker/analyze.webp" class="" title="分析結果"></li><li><p>重新開始</p><ul><li>每次生成完數據後，請記得點擊「重新開始」按鈕來清除所有數據。不要直接按開始追蹤，不然會出現圖表重疊的異常狀況。</li></ul></li><li><p>數據匯出</p><ul><li>點擊「匯出軌跡圖」保存追蹤軌跡的圖片</li><li>點擊「匯出數據」下載 CSV 格式的分析數據</li></ul></li></ol><h2 id="已知問題">已知問題</h2><ol><li><p>手動追中的播放功能會在精細模式下失效，只能透過逐幀點選物體位置。如果要播放功能，請切換到快速模式。</p></li><li><p>IOS 使用「快速模式」會出現異常的線條 (時間會回朔)，推測可能是跟 IOS 的影片處理有關，因此建議不要使用「快速模式」。</p></li><li><p>畫面中如果有相同顏色的物體，會無法正確追蹤。</p></li><li><p>偶爾運行會抓不到畫面，可以重新選擇顏色再試試。</p></li><li><p>如果影片是使用慢速攝影，會需要將影片的慢速攝影調整回正常速度在進行分析，不然會出現錯誤的數據。</p></li></ol><h2 id="回饋">回饋</h2><p>如果您在使用過程中遇到任何問題或有任何建議，歡迎在下方留言區與我們分享。盡快進行修正或改進。同時，如果您有新功能的想法或需求，也請不吝告訴我們。您的意見對我們來說非常寶貴，我們將努力使這個工具變得更加完善和實用。</p><p>這個程式更新的時候，會保留舊的版本，所以不用擔心以後的版本會不會壞掉。</p><style>.button-link_1:hover {  background-color: #3030AA !important;  transform: scale(1.05);}.button-link_2:hover {  background-color: #222 !important;  transform: scale(1.05);}</style>]]></content>
       
       
       <categories>
@@ -206,11 +206,11 @@
       
         <tags>
             
+            <tag> stage </tag>
+            
             <tag> show </tag>
             
             <tag> drama </tag>
-            
-            <tag> stage </tag>
             
         </tags>
       
@@ -508,11 +508,11 @@
       
         <tags>
             
+            <tag> stage </tag>
+            
             <tag> show </tag>
             
             <tag> drama </tag>
-            
-            <tag> stage </tag>
             
         </tags>
       
@@ -829,11 +829,11 @@
       
         <tags>
             
+            <tag> stage </tag>
+            
             <tag> show </tag>
             
             <tag> drama </tag>
-            
-            <tag> stage </tag>
             
         </tags>
       
@@ -974,11 +974,11 @@
       
         <tags>
             
+            <tag> stage </tag>
+            
             <tag> show </tag>
             
             <tag> drama </tag>
-            
-            <tag> stage </tag>
             
         </tags>
       
@@ -1495,11 +1495,11 @@
       
         <tags>
             
+            <tag> stage </tag>
+            
             <tag> show </tag>
             
             <tag> drama </tag>
-            
-            <tag> stage </tag>
             
         </tags>
       
