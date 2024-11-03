@@ -558,7 +558,7 @@
             <div class="settings">
                 <div>
                     <label for="tolerance">容許誤差：</label><span id="toleranceValue">10</span>
-                    <input type="range" id="tolerance" min="0" max="100" value="10">
+                    <input type="range" id="tolerance" min="0" max="50" value="10">
                 </div>
 
             </div>
@@ -1352,7 +1352,7 @@
                 this.isManualMode = false; // 添加手模式標記
                 this.manualPoints = []; // 存儲手動加的點
                 this.lastPosition = null; // 儲存前一幀的位置
-                this.searchRadius = 50;   // 搜索半徑（像素）
+                this.searchRadius = 100;   // 搜索半徑（像素）
                 this.trailMode = 'show'; // 'show', 'fade', 'hide'
                 this.trailLength = 3; // 改為只顯示最後 3 個點（原本是 5）
                 this.setupTrailMode();
