@@ -325,7 +325,7 @@
             display: flex;
             flex-direction: row; /* 水平排列 */
             gap: 10px;
-            align-items: center; /* 垂直居中 */
+            align-items: center; /* 垂居中 */
             justify-content: space-between; /* 水平分布 */
             width: 100%;
         }
@@ -450,12 +450,16 @@
                 <!-- 隱藏原來的顏色選擇器 -->
                 <input type="color" id="colorPicker" value="#ff0000" style="display: none;">
                 <!-- 其他按鈕往下移 -->
+                <button id="toggleIOSSpecialMode">分析模式: 精細<br>(IOS 建議用 精細)</button>
                 <button id="startTracking">開始追蹤</button>
                 <button id="clearAll">重新開始<br>(重新繪製數據圖)</button>
                 <button id="toggleTrailMode">軌跡模式: 顯示</button>
                 <button id="toggleTrackingMode">切換到手動追蹤</button>
-                <button id="toggleIOSMode">跳過數據: 關閉<br>(建議 IOS 開啟)</button>
+                <button id="toggleIOSMode" style="display: none;">跳過數據: 關閉<br>(建議 IOS 開啟)</button>
                 <button id="toggleProcessingSpeed" style="display: none;">處理速度: 正常</button>
+                <button id="toggleSampleRate" style="display: none;">取樣頻率: 每禎</button>
+
+
                 <br>
                 <button id="exportVideo">匯出軌跡圖</button>
                 <button id="exportData">匯出數據</button>
@@ -662,7 +666,7 @@
                 const videoAspect = this.video.videoWidth / this.video.videoHeight;
                 const wrapper = this.video.parentElement;
                 
-                // 設置 wrapper 的高度以保持影片比
+                // 設置 wrapper 的高度以保持影片
                 wrapper.style.height = `${wrapper.offsetWidth / videoAspect}px`;
                 
                 // 設置 canvas 的實際尺寸為影片的尺寸
@@ -912,7 +916,7 @@
                     const convertedAx = acceleration ? this.convertPixelsToUnit(acceleration.ax) : '';
                     const convertedAy = acceleration ? this.convertPixelsToUnit(acceleration.ay) : '';
 
-                    // 格式化數據，保留三位小數
+                    // 格式化數據，留三位小數
                     const formattedTime = point.time.toFixed(3);
                     const formattedX = convertedX.toFixed(3);
                     const formattedY = convertedY.toFixed(3);
@@ -1047,7 +1051,7 @@
                 // 獲取畫布的顯示尺寸
                 const displayRect = canvas.getBoundingClientRect();
                 
-                // 計算從顯示尺寸到實際尺寸的縮放比例
+                // 計算從顯示���寸到實際尺寸的縮放比例
                 const scaleX = canvas.width / displayRect.width;
                 const scaleY = canvas.height / displayRect.height;
                 
@@ -1200,7 +1204,7 @@
 
                 // 添加新的屬性
                 this.frameInterval = 1000 / 30; // 30fps 的間隔時間
-                this.maxFrameSkip = 5; // 最大允許跳過的幀數
+                this.maxFrameSkip = 2; // 最大允許跳過的幀數
                 this.lastTrackingTime = 0;
                 this.missedFrames = 0;
 
@@ -1236,6 +1240,18 @@
                 this.colorPicker.addEventListener('change', (e) => {
                     this.colorPickerBtn.style.backgroundColor = e.target.value;
                 });
+
+                // 添加取樣計數器
+                this.sampleCounter = 0;
+                this.sampleInterval = 3; // 每2禎取樣一次
+
+                // 添加 IOS 特殊模式相關屬性
+                this.isIOSSpecialMode = true;
+                this.isAnalyzing = false;
+                this.frameAnalysisDelay = 50; // 每禎分析的延遲時間(毫秒)
+                
+                // 設置 IOS 特殊模式按鈕
+                this.setupIOSSpecialMode();
             }
 
             setupCanvas() {
@@ -1248,7 +1264,7 @@
 
             setupEventListeners() {
                 this.videoController.trackingCanvas.addEventListener('click', (e) => {
-                    // 如果正在測量距離，不執行任何操作
+                    // 如果在測量距離，不執行任何操作
                     if (this.videoController.unitCalibration.isCalibrating) return;
                     
                     const rect = this.videoController.trackingCanvas.getBoundingClientRect();
@@ -1291,19 +1307,6 @@
                 }, null);
             }
 
-            startTracking() {
-                if (this.videoController.video.paused) {
-                    this.videoController.video.play();
-                }
-                this.tracking = true;
-                this.track();
-            }
-
-            stopTracking() {
-                this.tracking = false;
-                this.videoController.video.pause();
-            }
-
             setupProcessingSpeed() {
                 const speedButton = document.getElementById('toggleProcessingSpeed');
                 speedButton.addEventListener('click', () => {
@@ -1326,15 +1329,11 @@
             async track() {
                 if (!this.tracking) return;
 
-                const now = performance.now();
-                const timeSinceLastTrack = now - this.lastTrackingTime;
-
-                if (timeSinceLastTrack >= this.frameInterval) {
-                    // 添加處理延遲
-                    if (this.processingDelay > 0) {
-                        await new Promise(resolve => setTimeout(resolve, this.processingDelay));
-                    }
-
+                // 增加取樣計數
+                this.sampleCounter++;
+                
+                // 只在計數器達到間隔時進行取樣
+                if (this.sampleCounter >= this.sampleInterval) {
                     const ctx = this.videoController.ctx;
                     const video = this.videoController.video;
                     
@@ -1346,7 +1345,6 @@
                         const targetColor = this.hexToRgb(this.colorPicker.value);
                         const tolerance = parseInt(this.tolerance.value);
 
-                        // 擴大搜索範圍
                         const searchRegion = this.lastPosition ? {
                             x: Math.max(0, this.lastPosition.x - this.searchRadius * 1.5),
                             y: Math.max(0, this.lastPosition.y - this.searchRadius * 1.5),
@@ -1385,16 +1383,17 @@
                             this.drawDetectedPoints();
                         } else {
                             this.missedFrames++;
-                            // 如果連續多次不到目標，在更範內搜索
                             if (this.missedFrames > 3) {
                                 this.searchRadius = Math.min(this.searchRadius * 1.5, 150);
                             }
                         }
                     }
-
-                    this.lastTrackingTime = now;
+                    
+                    // 重置計數器
+                    this.sampleCounter = 0;
                 }
 
+                // 使用 requestAnimationFrame 確保下一禎分析
                 requestAnimationFrame(() => this.track());
             }
 
@@ -1634,7 +1633,7 @@
                 const displayY = (point.y / this.videoController.video.videoHeight) * this.videoController.trackingCanvas.height;
 
                 // 設置固定的螢幕像素大小（根據縮放比例調）
-                const pointRadius = 5 * scaleX;    // 更大的點
+                const pointRadius = 5 * scaleX;    // 更大的
                 const lineWidth = 2 * scaleX;       // 更粗的線
                 const fontSize = 10 * scaleX;       // 更大的字體
                 const numberOffset = 15 * scaleY;   // 數字與點的距離
@@ -1707,20 +1706,14 @@
             setupIOSMode() {
                 const iosButton = document.getElementById('toggleIOSMode');
                 iosButton.addEventListener('click', () => {
-                    // 循環切換三種模式: 關閉 -> 一般 -> 超慢
+                    // 只切換兩種模式: 關閉 -> 開啟
                     if (!this.isIOSMode) {
-                        // 切換到一般 IOS 模式
+                        // 切換到 IOS 模式
                         this.isIOSMode = true;
-                        this.iosSkipCount = 10;
-                        iosButton.innerHTML = '跳過數據: 一般<br>(跳過前10筆數據)</font>';
-                    } else if (this.iosSkipCount === 10) {
-                        // 切換到超慢 IOS 模式
-                        this.iosSkipCount = 15;
-                        iosButton.innerHTML = '跳過數據: 嚴重<br>(跳過前15筆數據)';
+                        iosButton.innerHTML = '跳過數據: 開啟<br>(自動處理時間回朔)';
                     } else {
                         // 切換回關閉狀態
                         this.isIOSMode = false;
-                        this.iosSkipCount = 0;  // 改為 0,表示不跳過任何數據
                         iosButton.innerHTML = '跳過數據: 關閉<br>(建議 IOS 開啟)';
                     }
                     
@@ -1729,16 +1722,164 @@
                 });
             }
 
+            setupIOSSpecialMode() {
+                const specialModeBtn = document.getElementById('toggleIOSSpecialMode');
+                
+                // 更新按鈕初始文字以反映預設狀態
+                specialModeBtn.innerHTML = `分析模式: 精細<br>(IOS 建議用 精細)`;
+                
+                specialModeBtn.addEventListener('click', () => {
+                    this.isIOSSpecialMode = !this.isIOSSpecialMode;
+                    specialModeBtn.innerHTML = `分析模式: ${this.isIOSSpecialMode ? '精細' : '快速'}<br>(IOS 建議用 精細)`;
+                    
+                    // 切換模式時停止當前追蹤
+                    this.stopTracking();
+                    this.isAnalyzing = false;
+                    
+                    // 清除現有數據
+                    this.videoController.clearAll();
+                });
+            }
+
+            async startTracking() {
+                if (this.isIOSSpecialMode) {
+                    // 特殊模式下的追蹤
+                    this.tracking = true;
+                    this.isAnalyzing = true;
+                    this.videoController.video.pause();
+                    // 確保從頭開始分析
+                    this.videoController.video.currentTime = 0;
+                    this.analyzeFrameByFrame();
+                } else {
+                    // 原本的追蹤方式
+                    if (this.videoController.video.paused) {
+                        this.videoController.video.play();
+                    }
+                    this.tracking = true;
+                    this.track();
+                }
+            }
+
+            stopTracking() {
+                this.tracking = false;
+                this.isAnalyzing = false;
+                if (!this.isIOSSpecialMode) {
+                    this.videoController.video.pause();
+                }
+            }
+
+            async analyzeFrameByFrame() {
+                if (!this.tracking || !this.isAnalyzing) return;
+
+                const video = this.videoController.video;
+                const stepForwardButton = this.videoController.stepForwardButton;
+
+                // 如果影片還沒播完
+                if (video.currentTime < video.duration - 0.01) { // 添加小誤差範圍
+                    // 分析當前禎
+                    await this.analyzeCurrentFrame();
+                    
+                    // 延遲一段時間後按下一禎按鈕
+                    await new Promise(resolve => setTimeout(resolve, this.frameAnalysisDelay));
+                    
+                    // 模擬按下下一禎按鈕
+                    stepForwardButton.click();
+                    
+                    // 等待影片更新
+                    await new Promise(resolve => {
+                        const checkTime = () => {
+                            if (!video.seeking) {
+                                resolve();
+                            } else {
+                                requestAnimationFrame(checkTime);
+                            }
+                        };
+                        checkTime();
+                    });
+
+                    // 繼續分析下一禎
+                    requestAnimationFrame(() => this.analyzeFrameByFrame());
+                } else {
+                    // 影片分析完成
+                    this.stopTracking();
+                    console.log('分析完成');
+                }
+            }
+
+            async analyzeCurrentFrame() {
+                const video = this.videoController.video;
+                const ctx = this.videoController.ctx;
+
+                // 清除並繪製當前禎
+                ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+                const imageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+                const targetColor = this.hexToRgb(this.colorPicker.value);
+                const tolerance = parseInt(this.tolerance.value);
+
+                const searchRegion = this.lastPosition ? {
+                    x: Math.max(0, this.lastPosition.x - this.searchRadius * 1.5),
+                    y: Math.max(0, this.lastPosition.y - this.searchRadius *1.5),
+                    width: Math.min(ctx.canvas.width, this.searchRadius *3),
+                    height: Math.min(ctx.canvas.height, this.searchRadius *3)
+                } : {
+                    x: 0,
+                    y: 0,
+                    width: ctx.canvas.width,
+                    height: ctx.canvas.height
+                };
+
+                const targetRegion = this.findTargetInRegion(
+                    imageData,
+                    targetColor,
+                    tolerance,
+                    searchRegion
+                );
+
+                if (targetRegion) {
+                    this.missedFrames = 0;
+                    this.lastPosition = {
+                        x: targetRegion.centerX,
+                        y: targetRegion.centerY,
+                        time: video.currentTime
+                    };
+
+                    this.detectedPoints.push(this.lastPosition);
+                    this.videoController.trackingData.push({
+                        time: video.currentTime,
+                        x: targetRegion.centerX,
+                        y: targetRegion.centerY
+                    });
+
+                    graphRenderer.updateGraphs(this.videoController.trackingData);
+                    this.drawDetectedPoints();
+                } else {
+                    this.missedFrames++;
+                    if (this.missedFrames > 3) {
+                        this.searchRadius = Math.min(this.searchRadius *1.5, 150);
+                    }
+                }
+            }
+
             addTrackingPoint(x, y) {
                 const time = this.videoController.video.currentTime;
                 
-                // 在 IOS 模式下，只有在累積足夠數據後才開始記錄
-                if (this.isIOSMode) {
-                    if (this.videoController.trackingData.length < this.iosSkipCount) {
-                        return; // 跳過前面的數據
+                // 在 IOS 模式下檢查時間回朔
+                if (this.isIOSMode && this.videoController.trackingData.length > 0) {
+                    const lastTime = this.videoController.trackingData[this.videoController.trackingData.length - 1].time;
+                    
+                    // 如果發現時間回朔
+                    if (time < lastTime) {
+                        console.log(`檢測到時間回朔: ${lastTime}s -> ${time}s`);
+                        // 清除所有之前的數據
+                        this.videoController.trackingData = [];
+                        // 重置圖表
+                        graphRenderer.clearGraphs();
                     }
                 }
                 
+                // 添加新的追蹤點
                 this.videoController.trackingData.push({
                     time: time,
                     x: x,
@@ -1849,20 +1990,14 @@
                 if (!trackingData || trackingData.length < 2) return;
                 
                 try {
-                    // 在 IOS 模式下過濾數據
-                    let processedData = trackingData;
-                    if (objectTracker.isIOSMode) {
-                        processedData = trackingData.slice(objectTracker.iosSkipCount);
-                    }
-                    
-                    // 保存數據的深拷貝
-                    this.trackingData = JSON.parse(JSON.stringify(processedData));
+                    // 直接使用原始數據，不處理回朔
+                    this.trackingData = JSON.parse(JSON.stringify(trackingData));
                     
                     // 獲取當前活動的頁籤
                     const activeTab = document.querySelector('.tab-button.active');
                     if (!activeTab) return;
 
-                    // 根據當前頁籤繪製相應的圖
+                    // 根據當前頁籤繪製相應的圖表
                     switch(activeTab.getAttribute('data-tab')) {
                         case 'position':
                             this.drawXTGraph(this.trackingData);
@@ -2143,30 +2278,28 @@
             }
 
             drawVelocityGraphs(data) {
-                console.log('Drawing velocity graphs with data:', data); // 添加調試日誌
-                // 首先清除舊的圖表
+                // 清除舊的圖表
                 this.vxtCtx.clearRect(0, 0, this.vxtCanvas.width, this.vxtCanvas.height);
                 this.vytCtx.clearRect(0, 0, this.vytCanvas.width, this.vytCanvas.height);
 
                 const velocityData = this.calculateVelocity(data);
                 if (velocityData.length === 0) return;
 
-                // 定義圖表的寬度和高度（移到這裡）
-                const vxtGraphWidth = this.vxtCanvas.width - this.margin.left - this.margin.right;
-                const vxtGraphHeight = this.vxtCanvas.height - this.margin.top - this.margin.bottom;
-                const vytGraphWidth = this.vytCanvas.width - this.margin.left - this.margin.right;
-                const vytGraphHeight = this.vytCanvas.height - this.margin.top - this.margin.bottom;
-
                 const maxTime = Math.max(...velocityData.map(d => d.time));
                 
-                // 找出 X 和 Y 方向速度的最大絕對值
-                const maxVx = Math.max(...velocityData.map(d => Math.abs(d.vx)));
-                const maxVy = Math.max(...velocityData.map(d => Math.abs(d.vy)));
-                // 使用兩者中的較大值作為共同的 Y 軸範圍
-                const maxV = Math.max(maxVx, maxVy);
+                // 分別計算 X 和 Y 方向速度的最大和最小值
+                const vxMax = Math.max(0, ...velocityData.map(d => d.vx));
+                const vxMin = Math.min(0, ...velocityData.map(d => d.vx));
+                const vyMax = Math.max(0, ...velocityData.map(d => d.vy));
+                const vyMin = Math.min(0, ...velocityData.map(d => d.vy));
+                
+                // 使用兩者中較大的正值和較小的負值作為共同的範圍
+                const maxV = Math.max(vxMax, vyMax);
+                const minV = Math.min(vxMin, vyMin);
                 
                 // 轉換速度單位
                 const convertedMaxV = videoController.convertPixelsToUnit(maxV);
+                const convertedMinV = videoController.convertPixelsToUnit(minV);
                 const unit = `${videoController.unitCalibration.unit}/s`;
 
                 // VXT 圖
@@ -2174,7 +2307,7 @@
                     this.vxtCtx, 
                     maxTime, 
                     convertedMaxV, 
-                    -convertedMaxV, 
+                    convertedMinV, 
                     `X方向速度 (${unit})`
                 );
                 
@@ -2183,72 +2316,37 @@
                     this.vytCtx, 
                     maxTime, 
                     convertedMaxV, 
-                    -convertedMaxV, 
+                    convertedMinV, 
                     `Y方向速度 (${unit})`
                 );
                 
-                // 繪製 VXT 數據
-                if (velocityData.length > 0) {
-                    this.vxtCtx.beginPath();
-                    this.vxtCtx.strokeStyle = '#ff0000';
-                    this.vxtCtx.lineWidth = 2; // 修改線寬
-                    velocityData.forEach((point, index) => {
-                        const x = (point.time / maxTime) * vxtGraphWidth + this.margin.left;
-                        const y = vxtGraphHeight / 2 - (videoController.convertPixelsToUnit(point.vx) / convertedMaxV) * (vxtGraphHeight / 2) + this.margin.top;
-                        
-                        if (index === 0) {
-                            this.vxtCtx.moveTo(x, y);
-                        } else {
-                            this.vxtCtx.lineTo(x, y);
-                        }
-                    });
-                    this.vxtCtx.stroke();
-                }
-
-                // 繪製 VYT 數據
-                if (velocityData.length > 0) {
-                    this.vytCtx.beginPath();
-                    this.vytCtx.strokeStyle = '#ff0000';
-                    this.vytCtx.lineWidth = 2; // 修改寬
-                    velocityData.forEach((point, index) => {
-                        const x = (point.time / maxTime) * vytGraphWidth + this.margin.left;
-                        const y = vytGraphHeight / 2 - (videoController.convertPixelsToUnit(point.vy) / convertedMaxV) * (vytGraphHeight / 2) + this.margin.top;
-                        
-                        if (index === 0) {
-                            this.vytCtx.moveTo(x, y);
-                        } else {
-                            this.vytCtx.lineTo(x, y);
-                        }
-                    });
-                    this.vytCtx.stroke();
-                }
+                // 繪製數據線
+                this.drawVelocityLines(velocityData, maxTime, maxV, minV);
             }
 
             drawAccelerationGraphs(data) {
-                console.log('Drawing acceleration graphs with data:', data); // 添加調試日誌
-                // 首先清除舊的圖表
+                // 清除舊的圖表
                 this.axtCtx.clearRect(0, 0, this.axtCanvas.width, this.axtCanvas.height);
                 this.aytCtx.clearRect(0, 0, this.aytCanvas.width, this.aytCanvas.height);
 
                 const accelerationData = this.calculateAcceleration(data);
                 if (accelerationData.length === 0) return;
 
-                // 定義圖表的寬度和高度（移到這裡）
-                const axtGraphWidth = this.axtCanvas.width - this.margin.left - this.margin.right;
-                const axtGraphHeight = this.axtCanvas.height - this.margin.top - this.margin.bottom;
-                const aytGraphWidth = this.aytCanvas.width - this.margin.left - this.margin.right;
-                const aytGraphHeight = this.aytCanvas.height - this.margin.top - this.margin.bottom;
-
                 const maxTime = Math.max(...accelerationData.map(d => d.time));
                 
-                // 找出 X 和 Y 方向加度的最大絕值
-                const maxAx = Math.max(...accelerationData.map(d => Math.abs(d.ax)));
-                const maxAy = Math.max(...accelerationData.map(d => Math.abs(d.ay)));
-                // 使用兩者中的較大值作為共同的 Y 軸範圍
-                const maxA = Math.max(maxAx, maxAy);
+                // 分別計算 X 和 Y 方向加速度的最大和最小值
+                const axMax = Math.max(0, ...accelerationData.map(d => d.ax));
+                const axMin = Math.min(0, ...accelerationData.map(d => d.ax));
+                const ayMax = Math.max(0, ...accelerationData.map(d => d.ay));
+                const ayMin = Math.min(0, ...accelerationData.map(d => d.ay));
+                
+                // 使用兩者中較大的正值和較小的負值作為共同的範圍
+                const maxA = Math.max(axMax, ayMax);
+                const minA = Math.min(axMin, ayMin);
                 
                 // 轉換加速度單位
                 const convertedMaxA = videoController.convertPixelsToUnit(maxA);
+                const convertedMinA = videoController.convertPixelsToUnit(minA);
                 const unit = `${videoController.unitCalibration.unit}/s²`;
 
                 // AXT 圖
@@ -2256,7 +2354,7 @@
                     this.axtCtx, 
                     maxTime, 
                     convertedMaxA, 
-                    -convertedMaxA, 
+                    convertedMinA, 
                     `X方向加速度 (${unit})`
                 );
                 
@@ -2265,17 +2363,115 @@
                     this.aytCtx, 
                     maxTime, 
                     convertedMaxA, 
-                    -convertedMaxA, 
+                    convertedMinA, 
                     `Y方向加速度 (${unit})`
                 );
+                
+                // 繪製數據線
+                this.drawAccelerationLines(accelerationData, maxTime, maxA, minA);
+
+                // 在 AYT 圖上添加 9.8 的參考線
+                if (videoController.unitCalibration.unit === 'm') {  // 只在單位是米的時候畫線
+                    this.drawGravityLine(
+                        this.aytCtx,
+                        maxTime,
+                        convertedMaxA,
+                        convertedMinA
+                    );
+                }
+            }
+
+            drawGravityLine(ctx, maxTime, maxA, minA) {
+                const g = 9.8;  // 重力加速度
+                
+                // 如果 9.8 不在圖表範圍內，就不畫
+                if (g > maxA || g < minA) return;
+                
+                const aRange = maxA - minA;
+                const y = this.margin.top + 
+                         ((maxA - g) / aRange) * 
+                         (ctx.canvas.height - this.margin.top - this.margin.bottom);
+                
+                // 畫虛線
+                ctx.beginPath();
+                ctx.strokeStyle = '#0066cc';  // 藍色
+                ctx.lineWidth = 1;
+                ctx.setLineDash([5, 5]);  // 設置虛線樣式
+                
+                // 畫橫線
+                ctx.moveTo(this.margin.left, y);
+                ctx.lineTo(ctx.canvas.width - this.margin.right, y);
+                ctx.stroke();
+                
+                // 重置虛線設置
+                ctx.setLineDash([]);
+                
+                // 添加文字標籤
+                ctx.fillStyle = '#0066cc';
+                ctx.font = '12px Arial';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'bottom';
+                ctx.fillText('g = 9.8 m/s²', ctx.canvas.width - this.margin.right - 5, y - 5);
+            }
+
+            drawVelocityLines(velocityData, maxTime, maxV, minV) {
+                const vRange = maxV - minV;
+                
+                // 繪製 VXT 數據
+                this.vxtCtx.beginPath();
+                this.vxtCtx.strokeStyle = '#ff0000';
+                this.vxtCtx.lineWidth = 2;
+                velocityData.forEach((point, index) => {
+                    const x = (point.time / maxTime) * 
+                             (this.vxtCanvas.width - this.margin.left - this.margin.right) + 
+                             this.margin.left;
+                    const y = this.margin.top + 
+                             ((maxV - point.vx) / vRange) * 
+                             (this.vxtCanvas.height - this.margin.top - this.margin.bottom);
+                    
+                    if (index === 0) {
+                        this.vxtCtx.moveTo(x, y);
+                    } else {
+                        this.vxtCtx.lineTo(x, y);
+                    }
+                });
+                this.vxtCtx.stroke();
+
+                // 繪製 VYT 數據
+                this.vytCtx.beginPath();
+                this.vytCtx.strokeStyle = '#ff0000';
+                this.vytCtx.lineWidth = 2;
+                velocityData.forEach((point, index) => {
+                    const x = (point.time / maxTime) * 
+                             (this.vytCanvas.width - this.margin.left - this.margin.right) + 
+                             this.margin.left;
+                    const y = this.margin.top + 
+                             ((maxV - point.vy) / vRange) * 
+                             (this.vytCanvas.height - this.margin.top - this.margin.bottom);
+                    
+                    if (index === 0) {
+                        this.vytCtx.moveTo(x, y);
+                    } else {
+                        this.vytCtx.lineTo(x, y);
+                    }
+                });
+                this.vytCtx.stroke();
+            }
+
+            drawAccelerationLines(accelerationData, maxTime, maxA, minA) {
+                const aRange = maxA - minA;
                 
                 // 繪製 AXT 數據
                 this.axtCtx.beginPath();
                 this.axtCtx.strokeStyle = '#ff0000';
-                this.axtCtx.lineWidth = 2; // 修改線寬
+                this.axtCtx.lineWidth = 2;
                 accelerationData.forEach((point, index) => {
-                    const x = (point.time / maxTime) * axtGraphWidth + this.margin.left;
-                    const y = axtGraphHeight / 2 - (videoController.convertPixelsToUnit(point.ax) / convertedMaxA) * (axtGraphHeight / 2) + this.margin.top;
+                    const x = (point.time / maxTime) * 
+                             (this.axtCanvas.width - this.margin.left - this.margin.right) + 
+                             this.margin.left;
+                    const y = this.margin.top + 
+                             ((maxA - point.ax) / aRange) * 
+                             (this.axtCanvas.height - this.margin.top - this.margin.bottom);
                     
                     if (index === 0) {
                         this.axtCtx.moveTo(x, y);
@@ -2288,10 +2484,14 @@
                 // 繪製 AYT 數據
                 this.aytCtx.beginPath();
                 this.aytCtx.strokeStyle = '#ff0000';
-                this.aytCtx.lineWidth = 2; // 修正：添加缺少的線寬值
+                this.aytCtx.lineWidth = 2;
                 accelerationData.forEach((point, index) => {
-                    const x = (point.time / maxTime) * aytGraphWidth + this.margin.left;
-                    const y = aytGraphHeight / 2 - (videoController.convertPixelsToUnit(point.ay) / convertedMaxA) * (aytGraphHeight / 2) + this.margin.top;
+                    const x = (point.time / maxTime) * 
+                             (this.aytCanvas.width - this.margin.left - this.margin.right) + 
+                             this.margin.left;
+                    const y = this.margin.top + 
+                             ((maxA - point.ay) / aRange) * 
+                             (this.aytCanvas.height - this.margin.top - this.margin.bottom);
                     
                     if (index === 0) {
                         this.aytCtx.moveTo(x, y);

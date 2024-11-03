@@ -84,25 +84,149 @@
             justify-items: start; /* 按鈕靠左排列 */
         }
 
+        /* 基本按鈕樣式 */
         button, #videoUpload, #measureDistance {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #305e70;
-            color: #ddd;
+            color: #fff;  /* 統一使用白色文字 */
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
-            height: 60px; /* 修改按鈕高度為 60px */
+            height: 60px;
             font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
 
-        button:hover, #videoUpload:hover, #measureDistance:hover {
-            background-color: #19333d;
+        /* 檔案上傳按鈕 - Imperial red */
+        .custom-upload {
+            background-color: #F94144;
+        }
+        .custom-upload:hover {
+            background-color: #e03a3c;
+        }
+
+        /* 測量距離按鈕 - Orange (Crayola) */
+        #measureDistance {
+            background-color: #F3722C;
+        }
+        #measureDistance:hover {
+            background-color: #e0662a;
+        }
+
+        /* 追蹤顏色按鈕 - Carrot orange */
+        #colorPickerBtn {
+            background-color: #F8961E;
+        }
+        #colorPickerBtn:hover {
+            background-color: #e58a1c;
+        }
+
+        /* 分析模式按鈕 - Pistachio */
+        #toggleIOSSpecialMode {
+            background-color: #43AA8B;
+        }
+        #toggleIOSSpecialMode:hover {
+            background-color: #458280;
+        }
+
+        /* 開始追蹤按鈕 - Coral */
+        #startTracking {
+            background-color: #F8961E;
+            color: #ffffff;
+            grid-column: span 2;
+        }
+        #startTracking:hover {
+            background-color: #e87943;
+        }
+        #startTracking.tracking {
+            background-color: #ff3b3b;
+            color: #fff;
+        }
+        #startTracking:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        /* 重新開始按鈕 - Saffron */
+        #clearAll {
+            background-color: #F94144;
+        }
+        #clearAll:hover {
+            background-color: #962729;
+        }
+
+        /* 軌跡模式按鈕 - Zomp */
+        #toggleTrailMode {
+            background-color: #4D908E;
+        }
+        #toggleTrailMode:hover {
+            background-color: #458280;
+        }
+
+        /* 切換追蹤模式按鈕 - Dark cyan */
+        #toggleTrackingMode {
+            background-color: #577590;
+        }
+        #toggleTrackingMode:hover {
+            background-color: #4e6982;
+        }
+
+        /* IOS 模式按鈕 - Payne's gray */
+        #toggleIOSMode {
+            background-color: #1e8449;
+        }
+        #toggleIOSMode:hover {
+            background-color: #196f3d;
+        }
+
+        /* 處理速度按鈕 - 深綠色 */
+        #toggleProcessingSpeed {
+            background-color: #1e8449;
+        }
+        #toggleProcessingSpeed:hover {
+            background-color: #196f3d;
+        }
+
+        /* 取樣頻率按鈕 - 褐色 */
+        #toggleSampleRate {
+            background-color: #784212;
+        }
+        #toggleSampleRate:hover {
+            background-color: #633517;
+        }
+
+        /* 匯出按鈕 - Cerulean */
+        #exportVideo, #exportData {
+            background-color: #277DA1;
+        }
+        #exportVideo:hover, #exportData:hover {
+            background-color: #236f90;
+        }
+
+        /* 確認單位按鈕 - 深藍色 */
+        #confirmUnit {
+            background-color: #ac4c19;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #confirmUnit:hover {
+            background-color: #1a252f;
+        }
+
+        /* 播放控制按鈕組的特殊樣式 */
+        .control-buttons button {
+            background-color: transparent;
+            color: white;
+            padding: 5px 15px;
+        }
+
+        .control-buttons button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .settings {
@@ -189,6 +313,10 @@
 
             button, #videoUpload {
                 width: 100%; /* 在小螢幕上按鈕佔滿寬度 */
+            }
+
+            #startTracking {
+                grid-column: span 1; /* 在手機版時恢復單格寬度 */
             }
         }
 
@@ -277,11 +405,15 @@
             height: unset;
             margin: unset;
             padding: 10px 20px;
-            background-color: #709fce;
+            background-color: #3498db;
+        }
+
+        .tab-button:hover {
+            background-color: #2980b9;
         }
 
         .tab-button.active {
-            background-color: #0051a7;
+            background-color: #2c3e50;
         }
 
         .tab-content {
@@ -299,14 +431,15 @@
             align-items: center;
             justify-content: center; /* 讓按鈕在容器中居中 */
             width: 100%; /* 確保容器佔滿寬度 */
+            /*height: 60px;*/
         }
 
         .unit-calibration button {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #305e70;
-            color: #ddd;
+            background-color: #F3722C;
+            color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
@@ -342,14 +475,14 @@
             padding: 10px 20px; /* 增加內邊距 */
             font-size: 14px; /* 調整字體大小 */
             border-radius: 5px; /* 圓角 */
-            background-color: #305e70; /* 背景色 */
-            color: #ddd; /* 字體顏色 */
+            background-color: #F3722C; /* 背景色 */
+            color: #fff; /* 字體顏色 */
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
         #confirmUnit:hover {
-            background-color: #19333d; /* 懸停時的背景色 */
+            background-color: #a14d1f; /* 懸停時的背景色 */
         }
 
         /* 如果有使用 Font Awesome 的按鈕，確保圖標對齊 */
@@ -365,8 +498,8 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #305e70;
-            color: #ddd;
+            background-color: #f34a2c;
+            color: #fff;
             cursor: pointer;
             transition: background-color 0.3s;
             width: 100%;
@@ -383,11 +516,11 @@
 
         /* 添加匯出按鈕的特殊樣式 */
         #exportVideo, #exportData {
-            background-color: #c45151; /* 淡紅色 */
+            background-color: #8b5790; /* 淡紅色 */
         }
 
         #exportVideo:hover, #exportData:hover {
-            background-color: #b43838; /* 懸停時的顏色稍深 */
+            background-color: #6f3d74; /* 懸停時的顏色稍深 */
         }
 
         /* 確保顏色選擇按鈕和測量距離按鈕並排 */
@@ -415,7 +548,7 @@
                 </div>
                 
                 <!-- 播放控制按鈕 -->
-                <div class="control-buttons">
+                <div class="control-buttons" style="display: none;">
                     <button id="stepBackward" title="上一幀"><i class="fas fa-step-backward"></i></button>
                     <button id="playPause" title="播放/暫停"><i class="fas fa-play"></i></button>
                     <button id="stepForward" title="下一幀"><i class="fas fa-step-forward"></i></button>
@@ -437,7 +570,7 @@
                 <button class="custom-upload" onclick="document.getElementById('videoUpload').click();">選擇檔案</button>
                 
                 <div class="unit-calibration">
-                    <button id="measureDistance">測量距離<br>(距離校正)</button>
+                    <button id="measureDistance">長度單位校正</button>
                     <!-- 新增顏色選擇按鈕 -->
 
                     <div class="unit-inputs" style="display: none;">
@@ -446,21 +579,19 @@
                         <button id="confirmUnit">OK</button>
                     </div>
                 </div>
-                <button id="colorPickerBtn" style="background-color: #ff0000;">追蹤顏色<br>(點選畫面更換)</button>
+                <button id="colorPickerBtn" style="background-color: #000000;">追蹤顏色<br>(點選畫面更換)</button>
                 <!-- 隱藏原來的顏色選擇器 -->
                 <input type="color" id="colorPicker" value="#ff0000" style="display: none;">
                 <!-- 其他按鈕往下移 -->
-                <button id="toggleIOSSpecialMode">分析模式: 精細<br>(IOS 建議用 精細)</button>
+                
                 <button id="startTracking">開始追蹤</button>
                 <button id="clearAll">重新開始<br>(重新繪製數據圖)</button>
+                <button id="toggleIOSSpecialMode">分析模式: 精細<br>(IOS 建議用 精細)</button>
                 <button id="toggleTrailMode">軌跡模式: 顯示</button>
                 <button id="toggleTrackingMode">切換到手動追蹤</button>
                 <button id="toggleIOSMode" style="display: none;">跳過數據: 關閉<br>(建議 IOS 開啟)</button>
                 <button id="toggleProcessingSpeed" style="display: none;">處理速度: 正常</button>
                 <button id="toggleSampleRate" style="display: none;">取樣頻率: 每禎</button>
-
-
-                <br>
                 <button id="exportVideo">匯出軌跡圖</button>
                 <button id="exportData">匯出數據</button>
             </div>
@@ -577,7 +708,7 @@
                     this.calculatePixelDistance();
                     document.querySelector('.unit-inputs').style.display = 'flex';
                     this.unitCalibration.isCalibrating = false;
-                    document.getElementById('measureDistance').textContent = '測量距離';
+                    document.getElementById('measureDistance').textContent = '長度單位校正';
                     this.clearCalibrationLine(); // 完成量測後清除校準線
                 } else {
                     this.drawCalibrationLine(); // 繪製校準線
@@ -598,8 +729,18 @@
                     this.clearAll();
                     
                     objectTracker.isManualMode = !objectTracker.isManualMode;
-                    document.getElementById('toggleTrackingMode').textContent = 
-                        objectTracker.isManualMode ? '切換到自動追蹤' : '切換到手動追蹤';
+                    const toggleButton = document.getElementById('toggleTrackingMode');
+                    const controlButtons = document.querySelector('.control-buttons');
+                    
+                    if (objectTracker.isManualMode) {
+                        toggleButton.textContent = '切換到自動追蹤';
+                        // 隱藏播放控制按鈕
+                        controlButtons.style.display = 'flex';
+                    } else {
+                        toggleButton.textContent = '切換到手動追蹤';
+                        // 顯示播放控制按鈕
+                        controlButtons.style.display = 'none';
+                    }
                 });
 
                 document.getElementById('clearAll').addEventListener('click', () => this.clearAll());
@@ -609,10 +750,12 @@
                     if (!this.isTracking) {
                         this.isTracking = true;
                         document.getElementById('startTracking').textContent = '停止追蹤';
+                        document.getElementById('startTracking').classList.add('tracking'); // 添加 tracking class
                         objectTracker.startTracking();
                     } else {
                         this.isTracking = false;
                         document.getElementById('startTracking').textContent = '開始追蹤';
+                        document.getElementById('startTracking').classList.remove('tracking'); // 移除 tracking class
                         objectTracker.stopTracking();
                     }
                 });
@@ -805,11 +948,29 @@
                 const isIOSMode = objectTracker.isIOSMode;
                 const iosSkipCount = objectTracker.iosSkipCount;
 
+                // 停止追蹤和分析
+                objectTracker.stopTracking();
+                objectTracker.isAnalyzing = false;
+
+                // 重置追蹤按鈕狀態並禁用按鈕
+                this.isTracking = false;
+                const startTrackingBtn = document.getElementById('startTracking');
+                startTrackingBtn.textContent = '開始追蹤';
+                startTrackingBtn.classList.remove('tracking');
+                startTrackingBtn.disabled = true;  // 禁用按鈕
+                startTrackingBtn.style.opacity = '0.5';  // 添加視覺反饋
+
+                // 設置 500ms 後重新啟用按鈕
+                setTimeout(() => {
+                    startTrackingBtn.disabled = false;
+                    startTrackingBtn.style.opacity = '1';
+                }, 500);
+
                 // 清除追蹤數據
                 this.trackingData = [];
-                objectTracker.manualPoints = []; // 清除手動追蹤點
-                objectTracker.detectedPoints = []; // 清除自動追蹤
-                objectTracker.lastPosition = null; // 重置最後位置
+                objectTracker.manualPoints = []; 
+                objectTracker.detectedPoints = []; 
+                objectTracker.lastPosition = null;
 
                 // 清除畫布
                 this.ctx.clearRect(0, 0, this.trackingCanvas.width, this.trackingCanvas.height);
@@ -817,9 +978,11 @@
                 // 清除所有圖表
                 graphRenderer.clearGraphs();
                 
-                // 重置影片時間到開始位置
+                // 重置影片時間到開始位置並暫停
                 this.video.currentTime = 0;
-                this.video.pause(); // 順便暫停影片
+                this.video.pause();
+                this.isPlaying = false;
+                this.playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
 
                 // 重置所有頁籤內容
                 document.querySelectorAll('.tab-content').forEach(tab => {
@@ -829,10 +992,6 @@
                         ctx.clearRect(0, 0, graph.width, graph.height);
                     });
                 });
-                
-                // 重置追蹤狀態
-                this.isTracking = false;
-                document.getElementById('startTracking').textContent = '開始追蹤';
 
                 // 恢復 IOS Mode 狀態
                 objectTracker.isIOSMode = isIOSMode;
@@ -954,7 +1113,7 @@
 
                 measureBtn.addEventListener('click', () => {
                     this.unitCalibration.isCalibrating = !this.unitCalibration.isCalibrating;
-                    measureBtn.textContent = this.unitCalibration.isCalibrating ? '取消測量' : '測量距離';
+                    measureBtn.textContent = this.unitCalibration.isCalibrating ? '取消測量' : '長度單位校正';
                     
                     if (this.unitCalibration.isCalibrating) {
                         this.unitCalibration.points = [];
@@ -979,7 +1138,7 @@
                     ctx.clearRect(0, 0, this.trackingCanvas.width, this.trackingCanvas.height);
                     ctx.drawImage(this.video, 0, 0, this.trackingCanvas.width, this.trackingCanvas.height);
 
-                    // 繪製已存在的點
+                    // 繪製已存的點
                     this.unitCalibration.points.forEach((point, index) => {
                         ctx.beginPath();
                         ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
@@ -1051,7 +1210,7 @@
                 // 獲取畫布的顯示尺寸
                 const displayRect = canvas.getBoundingClientRect();
                 
-                // 計算從顯示���寸到實際尺寸的縮放比例
+                // 計算從顯示寸到實際尺寸的縮放比例
                 const scaleX = canvas.width / displayRect.width;
                 const scaleY = canvas.height / displayRect.height;
                 
@@ -1576,7 +1735,7 @@
                     // 更新圖表
                     graphRenderer.updateGraphs(this.videoController.trackingData);
                     
-                    // 重新繪製所有點
+                    // 重新製所有點
                     this.drawManualPoints();
                 });
 
@@ -1914,7 +2073,7 @@
                 this.vytCanvas.width = 400;
                 this.vytCanvas.height = 200;
                 
-                // 設置邊距
+                // 設置距
                 this.margin = {
                     left: 40,
                     right: 20,
@@ -1954,7 +2113,7 @@
                         tabButtons.forEach(btn => btn.classList.remove('active'));
                         tabs.forEach(tab => tab.style.display = 'none');
                         
-                        // 設置當前頁簽為活動狀態
+                        // 設置當前頁簽為活��狀態
                         button.classList.add('active');
                         const tabId = button.getAttribute('data-tab') + 'Tab';
                         document.getElementById(tabId).style.display = 'block';
@@ -2025,7 +2184,7 @@
                 this.axtCtx.clearRect(0, 0, this.axtCanvas.width, this.axtCanvas.height);
                 this.aytCtx.clearRect(0, 0, this.aytCanvas.width, this.aytCanvas.height);
                 
-                // 重置最後的數據
+                // 重置後的數據
                 this.trackingData = null;
             }
 
