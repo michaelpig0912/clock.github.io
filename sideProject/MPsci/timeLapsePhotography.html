@@ -448,8 +448,15 @@
     <video id="video" width="640" height="480" autoplay></video>
     <div id="loadingMessage">正在切換解析度...</div>
     <br>
-    <button id="startButton">開始拍照</button>
-    <button id="stopButton">停止拍照</button>
+    <div class="controls">
+        <select id="captureMode">
+            <option value="instant">即時下載模式</option>
+            <option value="preview">預覽模式</option>
+        </select>
+        <button id="startButton">開始拍照</button>
+        <button id="stopButton">停止拍照</button>
+        <button id="downloadAllButton" style="display: none;">下載所有照片</button>
+    </div>
     <input type="number" id="interval" value="1" placeholder="拍照間隔時間" min="1">
     <select id="timeUnit">
         <option value="1000">秒</option>
@@ -497,6 +504,9 @@
         let intervalId;
         let countdownId;
         let photoCount = 0;
+
+        // 添加存儲預覽照片的數組
+        let previewPhotos = [];
 
         // 修改檢測設備類型和系統的函數
         function detectDevice() {
@@ -741,7 +751,7 @@
             updatePhotoCount();
         }
 
-        // 拍照下載
+        // 修改 takePhoto 函數
         function takePhoto() {
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
@@ -749,12 +759,26 @@
             const context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.href = dataUrl;
+            
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             const filename = filenameInput.value.trim() || 'photo';
-            link.download = `${filename}_${timestamp}.png`;
-            link.click();
+            const fullFilename = `${filename}_${timestamp}.png`;
+
+            const captureMode = document.getElementById('captureMode').value;
+            
+            if (captureMode === 'instant') {
+                // 即時下載模式
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = fullFilename;
+                link.click();
+            } else {
+                // 預覽模式
+                previewPhotos.push({
+                    dataUrl: dataUrl,
+                    filename: fullFilename
+                });
+            }
 
             // 更新已拍攝數量
             photoCount++;
@@ -764,7 +788,48 @@
             const img = document.createElement('img');
             img.src = dataUrl;
             photoPreview.appendChild(img);
+            
+            // 如果是預覽模式，顯示下載全部按鈕
+            if (captureMode === 'preview') {
+                document.getElementById('downloadAllButton').style.display = 'block';
+            }
         }
+
+        // 添加下載所有照片的函數
+        function downloadAllPhotos() {
+            // 創建一個 ZIP 文件
+            const zip = new JSZip();
+            
+            // 添加所有照片到 ZIP
+            previewPhotos.forEach((photo, index) => {
+                // 將 base64 轉換為二進制
+                const imageData = photo.dataUrl.split(',')[1];
+                zip.file(photo.filename, imageData, {base64: true});
+            });
+            
+            // 生成並下載 ZIP 文件
+            zip.generateAsync({type: "blob"})
+            .then(function(content) {
+                const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+                const zipFilename = `photos_${timestamp}.zip`;
+                saveAs(content, zipFilename);
+            });
+        }
+
+        // 添加模式切換的事件監聽器
+        document.getElementById('captureMode').addEventListener('change', function(e) {
+            const downloadAllButton = document.getElementById('downloadAllButton');
+            if (e.target.value === 'preview') {
+                if (previewPhotos.length > 0) {
+                    downloadAllButton.style.display = 'block';
+                }
+            } else {
+                downloadAllButton.style.display = 'none';
+            }
+        });
+
+        // 添加下載全部按鈕的事件監聽器
+        document.getElementById('downloadAllButton').addEventListener('click', downloadAllPhotos);
 
         // 開始拍照
         startButton.addEventListener('click', () => {
@@ -788,6 +853,11 @@
             clearInterval(countdownId);
             countdownElement.textContent = '';
             shootingIndicator.style.display = 'none';
+            
+            // 如果是預覽模式且有照片，顯示下載按鈕
+            if (document.getElementById('captureMode').value === 'preview' && previewPhotos.length > 0) {
+                document.getElementById('downloadAllButton').style.display = 'block';
+            }
         });
 
         // 倒數計時器
@@ -886,5 +956,9 @@
         // 在頁面加載完成後初始化圖片查看器
         document.addEventListener('DOMContentLoaded', setupImageViewer);
     </script>
+
+    <!-- 添加需要的外部庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 </body>
 </html>
