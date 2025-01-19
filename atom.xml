@@ -6,7 +6,7 @@
   <link href="https://michaelpig0912.github.io/atom.xml" rel="self"/>
   
   <link href="https://michaelpig0912.github.io/"/>
-  <updated>2025-01-11T11:28:20.670Z</updated>
+  <updated>2025-01-19T12:24:48.150Z</updated>
   <id>https://michaelpig0912.github.io/</id>
   
   <author>
@@ -15,6 +15,121 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>測試乾冰中放入鎂帶的反應|氧化還原反應</title>
+    <link href="https://michaelpig0912.github.io/2025/01/19/MagnesiumPlacedInDryIce/"/>
+    <id>https://michaelpig0912.github.io/2025/01/19/MagnesiumPlacedInDryIce/</id>
+    <published>2025-01-19T09:14:45.000Z</published>
+    <updated>2025-01-19T12:24:48.150Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="反應">反應</h2><p>鎂帶放在乾冰中，因為鎂的活性比碳強，所以可以從二氧化碳中搶到氧原子，而繼續燃燒，讓二氧化碳還原成黑色的碳，然後鎂帶會被氧化成白色的氧化鎂。</p><p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable rowspacing="0.15999999999999992em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi>M</mi><msub><mi>g</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msub><mo>+</mo><mi>C</mi><msub><mi>O</mi><mrow><mn>2</mn><mo stretchy="false">(</mo><mi>a</mi><mi>q</mi><mo stretchy="false">)</mo></mrow></msub><mtext> </mtext><mrow><mtext> </mtext><mtext> </mtext><mo lspace="0em" rspace="0em">⟶</mo><mtext> </mtext><mtext> </mtext></mrow><mtext> </mtext><mi>M</mi><mi>g</mi><msub><mi>O</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msub><mo>+</mo><msub><mi>C</mi><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></msub></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{c}    Mg_{(s)} + CO_{2(aq)} \thinspace {\thinspace\thinspace{\longrightarrow} \thinspace\thinspace} \thinspace MgO_{(s)} + C_{(s)}\end{array}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2000000000000002em;vertical-align:-0.35000000000000003em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8500000000000001em;"><span style="top:-3.01em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">s</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">a</span><span class="mord mathdefault mtight" style="margin-right:0.03588em;">q</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mrel">⟶</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">s</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-left:-0.07153em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">s</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35000000000000003em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p><img src="/2025/01/19/MagnesiumPlacedInDryIce/cover.webp" class="" title="把鎂帶放在乾冰中結霜了"><h2 id="鎂帶與乾冰燃燒">鎂帶與乾冰燃燒</h2><div style="text-align:center"><iframe width="405" height="720" src="https://www.youtube.com/embed/GcQLRf_sBdA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><table style="border: 2px solid;"><tr><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_2_1.webp" class="" title="乾冰與鎂帶反應"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_2_2.webp" class="" title="乾冰與鎂帶反應"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_2_3.webp" class="" title="乾冰與鎂帶反應"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_2_4.webp" class="" title="乾冰與鎂帶反應"></td></tr></table><h2 id="鎂帶與乾冰燃燒後撥開">鎂帶與乾冰燃燒後撥開</h2><div style="text-align:center"><iframe width="405" height="720" src="https://www.youtube.com/embed/of348vZEANE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><table style="border: 2px solid;"><tr><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_1_1.webp" class="" title="鎂帶燃燒"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_1_2.webp" class="" title="酷酷的火焰"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/mgWithCO2_1_3.webp" class="" title="碳與氧化鎂"></td></tr></table><h2 id="鋼絲絨與二氧化碳燃燒">鋼絲絨與二氧化碳燃燒</h2><div style="text-align:center"><iframe width="405" height="720" src="https://www.youtube.com/embed/Zuz9vrV64k8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><table style="border: 2px solid;"><tr><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/iron_1.webp" class="" title="鋼絲絨燃燒"></td><td><img src="/2025/01/19/MagnesiumPlacedInDryIce/iron_2.webp" class="" title="鋼絲絨放入二氧化碳中熄滅"></td></tr></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;反應&quot;&gt;反應&lt;/h2&gt;
+&lt;p&gt;鎂帶放在乾冰中，因為鎂的活性比碳強，所以可以從二氧化碳中搶到氧原子，而繼續燃燒，讓二氧化碳還原成黑色的碳，然後鎂帶會被氧化成白色的氧化鎂。&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;katex-display&quot;&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/categories/science/"/>
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/tags/science/"/>
+    
+    <category term="oxidation &amp; reduction" scheme="https://michaelpig0912.github.io/tags/oxidation-reduction/"/>
+    
+    <category term="chemistry" scheme="https://michaelpig0912.github.io/tags/chemistry/"/>
+    
+    <category term="乾冰" scheme="https://michaelpig0912.github.io/tags/%E4%B9%BE%E5%86%B0/"/>
+    
+    <category term="八年級" scheme="https://michaelpig0912.github.io/tags/%E5%85%AB%E5%B9%B4%E7%B4%9A/"/>
+    
+    <category term="氧化還原反應" scheme="https://michaelpig0912.github.io/tags/%E6%B0%A7%E5%8C%96%E9%82%84%E5%8E%9F%E5%8F%8D%E6%87%89/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>透過 Power Automate 來自動化 Adobe Sign 的簽署流程與串聯 trello 和 slack (及踩坑紀錄)</title>
+    <link href="https://michaelpig0912.github.io/2025/01/15/powerautomateWithAdobeSignTrello/"/>
+    <id>https://michaelpig0912.github.io/2025/01/15/powerautomateWithAdobeSignTrello/</id>
+    <published>2025-01-15T09:10:46.000Z</published>
+    <updated>2025-01-19T12:24:12.577Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="目標">目標</h2><p>本次要透過 Power Automate 做到以下事情。</p><ul><li><ol><li>Trello（讀取到卡片有變更）</li></ol></li><li><ol start="2"><li>Google Drive（到 google drive 取得 PDF）</li></ol></li><li><ol start="3"><li>Adobe Sign（上傳 pdf 到 adobe sign）</li></ol></li><li><ol start="4"><li>Google Sheets（讀取簽署人 Email 資料）</li></ol></li><li><ol start="5"><li>Adobe Sign（傳送 Adobe Sign 簽署連結）</li></ol></li><li><ol start="6"><li>Trello（將卡片更新為已簽署）</li></ol></li></ul><h2 id="實作">實作</h2><h3 id="1-trello-讀取到卡片有變更">1. Trello（讀取到卡片有變更）</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;目標&quot;&gt;目標&lt;/h2&gt;
+&lt;p&gt;本次要透過 Power Automate 做到以下事情。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;Trello（讀取到卡片有變更）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Google </summary>
+      
+    
+    
+    
+    <category term="code" scheme="https://michaelpig0912.github.io/categories/code/"/>
+    
+    
+    <category term="code" scheme="https://michaelpig0912.github.io/tags/code/"/>
+    
+    <category term="Power Automate" scheme="https://michaelpig0912.github.io/tags/Power-Automate/"/>
+    
+    <category term="Adobe Sign" scheme="https://michaelpig0912.github.io/tags/Adobe-Sign/"/>
+    
+    <category term="Trello" scheme="https://michaelpig0912.github.io/tags/Trello/"/>
+    
+    <category term="Slack" scheme="https://michaelpig0912.github.io/tags/Slack/"/>
+    
+    <category term="Adobe Sign tags" scheme="https://michaelpig0912.github.io/tags/Adobe-Sign-tags/"/>
+    
+    <category term="google sheet" scheme="https://michaelpig0912.github.io/tags/google-sheet/"/>
+    
+    <category term="google drive" scheme="https://michaelpig0912.github.io/tags/google-drive/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>測試感溫變色顏料來展示熱對流|熱對流</title>
+    <link href="https://michaelpig0912.github.io/2025/01/12/heatConduction/"/>
+    <id>https://michaelpig0912.github.io/2025/01/12/heatConduction/</id>
+    <published>2025-01-12T09:15:12.000Z</published>
+    <updated>2025-01-19T12:15:35.304Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="熱對流實驗">熱對流實驗</h2><p>最近有在處理一些國小關於熱的實驗，其中一個是熱對流，這邊就來分享一下目前找到的教具。</p><div style="text-align:center"><iframe width="405" height="720" src="https://www.youtube.com/embed/_jYOZYvbzFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><table><thead><tr><th>剛開始</th><th>10分鐘</th><th>15分鐘</th><th>20分鐘</th></tr></thead><tbody><tr><td><img src="/2025/01/12/heatConduction/heat_2.webp" class=""></td><td><img src="/2025/01/12/heatConduction/heat_3.webp" class=""></td><td><img src="/2025/01/12/heatConduction/heat_4.webp" class=""></td><td><img src="/2025/01/12/heatConduction/heat_1.webp" class=""></td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;熱對流實驗&quot;&gt;熱對流實驗&lt;/h2&gt;
+&lt;p&gt;最近有在處理一些國小關於熱的實驗，其中一個是熱對流，這邊就來分享一下目前找到的教具。&lt;/p&gt;
+&lt;div style=&quot;text-align:center&quot;&gt;
+&lt;iframe width=&quot;405&quot; height=&quot;720&quot;</summary>
+      
+    
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/categories/science/"/>
+    
+    
+    <category term="science" scheme="https://michaelpig0912.github.io/tags/science/"/>
+    
+    <category term="熱對流" scheme="https://michaelpig0912.github.io/tags/%E7%86%B1%E5%B0%8D%E6%B5%81/"/>
+    
+    <category term="國小六年級" scheme="https://michaelpig0912.github.io/tags/%E5%9C%8B%E5%B0%8F%E5%85%AD%E5%B9%B4%E7%B4%9A/"/>
+    
+  </entry>
   
   <entry>
     <title>【撰寫中】2024 年度回顧及 2025 未來展望</title>
@@ -550,106 +665,6 @@
     <category term="3C" scheme="https://michaelpig0912.github.io/tags/3C/"/>
     
     <category term="second hand" scheme="https://michaelpig0912.github.io/tags/second-hand/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>芝加哥-音樂劇｜非專業戲劇紀錄</title>
-    <link href="https://michaelpig0912.github.io/2024/08/11/chicago-musical/"/>
-    <id>https://michaelpig0912.github.io/2024/08/11/chicago-musical/</id>
-    <published>2024-08-11T14:22:17.000Z</published>
-    <updated>2024-10-10T07:45:20.050Z</updated>
-    
-    <content type="html"><![CDATA[<p style="font-size:1.1rem;color:#f55;text-align:center">注意：這是一個非專業的戲劇紀錄，僅記錄我個人的觀影經驗，並不是專業的戲劇評論。且以下的內容可能會有劇透，如果你還沒看過的話，可以先去看完再回來看這篇文章。</p><img src="/2024/08/11/chicago-musical/curtainCall_1.webp" class="" title="謝幕"><h2 id="場域資訊">場域資訊</h2><ol><li>位置：台北流行音樂中心 表演廳</li><li>價位：2800元 (15D)</li><li>時間：8/10(六) 19:30~21:30 (中間休息20分鐘)</li><li>主觀評價：8.5/10</li></ol><img src="/2024/08/11/chicago-musical/tmc.webp" class="" title="台北流行音樂中心"><h2 id="簡介">簡介</h2><p>《芝加哥》是百老匯最著名的音樂劇之一。1975年於紐約首演後，便受到各界關注，1996年重回百老匯後，一舉奪下各項大獎，包括6座美國劇場最高榮譽 — 東尼獎，及葛萊美獎「最佳音樂劇專輯」之榮耀。全球累積超過 3,200 萬名觀眾、32,500場演出見證，巡演全球 36 個國家、500 餘座城市。自此，《芝加哥》的紙醉金迷便不曾落幕，2016年創下於百老匯連演20年之記錄，成為在百老匯演出最久的「美國原創」音樂劇，全球票房更是高達16億美金！</p><p>這是一個根據1920年代，美國一樁真實殺人奇案改編，充滿人性貪婪及陰謀的黑色喜劇，用最幽默、諷刺及性感的方式，探討最具爭議性及話題性之娛樂圈、媒體及司法界的故事。如此黑暗、大膽的題材，透過百老匯三大奇才：編劇 Fred Ebb、編舞 Bob Fosse、作曲 John Kander之巧手，轉化為最辛辣諷刺、幽默莞爾的劇情詞句；最煽情性感卻又風格獨樹的舞蹈；及令人傳唱至今，成為爵士經典的動人旋律。</p><p>以上簡介內容擷取自<a href="https://tickets.udnfunlife.com/application/UTK02/UTK0201_.aspx?PRODUCT_ID=P0FYTWKB">芝加哥的 udn 售票頁面</a></p><img src="/2024/08/11/chicago-musical/roxieAndVelma.webp" class="" title="主角~"><h2 id="個人觀感">個人觀感</h2><ol><li><p>《芝加哥》是一部節奏明快的音樂劇，角色塑造鮮明且獨特。每個角色透過不同的演唱風格與出場方式，快速吸引觀眾的注意，並呈現出各自鮮明的個性與背景故事。整體觀感輕鬆愉快，是一部兼具娛樂性和觀賞性的佳作。</p></li><li><p>即便時隔多年，劇中的幽默依舊引人發笑，毫不過時，也不會產生尷尬之感。加上中文字幕的在地化處理非常貼切，讓台詞和幽默感更能打動觀眾。而舞台設計也令人驚艷，佈景與燈光營造出華麗的氛圍，樂隊規模龐大，為整個劇目增添了不少氣勢。</p></li><li><p>劇情設計充滿巧思，以黑色幽默呈現出社會現實的荒謬。其中我最喜歡的橋段是《Cell Block Tango》，這首歌透過幾位女性囚犯的獨白與舞蹈，生動地描繪了每個殺人犯的背景故事。歌曲結構簡單卻不單調，每段小故事都揭示了她們的殺人動機，塑造出各具特色且立體的角色形象，令人印象深刻。</p></li><li><p>劇中融入了許多對媒體與社會輿論的諷刺。例如，為了讓 Roxie 的殺人動機贏得公眾同情，律師 Billy 與她合謀編造各種聳動的故事。在《We Both Reached For The Gun》這段中，Billy 透過腹語術般的表演「控制」Roxie，讓她對記者們說出編好的劇本，而媒體也樂於報導這些虛構的情節。此外，劇中還安排了 Roxie 假裝懷孕的橋段，試圖塑造她身世坎坷的形象，以博取更大的關注。劇中記者們對於聳動新聞的追逐與冷血無情，在Roxie被判無罪後，瞬間失去對她的興趣，這種現象揭示了媒體的善變與膚淺。</p></li><li><p>最後一幕的雙人舞蹈，是全劇的點睛之筆。Velma 與 Roxie 最終攜手組成雙人合唱團，這段表演呼應了劇情中的伏筆。早先，Velma 曾試圖說服當時如日中天的 Roxie 與她搭檔，一人分飾兩角來跳著雙人的舞蹈，但遭到 Roxie 拒絕。隨著 Roxie 官司結束，記者的注意力轉移，她的名氣迅速下滑，最終決定加入 Velma 以延續演藝生涯。這段雙人表演展現了兩人角色的轉變，也為劇情劃下完美句點。</p></li></ol><img src="/2024/08/11/chicago-musical/billy.webp" class="" title="billy"><img src="/2024/08/11/chicago-musical/mama.webp" class="" title="mama"><img src="/2024/08/11/chicago-musical/curtainCall_2.webp" class="" title="謝幕"><h2 id="場地心得">場地心得</h2><ol><li><p>這次坐的位置太遠，基本上看不到演員的表情，感覺有點可惜，而且我是坐在出口附近，所以會有逃生出口的燈光，滿影響觀看體驗的，無法完全沉浸在劇場裡面。</p></li><li><p>北流的椅子還行，座兩個小時不會不舒服，但是旁邊的人如果動的時候，我的椅子也會跟著一起動，有點干擾體驗。</p></li><li><p>這部也是全英文的音樂劇，如果英文不好，可能會需要一直看字幕，會部分影響到觀看體驗。</p></li></ol><img src="/2024/08/11/chicago-musical/stage.webp" class="" title="位置">]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p style=&quot;font-size:1.1rem;color:#f55;text-align:center&quot;&gt;
-注意：這是一個非專業的戲劇紀錄，僅記錄我個人的觀影經驗，並不是專業的戲劇評論。且以下的內容可能會有劇透，如果你還沒看過的話，可以先去看完再回來看這篇文章。&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="drama" scheme="https://michaelpig0912.github.io/categories/drama/"/>
-    
-    <category term="foreign" scheme="https://michaelpig0912.github.io/categories/drama/foreign/"/>
-    
-    
-    <category term="show" scheme="https://michaelpig0912.github.io/tags/show/"/>
-    
-    <category term="drama" scheme="https://michaelpig0912.github.io/tags/drama/"/>
-    
-    <category term="musical" scheme="https://michaelpig0912.github.io/tags/musical/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>台北 team Lab 與科教館半日遊 | 一個人的旅行</title>
-    <link href="https://michaelpig0912.github.io/2024/07/30/teamLab-taipei/"/>
-    <id>https://michaelpig0912.github.io/2024/07/30/teamLab-taipei/</id>
-    <published>2024-07-29T16:49:56.000Z</published>
-    <updated>2024-08-03T10:48:39.002Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p>最近去科教館看了一些常設展跟 teamLab，拍了一些照片作為紀錄~<br>說不定未來有機會可以辦科學方面展覽的時候，可以從中找到一些靈感~</p><h2 id="科教館常設展">科教館常設展</h2><img src="/2024/07/30/teamLab-taipei/ntsec.webp" class="" width="600" title="科教館門票"><p>科教館的門票好可愛~<br>門票滿便宜的，<br>只需要 100 元就可以逛全部的常設展區</p><p>好像這是我第一次買科教館的門票，<br>因為以前都是活動的工作人員，<br>所以都是直接進入到展場內。</p><p>這次去的時候，一樓剛好有辦一個跟海洋相關的活動(吧？)</p><img src="/2024/07/30/teamLab-taipei/ntsec_view.webp" class="" title="假日的科教館"><h3 id="有孔蟲展覽的留言牆">有孔蟲展覽的留言牆</h3><img src="/2024/07/30/teamLab-taipei/foraminifera_1.webp" class="" title="有孔蟲展覽的作品區跟學習單"><img src="/2024/07/30/teamLab-taipei/foraminifera_2.webp" class="" title="有孔蟲展覽便條紙"><h3 id="教具擺設方式">教具擺設方式</h3><img src="/2024/07/30/teamLab-taipei/ntsec_exp_1.webp" class="" title="導電性教具"><img src="/2024/07/30/teamLab-taipei/ntsec_exp_2.webp" class="" title="從我到我們—人體奧妙"><h3 id="布景搭設">布景搭設</h3><p>滿喜歡科技性別化創新的搭建方式，<br>這種方式感覺滿適合作為闖關的關卡，<br>而且搭建感覺滿快速的。</p><img src="/2024/07/30/teamLab-taipei/GenderedInnovations_1.webp" class="" title="設計我們的世界-科技性別化創新"><img src="/2024/07/30/teamLab-taipei/GenderedInnovations_2.webp" class="" title="設計我們的世界-科技性別化創新"><h3 id="跟物理相關的教具">跟物理相關的教具</h3><img src="/2024/07/30/teamLab-taipei/ntsec_physics_1.webp" class="" title="認識半導體"><img src="/2024/07/30/teamLab-taipei/ntsec_physics_2.webp" class="" title="光纖技術"><img src="/2024/07/30/teamLab-taipei/ntsec_physics_3.webp" class="" title="大型萬花筒"><img src="/2024/07/30/teamLab-taipei/ntsec_physics_4.webp" class="" title="針孔成像教具"><img src="/2024/07/30/teamLab-taipei/ntsec_physics_5.webp" class="" title="光與顏色的教具"><h3 id="應材的半導體未來館">應材的半導體未來館</h3><img src="/2024/07/30/teamLab-taipei/semi_1.webp" class="" title="漂亮的電子元件"><img src="/2024/07/30/teamLab-taipei/semi_2.webp" class="" title="各式各樣的開關"><img src="/2024/07/30/teamLab-taipei/semi_3.webp" class="" title="積體電路的邏輯閘"><img src="/2024/07/30/teamLab-taipei/semi_4.webp" class="" title="積體電路的工藝演進"><img src="/2024/07/30/teamLab-taipei/semi_5.webp" class="" title="積體電路模型"><img src="/2024/07/30/teamLab-taipei/semi_6.webp" class="" title="不同工藝的電晶體"><h2 id="teamlab">TeamLab</h2><p>這次也順便去參觀了 teamlab，不過最大的心得是發現特展的好處，像是我看常設展不會看的這麼認真，但是遇到比較貴的特展，都會硬待在裡面，把全部的內容玩過兩三次，才會覺得值回票價 XD</p><p>這次快速地逛了一下 teamLab，大約花了一個半小時左右，滿多的都是父母帶著小孩來玩的。雖然裡面的人稍多，不過我在週六中午排隊，大約排 10 分鐘就進去了。</p><h3 id="點滴瀑布-小水滴也會形成大浪潮">點滴瀑布，小水滴也會形成大浪潮</h3><p>一開始是一個向上的斜坡，上面有著水流的投影，似乎 teamlab 滿喜歡一開始使用斜坡和水作為開場。(因為東京的 teamLab 也是用斜坡跟水流，只不過是使用真的的水流)</p><img src="/2024/07/30/teamLab-taipei/teamlab_1.webp" class="" title="teamlab 入口"><h3 id="鼓動山谷中的塗鴉自然">鼓動山谷中的塗鴉自然</h3><p>這邊投影著大家畫的植物與動物，看官網的簡介，似乎這些動物跟植物有一些生長或食物鏈的機制。另外，在這個區塊有透過高低的場景，，做出地形的感覺。</p><img src="/2024/07/30/teamLab-taipei/teamlab_2.webp" class="" title="鼓動山谷中的塗鴉自然"><p>旁邊有一個房間是繪圖區，將畫好的圖掃描後，會在前面的展區出現。</p><img src="/2024/07/30/teamLab-taipei/teamlab_3.webp" class="" title="有不同物種的圖畫紙可以選擇"><img src="/2024/07/30/teamLab-taipei/teamlab_5.webp" class="" title="畫圖區"><img src="/2024/07/30/teamLab-taipei/teamlab_4.webp" class="" width="600" title="不知道是多久沒有靜下心，拿著蠟筆隨便亂畫畫了呢"><h4 id="掃描過程">掃描過程</h4><p><video width="100%" height="100%"  src="./teamlab_scan.mp4" controls></video></p><h4 id="凋謝的花">凋謝的花</h4><p><video width="100%" height="100%"  src="./teamlab_flower.mp4" controls></video></p><h3 id="光球管弦樂團">光球管弦樂團</h3><p>這個之前在東京的 teamLab 也有體驗到，這邊的光球比較接近雞蛋型的。</p><img src="/2024/07/30/teamLab-taipei/teamlab_6.webp" class="" title="光球管弦樂團"><h3 id="坡道上的點滴瀑布-滑梯水果園">坡道上的點滴瀑布、滑梯水果園</h3><p>那時候看到好像都是小朋友在玩，所以就沒去玩了，不過看起來燈光效果做的還不錯。</p><img src="/2024/07/30/teamLab-taipei/teamlab_10.webp" class="" title="坡道上的點滴瀑布"><h3 id="小人兒所居住的音樂牆-小人兒所居住的桌子">小人兒所居住的音樂牆、小人兒所居住的桌子</h3><p>這個區塊滿特殊的，透過牆面上與桌子的道具，可以跟投影出來的小人進行不同種類的互動。只不過當時去的時候，人太多了，很難可以操作道展具，所以就沒玩了，主要是看別人操作。</p><img src="/2024/07/30/teamLab-taipei/teamlab_9.webp" class="" title="小人兒所居住的音樂牆"><img src="/2024/07/30/teamLab-taipei/teamlab_8.webp" class="" title="小人兒所居住的桌子"><h3 id="水上彈跳的天才跳房子">水上彈跳的天才跳房子</h3><p>在玩的時候，在現場不知道踩這個是否有什麼規則，所以就亂踩一通。後來看官網發現是要踩同顏色或同形狀的石頭，會觸發一些內容。地面的材質是軟軟的，踩起來有一種彈簧床的感覺。另外這個等待區的牆壁，所流過的魚、蝴蝶是可以互動的。</p><p><video width="100%" height="100%"  src="./teamlab_water.mp4" controls></video></p><h3 id="彩繪飛翔">彩繪飛翔</h3><p>這邊跟前面一樣，也是畫好就可以掃描進去投影的牆壁上。不過這邊多了一個機制，可以跟展場借手機操作飛機或老鷹。</p><img src="/2024/07/30/teamLab-taipei/teamlab_13.webp" class="" title="彩繪飛翔"><img src="/2024/07/30/teamLab-taipei/teamlab_12.webp" class="" title="醜醜的飛機XDD"><p><video width="100%" height="100%"  src="./teamlab_plane.mp4" controls></video></p><p>在這邊的時候，突然發現可以將先前所畫的畫，做成徽章帶走，掃描桌上的 QR code 就可以製作了。</p><table><thead><tr><th><img src="/2024/07/30/teamLab-taipei/teamlab_keyring_1.webp" class="" title="徽章製作方式"></th><th><img src="/2024/07/30/teamLab-taipei/teamlab_keyring_2.webp" class="" title="徽章要 200 元"></th></tr></thead><tbody></tbody></table>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;前言&lt;/h2&gt;
-&lt;p&gt;最近去科教館看了一些常設展跟 teamLab，拍了一些照片作為紀錄~&lt;br&gt;
-說不定未來有機會可以辦科學方面展覽的時候，可以從中找到一些靈感~&lt;/p&gt;
-&lt;h2 id=&quot;科教館常設展&quot;&gt;科教館常設展&lt;/h2&gt;
-&lt;img src=&quot;/20</summary>
-      
-    
-    
-    
-    <category term="travel" scheme="https://michaelpig0912.github.io/categories/travel/"/>
-    
-    
-    <category term="solo_Travel" scheme="https://michaelpig0912.github.io/tags/solo-Travel/"/>
-    
-    <category term="exhibition" scheme="https://michaelpig0912.github.io/tags/exhibition/"/>
-    
-    <category term="teamlab" scheme="https://michaelpig0912.github.io/tags/teamlab/"/>
-    
-    <category term="travel" scheme="https://michaelpig0912.github.io/tags/travel/"/>
-    
-    <category term="ntsec" scheme="https://michaelpig0912.github.io/tags/ntsec/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>天亮前的那卡西-互動式桌遊劇場｜非專業戲劇紀錄</title>
-    <link href="https://michaelpig0912.github.io/2024/07/28/theLastNagashi-interactiveTheater/"/>
-    <id>https://michaelpig0912.github.io/2024/07/28/theLastNagashi-interactiveTheater/</id>
-    <published>2024-07-27T16:52:22.000Z</published>
-    <updated>2024-09-22T06:17:54.162Z</updated>
-    
-    <content type="html"><![CDATA[<p style="font-size:1.1rem;color:#f55;text-align:center">注意：這是一個非專業的戲劇紀錄，僅記錄我個人的觀影經驗，並不是專業的戲劇評論。且以下的內容可能會有劇透，如果你還沒看過的話，可以先去看完再回來看這篇文章。</p><h2 id="場域資訊">場域資訊</h2><ol><li>位置：北投老爺飯店</li><li>價位：2500 元</li><li>時間：7/27(六) 16:00~18:00</li><li>主觀評價：8.0/10<br><br></li></ol><img src="/2024/07/28/theLastNagashi-interactiveTheater/hotelroyal.webp" class="" width="600" title="北投老爺飯店"><h2 id="簡介">簡介</h2><p>１９７９年，北投熱海大飯店迎接新副總上任<br>就職晚宴上遭到不明人士襲擊<br>並留下＂天狗將來奪回熱海之心＂的犯罪預告<br>謠傳，熱海飯店的創辦人之所以發跡<br>就是因為他看見了＂倒吊的天狗＂</p><p>熱海飯店的天狗傳說，荒謬的犯罪預告<br>各懷鬼胎的飯店幹部，堪稱溫泉世家的狂亂劇情<br>共同交織出一場瘋狂的加班夜……</p><p>你，將化身為前來加班的熱海員工之一，透過調查與胡搞<br>一步步揭開熱海飯店背後的秘密，並影響整家飯店的命運<br>天亮前，一首那卡西悠然響起，唱的究竟是曲終人散<br>還是終於伸張的正義？</p><p>【桌遊式互動劇場】</p><p>靈感來自於著名桌遊「山中小屋」，由演員扮演遊戲主持人及NPC(非觀眾扮演角色)，引導觀眾透過簡單的棋子、圖紙、卡牌，在明確的遊戲規則下，體驗一場同時具有戲劇和桌遊性質的演出。</p><p>在《天亮前的那卡西》中，觀眾將化身為１０位員工，透過圖紙和卡片，在熱海大飯店中調查和蒐證，同時還要應對演員扮演的各路NPC，與他們互動和周旋，而調查的結果，將一步步導致故事產生分歧，迎來不同的結局──史上最曲折離奇的加班，期待各位觀眾的應徵。</p><p>以上簡介內容擷取自<a href="https://www.opentix.life/event/1801527117033861121">北投老爺酒店Ｘ山峸製作設計《天亮前的那卡西》的 OPENTIX 頁面</a></p><img src="/2024/07/28/theLastNagashi-interactiveTheater/cover.webp" class="" width="600" title="那卡西的立牌"><h2 id="個人觀感">個人觀感</h2><ol><li><p>第一次體驗這種的戲劇表演，以往我不太喜歡接觸這種需要大量與人互動的戲劇表演，但這次看到這個主題，宣傳是類似《山中小屋》的風格的互動式戲劇，我還滿喜歡《山中小屋》這款桌遊，因此後來還是決定要來看看。</p></li><li><p>氛圍營照的還不錯，在開始進去前，會發給你一個打卡單跟名牌，在進入房間以後會需要打卡，然後剛好去的時間是禮拜六下午，真的有一種自主加班的感覺(?)。進入以後有一個類似賭場的橢圓桌子，這個橢圓桌子就是主要桌遊的區塊。其中燈光以及一些道具效果都營造的還不錯。</p></li></ol><img src="/2024/07/28/theLastNagashi-interactiveTheater/nagashi.webp" class="" width="600" title="打卡單跟名牌"><ol start="3"><li><p>裡面有不同的角色可以互動，因此整個戲劇即興表演的比例比較高一點，演員反應都非常快速，而且表演張力都滿高的，滿能夠融入環境和劇情內。從對白中會有一種意外的親切感，角色的行為大部分都合理。雖然劇情看著看著有種八點檔的感覺(?)，不過我還滿起歡這個劇情的，人物間關係相對明確，雖然裡面有很多專有名詞，但是卻可以很好的讓觀眾知道每個人的立場與內心狀態，這點真的是滿厲害的。</p></li><li><p>我這場遇到的幾乎都是外向的人，再加上其實劇情進行方式不太像是山中小屋那種每個人各自進行探索的模式，而是一起決定劇情。因此劇情很容易推進得下去，像我這種內向的人，大部分的時間其實可以默默地看著劇情的發展 XD，所以對我的壓力上面不會有這麼大。</p></li><li><p>遊戲方式是針對你在探索中所蒐集的相關道具及數量，會影響到劇情最後的走向，所以每次要交出什麼道具，都有可能會影響到劇情的發展。</p></li><li><p>在活動中，有部分的劇情內容，像是某個道具牌被搶走，可以讓觀眾「自主加班」，這時候這個觀眾要抽一張卡片，並且完成卡片上的內容，就可以搶回道具。不過每個觀眾只能加班一次，因此每個觀眾基本上都會有一次表演機會(?)。</p><p>我自主加班那次，剛好遇到某個角色會附身在我身上，並且要說一句話來解決劇情上的困境，不過我那時候完全不知道要說什麼，超緊張的，腦中一片空白 QQ。幸好後面有演員的提示，才想到要怎麼解決，才得以讓劇情順利進行下去。超害怕破壞其他人的遊玩體驗，幸好大家感覺人滿好的 QQ，如果有破壞到遊戲體驗，在此致歉 &gt;&lt;</p></li></ol><h2 id="場地心得">場地心得</h2><ol><li><p>場地方面感覺比較可惜一點，雖然劇情的設定是在飯店，而且表演的位置也是在老爺飯店。但是表演上好像沒有充分的使用到飯店的特點，表演地點基本上就只有一個小房間。表演場地算非常小，不過觀眾的空間算滿大的，所以不影響到觀看體驗。</p></li><li><p>因為這次的地點在北投，因此我有提早一個半小時到達老爺飯店，在老爺飯店的一樓有一間咖啡店《走馬啡》，在等的過程中買了一個小蛋糕跟一杯紅茶，價格有點小貴 XD</p></li></ol><img src="/2024/07/28/theLastNagashi-interactiveTheater/cake.webp" class="" title="蛋糕跟紅茶"><img src="/2024/07/28/theLastNagashi-interactiveTheater/menu.webp" class="" title="走馬啡的菜單">]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p style=&quot;font-size:1.1rem;color:#f55;text-align:center&quot;&gt;
-注意：這是一個非專業的戲劇紀錄，僅記錄我個人的觀影經驗，並不是專業的戲劇評論。且以下的內容可能會有劇透，如果你還沒看過的話，可以先去看完再回來看這篇文章。&lt;/p&gt;
-</summary>
-      
-    
-    
-    
-    <category term="drama" scheme="https://michaelpig0912.github.io/categories/drama/"/>
-    
-    <category term="local" scheme="https://michaelpig0912.github.io/categories/drama/local/"/>
-    
-    
-    <category term="show" scheme="https://michaelpig0912.github.io/tags/show/"/>
-    
-    <category term="board game" scheme="https://michaelpig0912.github.io/tags/board-game/"/>
-    
-    <category term="interactive theater" scheme="https://michaelpig0912.github.io/tags/interactive-theater/"/>
     
   </entry>
   
